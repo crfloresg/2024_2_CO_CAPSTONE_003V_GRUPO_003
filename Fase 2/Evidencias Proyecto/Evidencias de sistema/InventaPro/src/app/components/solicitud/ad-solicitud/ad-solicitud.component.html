@@ -1,0 +1,82 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="loadingSolicitud || loadingInventario">
+  <nz-table 
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzPageSize]="pageSize" 
+  [nzTableLayout]="'fixed'"
+  [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '800px'}">
+    <thead >
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Categoria</th>
+        <th>Precio Venta</th>
+        <th>Unidad de medida</th>
+        <th>Cantidad en bodega</th>
+        <th>Cantidad solicitada</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+        <tr>
+          <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+          <td>{{ data.nombre }}</td>
+          <td>{{ data.codigo }}</td>
+          <td>{{ data.categoria }}</td>
+          <td>${{ data.precioVenta }}</td>
+          <td>{{ data.unidadMedida }}</td>
+          <td>{{ data.cantidadBodega }}</td>
+          <td>{{ data.cantidadSolicitada }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <div nz-flex nzVertical nzGap="large">
+    <div nz-flex nzJustify="center">
+      <form nz-form  style="width: 50%;" #myForm="ngForm">
+        <p nz-typography>Observación</p>
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="observacionTip">
+            <textarea nz-input [(ngModel)]="observacion" name="required" rows="4" required ></textarea>
+            <ng-template #observacionTip let-control>
+              @if (control.errors?.['maxlength']) {
+                Maximo de caracteres exedido
+              }
+              @if (control.errors?.['required']) {
+                Campo requerido
+              }
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      
+    </div>
+    <div nz-flex nzGap="middle" nzJustify="center">
+      <button 
+        nz-button 
+        nzType="primary" 
+        (click)="accept(true)" 
+        [nzLoading]="loadingAD && auxDeny" 
+        [disabled]="myForm.invalid || (loadingAD && auxDeny)"
+      > 
+        Aceptar solicitud
+      </button>
+      <button 
+        nz-button 
+        nzType="primary" 
+        (click)="accept(false)"
+        [nzLoading]="loadingAD && auxAccept" 
+        nzDanger="" 
+        [disabled]="myForm.invalid || (loadingAD && auxAccept)"
+      >
+        Rechazar solicitud
+      </button>
+    </div>
+  </div>
+
+
+</nz-spin>

@@ -1,0 +1,111 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="isLoadingUsuario || isLoadingOpciones ">
+  <form nz-form #myForm="ngForm">
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Nombre</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Nombre">
+        <input nz-input [(ngModel)]="usuario.nombre" name="Nombre" maxlength="50" required />
+        <ng-template #Nombre let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Apellido</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Apellido">
+        <input nz-input [(ngModel)]="usuario.apellido" name="Apellido" maxlength="50" required />
+        <ng-template #Apellido let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Email</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Email">
+        <input nz-input [(ngModel)]="usuario.email" name="Email" maxlength="100" required />
+        <ng-template #Email let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Contraseña</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Contrasenia" [nzExtra]="passwordTip">
+        <input nz-input [(ngModel)]="usuario.password" name="Contrasenia" maxlength="30" [required]="usuario.bodegaId == 0" />
+        <ng-template #Contrasenia let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    @if(isGlobal){
+      <nz-form-item>
+        <nz-form-label nzLabelAlign="left" [nzSpan]="7">Bodega</nz-form-label>
+        <nz-form-control [nzSpan]="17" nzHasFeedback>
+          <nz-select name="select-bodega" [(ngModel)]="usuario.bodegaId" required (ngModelChange)="selectBodega($event)">
+            @if(isLoadingOpciones){
+            <nz-option nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Cargando datos
+            </nz-option>
+            }@else {
+            @for (b of bodegas; track b) {
+            <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+            }
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    }
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Rol</nz-form-label>
+      <nz-form-control [nzSpan]="17" nzHasFeedback>
+        <nz-select name="select-rol" [(ngModel)]="usuario.rolId" required [disabled]="usuario.bodegaId == 0" [nzNotFoundContent]="'Bodega sin roles asociados'">
+          @if(isLoadingOpciones){
+          <nz-option nzDisabled nzCustomContent>
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+          }@else {
+          @for (r of rolesFiltered; track r) {
+          <nz-option [nzValue]="r.rolId" [nzLabel]="r.nombre"></nz-option>
+          }
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" (click)="cu()" [disabled]="myForm.invalid" [nzLoading]="isLoadingCU">
+      @if(this.id == 0){
+        Agregar Usuario
+      }@else{
+        Modificar Usuario
+      }
+    </button>
+
+  </form>
+</nz-spin>

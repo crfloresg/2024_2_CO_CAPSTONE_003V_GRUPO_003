@@ -1,0 +1,91 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="isLoadingPermiso || isLoadingRol || isLoadingOpciones">
+  <div class="container">
+    <div class="container__table">
+      <nz-table #basicTable [nzData]="displayedPermisos"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="false"
+      [nzLoading]="isLoadingPermiso || isLoadingRol || isLoadingOpciones"
+      [nzScroll]="{ x: '600px', y: '500px' }">
+        <thead>
+          <tr>
+            <th>Permisos</th>
+            <th nzWidth="100px">Selección</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of basicTable.data; track data) {
+            <tr>
+              <td>{{ data.descripcion }}</td>
+              <td nzAlign="center">
+                <label nz-checkbox [(ngModel)]="data.checked" (nzCheckedChange)="checkbox($event, data)"></label>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="container__form">
+      <form nz-form #myForm="ngForm">
+
+        <p nz-typography>Nombre de rol: </p>
+        <nz-form-item>
+          <nz-form-control nzHasFeedback [nzSpan]="20" [nzErrorTip]="Nombre">
+            <input nz-input [(ngModel)]="nuevoRol.nombre" name="Nombre" maxlength="50" required />
+            <ng-template #Nombre let-control>
+              @if (control.errors?.['maxlength']) {
+                Maximo de caracteres exedido
+              }
+              @if (control.errors?.['required']) {
+                Campo requerido
+              }
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        <p nz-typography>Comentario: </p>
+        <nz-form-item class="container__form__comentario">
+          <nz-form-control nzHasFeedback [nzSpan]="20" [nzErrorTip]="Comentario">
+            <textarea nz-input [(ngModel)]="nuevoRol.descripcion" name="Comentario" required ></textarea>
+            <ng-template #Comentario let-control>
+              @if (control.errors?.['maxlength']) {
+                Maximo de caracteres exedido
+              }
+              @if (control.errors?.['required']) {
+                Campo requerido
+              }
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        @if(isGlobal){
+          <p nz-typography>Bodega: </p>
+          <nz-form-item>
+            <nz-form-control [nzSpan]="20" nzHasFeedback>
+              <nz-select name="select-bodega" [(ngModel)]="nuevoRol.bodegaId" required>
+                @if(isLoadingOpciones){
+                  <nz-option nzDisabled nzCustomContent>
+                    <span nz-icon nzType="loading" class="loading-icon"></span>
+                    Cargando datos
+                  </nz-option>
+                }@else {
+                  @for (b of bodegas; track b) {
+                   <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+                  }
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        }
+
+        <button class="container__form__button" nz-button nzType="primary" (click)="cu()" [disabled]="myForm.invalid" [nzLoading]="isLoadingCU">
+          @if(this.id == 0){
+            Crear Rol
+          }@else{
+            Modificar Rol
+          }
+        </button>
+
+      </form>
+    </div>
+  </div>
+</nz-spin>

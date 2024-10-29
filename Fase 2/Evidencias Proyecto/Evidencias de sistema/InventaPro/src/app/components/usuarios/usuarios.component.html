@@ -1,0 +1,71 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Usuarios</h1>
+  @if(authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega') ||
+  authService.hasPermission('d_usuarios_global') ||
+  authService.hasPermission('d_usuarios_bodega') ){
+  <button nz-button nzType="primary" (click)="add()">
+    <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    Agregar Usuarios
+  </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table #Table [nzData]="displayedUssuarios" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '850px'}">
+  <thead>
+    <tr>
+      <th nzWidth="75px">#</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Rol</th>
+      <th>Bodega</th>
+      <th>Estado</th>
+      @if(authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega') ||
+      authService.hasPermission('d_usuarios_global') ||
+      authService.hasPermission('d_usuarios_bodega') ){
+      <th nzWidth="200px">Acción</th>
+      }
+
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of Table.data; track u;) {
+    <tr>
+      <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+      <td>{{ u.nombre }}</td>
+      <td>{{ u.apellido }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.rol.nombre }}</td>
+      <td>{{ u.bodega.nombre }}</td>
+      @if(u.estadoUsuarioId == 1){
+      <td>Habilitado</td>
+      }
+      @else {
+      <td>Deshabilitado</td>
+      }
+      <td>
+        @if((authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega')) && u.estadoUsuarioId == 1){
+          <a (click)="update(u.usuarioId)">Modificar</a>
+        }
+        @if(u.estadoUsuarioId == 1 && (authService.hasPermission('d_usuarios_global') ||
+        authService.hasPermission('d_usuarios_bodega'))){
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: red;" (click)="delete(u)">Deshabilitar</a>
+        }
+        @else if(authService.hasPermission('a_usuarios_global') || authService.hasPermission('a_usuarios_bodega')) {
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: green;" (click)="activate(u)">Habilitar</a>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

@@ -1,0 +1,88 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="isLoadingProducto">
+  <form nz-form #myForm="ngForm">
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Nombre</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="Nombre">
+        <input nz-input [(ngModel)]="producto.nombre" name="Nombre" maxlength="100" required />
+        <ng-template #Nombre let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Codigo</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="Codigo">
+        <input nz-input [(ngModel)]="producto.codigo" name="Codigo" maxlength="20" required />
+        <ng-template #Codigo let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Categoria</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="Categoria">
+        <input nz-input [(ngModel)]="producto.categoria" name="Categoria" maxlength="50" required />
+        <ng-template #Categoria let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Unidad de medida</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="udm">
+        <input nz-input [(ngModel)]="producto.unidadMedida" name="udm" maxlength="100" required />
+        <ng-template #udm let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Precio venta</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="pv">
+        <input nz-input [(ngModel)]="producto.precioVenta" name="pv"type="number" required />
+        <ng-template #pv let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" (click)="cu()" [disabled]="myForm.invalid" [nzLoading]="isLoadingCU">
+      @if(this.id == 0){
+        Agregar Producto
+      }@else{
+        Modificar Producto
+      }
+    </button>
+
+  </form>
+</nz-spin>

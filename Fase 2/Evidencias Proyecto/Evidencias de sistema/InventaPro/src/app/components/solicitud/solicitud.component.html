@@ -1,0 +1,92 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="false">
+  <div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+    <h1 style="width: fit-content;" nz-typography>Gestión de Solicitudes</h1>
+    @if(authService.hasPermission('cu_solicitudes_bodega')){
+      <button nz-button nzType="primary" (click)="add()">
+        Añadir Solicitud
+      </button>
+    }
+  </div>
+  
+  <nz-select 
+    name="select-bodega" 
+    [(ngModel)]="selectedBodegaId" 
+    required
+    (ngModelChange)="selectBodega($event)">
+    @if(loadingBodegas){
+      <nz-option 
+        nzDisabled nzCustomContent>
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+      }@else {
+        @for (b of bodegas; track b) {
+          <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+  </nz-select>
+
+  <nz-table 
+    #Table 
+    [nzData]="solicitudes" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzTitle="Solicitudes" 
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th>Fecha creada</th>
+        <th>Fecha modificada</th>
+        <th>Estado</th>
+        <th>Fecha Aceptada / Rechazada</th>
+        <th>Observacion</th>
+        <th nzWidth="200px">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.solicitudId }}</td>
+        <td>{{ data.fechaSolicitud | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>{{ data.fechaModificacion | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>{{ data.estadoSolicitudInventario.nombre }}</td>
+        <td>
+          @if(data.fechaModificacion != undefined){
+            {{ data.fechaModificacion | date:'dd-MM-yyyy HH:mm' }}
+          }@else if(data.fechaRechazo){
+            {{ data.fechaRechazo | date:'dd-MM-yyyy HH:mm' }}
+          }
+        </td>
+        
+        <td [nzEllipsis]="true" nz-popover [nzPopoverContent]="data.observaciones" [nzPopoverOverlayStyle]="{'max-width': '350px'}">
+          {{ data.observaciones }}
+        </td>
+        <td nzAlign="right">
+          @if((authService.hasPermission('cu_solicitudes_global') || authService.hasPermission('cu_solicitudes_bodega')) && data.estadoSolicitudId == 1){
+            <a (click)="update(data.solicitudId)">Modificar</a>
+          }
+          @if(data.estadoSolicitudId == 1 && (authService.hasPermission('d_solicitudes_global') ||
+            authService.hasPermission('d_solicitudes_bodega'))){
+            <nz-divider nzType="vertical"></nz-divider>
+            <a style="color: red;" (click)="delete(data)">Cancelar</a>
+          }
+          @if(data.estadoSolicitudId == 1 && authService.hasPermission('ad_solicitudes')){
+            @if(
+              (data.estadoSolicitudId == 1 && (authService.hasPermission('d_solicitudes_global') ||
+              authService.hasPermission('d_solicitudes_bodega'))) ||
+              ((authService.hasPermission('cu_solicitudes_global') || authService.hasPermission('cu_solicitudes_bodega')) &&
+              data.estadoSolicitudId == 1)
+            ){
+              <nz-divider nzType="vertical"></nz-divider>
+            }
+            <a style="color: grey;" (click)="check(data)">Ver</a>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-spin>

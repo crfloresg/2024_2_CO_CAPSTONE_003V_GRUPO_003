@@ -1,0 +1,60 @@
+<nz-table 
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzLoading]="loadingTableData || loadingSolicitud" 
+  [nzPageSize]="pageSize" 
+  [nzTableLayout]="'fixed'"
+  [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '800px'}">
+  <thead >
+    <tr>
+      <th nzWidth="50px"></th>
+      <th>Nombre</th>
+      <th>Codigo</th>
+      <th>Categoria</th>
+      <th>Precio Venta</th>
+      <th>Unidad de medida</th>
+      <th>Cantidad en bodega</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+    <tr>
+      <td [(nzChecked)]="data.checked!" (nzCheckedChange)="onItemChecked($event, data.productoId)"></td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.codigo }}</td>
+      <td>{{ data.categoria }}</td>
+      <td>${{ data.precioVenta }}</td>
+      <td>{{ data.unidadMedida }}</td>
+      <td>{{ data.inventarios![0].cantidad }}</td>
+      <td>
+        Cantidad: 
+        <nz-input-number 
+          [(ngModel)]="data.cantidad" 
+          [nzMin]="0" 
+          [nzStep]="1" 
+          [nzDisabled]="!inputValid($index)"
+          [nzStatus]="inputStatus($index)">
+        </nz-input-number>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
+
+<button 
+  class="container__form__button" 
+  nz-button 
+  nzType="primary" 
+  (click)="cu()"
+  [disabled]="valid()"
+  [nzLoading]="isLoadingCU">
+
+  @if(this.id == 0){
+    Crear Solicitud
+  }@else{
+    Modificar Solicitud
+  }
+
+</button>

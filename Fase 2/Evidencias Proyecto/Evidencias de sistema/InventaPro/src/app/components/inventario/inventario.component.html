@@ -1,0 +1,84 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="false">
+  <nz-select 
+    name="select-bodega" 
+    [(ngModel)]="selectedBodegaId" 
+    required
+    (ngModelChange)="selectBodega($event)">
+    @if(loadingBodegas){
+      <nz-option 
+        nzDisabled nzCustomContent>
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+      }@else {
+        @for (b of bodegas; track b) {
+          <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+  </nz-select>
+
+  <nz-table 
+    #Table 
+    [nzData]="inventario" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    nzTitle="Inventario" 
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th nzWidth="60px"></th>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Categoria</th>
+        <th>Unidad de medida</th>
+        <th>Cantidad</th>
+        <th>Precio Venta</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+        <td [nzExpand]="expandSet.has(data.productoId)" (nzExpandChange)="onExpandChange(data.productoId, $event)"></td>
+        <td>{{ data.nombre }}</td>
+        <td>{{ data.codigo }}</td>
+        <td>{{ data.categoria }}</td>
+        <td>{{ data.unidadMedida }}</td>
+        <td>{{ data.cantidad }}</td>
+        <td>${{ data.precioVenta }}</td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data.productoId)">
+        <nz-table #nzTable [nzData]="data.lotesInventario" [nzSize]="'middle'" nzShowPagination="false">
+          <thead>
+            <tr>
+              <th>Cantidad</th>
+              <th>Precio compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(y of data.lotesInventario; track y;){
+              <tr>
+                <td>{{y.cantidad}}</td>
+                <td>${{y.precioCompra}}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <div nz-flex nzGap="middle">
+    <button nz-button nzType="primary" (click)="add()">
+      Solicitar reabastecimiento 
+    </button>
+    <button nz-button nzType="primary" routerLink="/solicitud">
+      Ver Solicitudes
+    </button>
+  </div>
+
+  
+</nz-spin>

@@ -1,0 +1,72 @@
+@if(isLoading){
+<div style="width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;">
+  <nz-spin nzSimple nzSize="large" [nzSpinning]="isLoading"></nz-spin>
+</div>
+} @else {
+@if (isLoggedIn){
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>Inventapro</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard">Inicio</a>
+          </li>
+        </ul>
+      </li>
+      @if(authService.hasPermission('r_usuarios_global') || authService.hasPermission('r_usuarios_bodega')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/usuarios">Gestión de Usuarios</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_roles_global') || authService.hasPermission('r_roles_bodega')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/roles">Gestión de Roles y permisos</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_productos')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/productos">Productos</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_inventarios_global') || authService.hasPermission('r_inventarios_bodega')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/inventario">Inventario</a>
+        </li>
+      }
+      @if((authService.hasPermission('r_inventarios_global') || authService.hasPermission('r_inventarios_bodega')) && authService.hasPermission('ad_solicitudes')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/solicitud">Solicitudes</a>
+        </li>
+      }
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header" nz-flex nzAlign="center">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed" nz-flex>
+          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+        </span>
+        <div nz-flex nzJustify="end" nzAlign="center" style="width: 100%; padding-right: 20px;">
+          <button nz-button nzType="primary" nzDanger (click)="logOut()">Cerrar sesión</button>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+} @else {
+<app-login></app-login>
+}
+}

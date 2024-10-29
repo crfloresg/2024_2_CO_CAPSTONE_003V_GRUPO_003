@@ -1,0 +1,60 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de roles y permisos</h1>
+  <button nz-button nzType="primary" (click)="add()">
+    <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    Añadir Rol
+  </button>
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table #Table [nzData]="displayedRoles" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
+  nzTitle="Lista de Roles" [nzScroll]="{x: '600px'}">
+  <thead >
+    <tr>
+      <th nzWidth="50px">#</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      @if(authService.hasPermission('r_roles_global')){
+        <th>Bodega</th>
+      }
+      <th nzWidth="200px">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (r of Table.data; track r;) {
+    <tr>
+      <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+      <td>{{ r.nombre }}</td>
+      <td 
+        nzEllipsis 
+        nz-popover 
+        [nzPopoverContent]="r.descripcion"
+        [nzPopoverOverlayStyle]="{'max-width': '350px'}"
+      >{{ r.descripcion }}</td>
+      @if(authService.hasPermission('r_roles_global')){
+        <td>{{ r.bodega?.nombre }}</td>
+      }
+      <td nzAlign="right">
+        @if((authService.hasPermission('cu_roles_global') || authService.hasPermission('cu_roles_bodega')) && r.estado == 1){
+          <a (click)="update(r.rolId)">Modificar</a>
+        }
+        @if(r.estado == 1 && (authService.hasPermission('d_roles_global') ||
+          authService.hasPermission('d_roles_bodega'))){
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: red;" (click)="delete(r)">Deshabilitar</a>
+        }
+        @else if(authService.hasPermission('d_roles_global') || authService.hasPermission('d_roles_bodega')) {
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: green;" (click)="activate(r)">Habilitar</a>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

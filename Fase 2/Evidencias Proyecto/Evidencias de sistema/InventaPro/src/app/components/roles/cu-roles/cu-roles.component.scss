@@ -1,0 +1,20 @@
+.container{
+  display: flex;
+  gap: 60px;
+  &__table{}
+  &__form{
+    width: 300px;
+    &__comentario{
+      textarea{
+        height: 150px;
+      }
+    }
+    &__button{
+      margin-top: 25px;
+    }
+  }
+}
+
+::ng-deep .nz-table-hide-scrollbar{
+  overflow: hidden !important;
+}

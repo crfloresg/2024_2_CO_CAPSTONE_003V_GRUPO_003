@@ -1,0 +1,12 @@
+<h1 nz-typography>Bienvenido {{authService.getUser().nombre}} {{authService.getUser().apellido}}</h1>
+
+<br>
+
+<p nz-typography>Seleccionar tipo de informe</p>
+<nz-select [(ngModel)]="informeSelected" nzPlaceHolder="Seleccionar tipo de informe">
+  <nz-option [nzValue]="0" nzLabel="Empleados"></nz-option>
+  <nz-option [nzValue]="1" nzLabel="Productos"></nz-option>
+  <nz-option [nzValue]="2" nzLabel="Bodegas"></nz-option>
+</nz-select>
+
+<button nz-button nzType="primary" (click)="getInforme()">Primary Button</button>
