@@ -1,0 +1,2092 @@
+commit f627b932a6b421be6f1832901e85db40a02b3736
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 16 17:36:41 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 16 17:36:41 2024 -0300
+
+    CAmbio where de auditoria de accion a usuarioId
+
+commit d5fe63d20600c8286d1bef16e88a78262ed4b592
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 16 17:02:43 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 16 17:02:43 2024 -0300
+
+    fix
+
+commit 36f0dfb44bb791820aa43136b2d411488bb48ac5
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 16 17:01:41 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 16 17:01:41 2024 -0300
+
+    seguridad api informes
+
+commit 3c9a305c78c0bf53d9487684877b5c68b361100e
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 16 01:52:16 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 16 01:52:16 2024 -0300
+
+    informe a compras
+
+commit 7a55e89b79ebd3c22c44f30da412dc4365385ec4
+Merge: adbe6fc 5acae41
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 16 01:26:06 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 16 01:26:06 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit adbe6fc54db6e6bbb30500cde1236f45f807544d
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 16 01:25:29 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 16 01:25:29 2024 -0300
+
+    Se agrega clases e informe de pdf para Detalle de compra
+
+commit 5acae41ed962c962d1a6aab2f804f514d08bde28
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 16 01:07:03 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 16 01:07:03 2024 -0300
+
+    modulo distribuidores
+
+commit 5a1df48962621da5dbc00de7ecd7042ae0e499b1
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 16 00:50:33 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 16 00:50:33 2024 -0300
+
+    Controlador bodega
+
+commit 3a780244bc7961c134822c496c5f2ae79b8fd25c
+Merge: f4d7fd4 d661289
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 20:15:21 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 20:15:21 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit f4d7fd40253efd8410867cbec98f6cdec11c14a4
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 20:15:09 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 20:15:09 2024 -0300
+
+    controlador bodegas
+
+commit d6612896688e768ea8410ffc23c5f08f538bfd66
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 15 19:39:29 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 15 19:39:29 2024 -0300
+
+    Se crea tabla de alertas de stock critico en dasboard
+
+commit 75c86e3b4d7a49bec1b6cfb562b13f551ae3522b
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 15 18:36:02 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 15 18:36:02 2024 -0300
+
+    modulo de alertas se termino yse creo controller de alerta
+
+commit 5d8cea3c3d2bf429240094bcae7e8fb43dfd31fd
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 15 15:57:54 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 15 15:57:54 2024 -0300
+
+    Seagregan cambios de estados de aleta y agregar alerta
+
+commit 2d0be27c29d2c0bab7bf7e50510ba3b792ffb36b
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 15 14:55:43 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 15 14:55:43 2024 -0300
+
+    error en desactivar alerta
+
+commit 4d8c06cae608acece93e580a1b164b0380d98f05
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 00:28:47 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 00:28:47 2024 -0300
+
+    fix pdf
+
+commit 7502b80a37232267584a54c541eecf1eed180639
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 00:15:50 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 00:15:50 2024 -0300
+
+    fix pdf
+
+commit 072bddb7fc866a6b34660a9492e1e241f6ca503f
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 00:04:43 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 00:04:43 2024 -0300
+
+    fix pdf
+
+commit be3970e01a67de026092e2cc3634e216cdb43693
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Nov 15 00:00:18 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Nov 15 00:00:18 2024 -0300
+
+    fix pdf
+
+commit 4eb52c6658e82ae6824f84cc16be6b6ea1a8d516
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Nov 14 23:51:34 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Nov 14 23:51:34 2024 -0300
+
+    fix pdf
+
+commit ef3204b3dadafbde9de3cc65a32b8aea6d2a674c
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Nov 14 23:31:24 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Nov 14 23:31:24 2024 -0300
+
+    fix pdf
+
+commit 2f7b9631a17dd44fa11b22ca9571ccb0b0057220
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Nov 14 23:08:08 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Nov 14 23:08:08 2024 -0300
+
+    compras savePdf
+
+commit 16fced8aab871af1be3bf3c0719db0c36af80e61
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Nov 14 22:44:00 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Nov 14 22:44:00 2024 -0300
+
+    modulo compras
+
+commit c7a97b5813bef55ce299be8c22ab1eaa5beffbf6
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Thu Nov 14 15:16:40 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Thu Nov 14 15:16:40 2024 -0300
+
+    Se completan consultas y de alerta
+
+commit 3d34e3f1469f4425ad75df03f780f519356ef57a
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Wed Nov 13 18:44:32 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Wed Nov 13 18:44:32 2024 -0300
+
+    modulo compras
+
+commit 98b8120fe108dcebbcaad41d4ee931fb49ef1f58
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Wed Nov 13 18:41:34 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Wed Nov 13 18:41:34 2024 -0300
+
+    solucion de error de J
+
+commit 13979f23811bbd565aa80b3e98c72b8047e7e963
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Nov 13 18:29:02 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Nov 13 18:29:02 2024 -0300
+
+    fix
+
+commit 5e62704a288451554f969495f7c2666a55708abc
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Wed Nov 13 17:52:07 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Wed Nov 13 17:52:07 2024 -0300
+
+    cambios controller informe
+
+commit 60ff321f3e98bb561fcbe274ba92931768828e2f
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Wed Nov 13 17:45:21 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Wed Nov 13 17:45:21 2024 -0300
+
+    cambios e alerta
+
+commit aa1776e801fa29dbc4810c3aaf691a660be67d73
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:40:12 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:40:12 2024 -0300
+
+    Registrar el Servicio
+
+commit 9c8cd4483eb4b14f7b870750ac8a3b01c3fbd6ca
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:35:22 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:35:22 2024 -0300
+
+    Crear el Controlador
+
+commit fef6be49353fc6d858bcb6635239012c1a0e8139
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:30:55 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:30:55 2024 -0300
+
+    Implementar el Servicio
+
+commit 9326668291f719a963bd3b3c9f662093f895cd28
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:18:00 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:18:00 2024 -0300
+
+    Crear la Interfaz del Servicio
+
+commit c61104a13ab04d505620ea2b6eb22be60fdf3ac7
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:03:05 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:03:05 2024 -0300
+
+    Crear el DTO distri
+
+commit cdd24a381547d11fb6ae50437d6ad28134f613fd
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 09:01:25 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 09:01:25 2024 -0300
+
+    Crear el DTO
+
+commit bb6e73b7affeb9437ef2c6a7838480923c0bda84
+Merge: 649a011 5e78245
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 08:53:31 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 08:53:31 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit 649a011f7e07d46487f1f3f7826187855cb354eb
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Wed Nov 13 08:53:25 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Wed Nov 13 08:53:25 2024 -0300
+
+    crear modelo
+
+commit 5e782452e0689322b7d2198f49e11e2794c7a6ea
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Nov 12 18:36:26 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Nov 12 18:36:26 2024 -0300
+
+    avance compras
+
+commit 128ec669e022a81076889ea00608eb78a2ec679f
+Merge: f5d76ea 52d9cce
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Tue Nov 12 15:44:27 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Tue Nov 12 15:44:27 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit f5d76ea5d406920408100fadd853d5e0fcf2d9a7
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Tue Nov 12 15:42:54 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Tue Nov 12 15:42:54 2024 -0300
+
+    esqueleto alerta
+
+commit d833e5a687b8895644136eb4eb7ba12a187b8927
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Tue Nov 12 15:41:56 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Tue Nov 12 15:41:56 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit 52d9cce19e521ec740e881b12f53abc546db4460
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Nov 12 15:05:00 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Nov 12 15:05:00 2024 -0300
+
+    fix bodegas
+
+commit 1a33af13acd2bc035cd280c7deba581a9a8e39e1
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Tue Nov 12 12:04:23 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Tue Nov 12 12:04:23 2024 -0300
+
+    Se agregan update y creat de alerta
+
+commit 7769266bc92c7e07c1e90e221d33581a90ae10bb
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Tue Nov 12 07:43:50 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Tue Nov 12 07:43:50 2024 -0300
+
+    bodegass
+
+commit abfa05a34cac4e67eef14bab559eb6e2f65ed26b
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Tue Nov 12 07:42:24 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Tue Nov 12 07:42:24 2024 -0300
+
+    bodegas
+
+commit c91e528dcdd548e86f73f4975ca28b090692026b
+Merge: d057e09 50b0ebd
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Tue Nov 12 07:33:48 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Tue Nov 12 07:33:48 2024 -0300
+
+    cambio
+
+commit d057e090517b5ed80bbf43acdae107b6832c8990
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Tue Nov 12 07:07:50 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Tue Nov 12 07:07:50 2024 -0300
+
+    hecho bodegas
+
+commit 50b0ebd450cd9887fdfce8591919076e52333a22
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 20:30:22 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 20:30:22 2024 -0300
+
+    icono
+
+commit 58c77c0d41f0ca7bb6ac40d45593ed2e69cdc8b9
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 19:41:05 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 19:41:05 2024 -0300
+
+    fix informe api
+
+commit 8e078cc8f36b55cdc0e649be9f9cce8c837aa6c4
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 19:35:43 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 19:35:43 2024 -0300
+
+    eliminacion tablas sin uso (movimiento)
+
+commit f0e5b357333c354c65d12123bdab86628ed5f7a7
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 19:28:54 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 19:28:54 2024 -0300
+
+    permisos modulo perdida
+
+commit a3605e5e5c041e4409841133090af072a3df7663
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 17:01:43 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 17:01:43 2024 -0300
+
+    removal of console logs
+
+commit ccd0457e9f489b3f2d75b5a60399050cf8531f15
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 16:59:44 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 16:59:44 2024 -0300
+
+    permisos solicitud
+
+commit 909c08a8fc36ca3ebabf9d88abbce213f7d43e5e
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 16:47:36 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 16:47:36 2024 -0300
+
+    solicitud para uso global
+
+commit e76214ba270041e7f164c5fa998e0120f67b1162
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Nov 11 16:33:35 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Nov 11 16:33:35 2024 -0300
+
+    fix
+
+commit 3b88c2493c179dd6596b8ab246cf657781a346fc
+Author:     julio <jul.navarrom@duocuc.cl>
+AuthorDate: Sat Nov 9 18:00:55 2024 -0300
+Commit:     julio <jul.navarrom@duocuc.cl>
+CommitDate: Sat Nov 9 18:00:55 2024 -0300
+
+    test
+
+commit 6c8d118d5dbb02adff609df3a3569db5a7cca67b
+Merge: a152e1e 79b3061
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Fri Nov 8 22:48:54 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 22:48:54 2024 -0300
+
+    Merge pull request #24 from crfloresg/main
+    
+    merge from main
+
+commit 79b30619173b36932576cc6279cc26f656436264
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 18:34:52 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 18:34:52 2024 -0300
+
+    Delete InventaproApiNuevo directory
+
+commit 2b49f141c5bfd401a070a80b8b5413705465987c
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:50:03 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:50:03 2024 -0300
+
+    Add files via upload
+
+commit 45065254ca0afe9b4a435181c2ad19e41c5dbacc
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:38:19 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:38:19 2024 -0300
+
+    Delete InventaproApiNuevo.rar
+
+commit 61eb503f02c54090b6d2e805961cd1bdf9eb6996
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:37:47 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:37:47 2024 -0300
+
+    Add files via upload
+
+commit 7f43ef2cbed03d4905f3a2590417a96197417b83
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:37:36 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:37:36 2024 -0300
+
+    Create README.md
+
+commit 22f28f99441ad0249891b04b676ed48916adc739
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:36:38 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:36:38 2024 -0300
+
+    Add files via upload
+
+commit 0904add1cd4c465a13d29d0643de37adfce8bb58
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:35:59 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:35:59 2024 -0300
+
+    Create README.md
+
+commit 8f00fbe1d861d19d8fd9ef40d03cd06e78bd48f3
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:35:04 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:35:04 2024 -0300
+
+    Create README.md
+
+commit eb6773f3587fb729ccef017d4f40f8566cb3f2f5
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:34:42 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:34:42 2024 -0300
+
+    Add files via upload
+
+commit 9c52609b56362bcc76eae66620388a4a739be224
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:34:22 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:34:22 2024 -0300
+
+    Create README.md
+
+commit ed4c3271cf03e194713eb470fe9b6a4d12bb40fb
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:33:56 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:33:56 2024 -0300
+
+    Delete obj directory
+
+commit 8513bdbf870f39297fd683be25730fdc2129396a
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:33:09 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:33:09 2024 -0300
+
+    Add files via upload
+
+commit 78d02b219f8f8f9c62413d31216d10cc51884555
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:32:52 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:32:52 2024 -0300
+
+    Create README.md
+
+commit fd6310ee136bbb23c6eebe8d666217eec1319aa4
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:32:03 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:32:03 2024 -0300
+
+    Delete InventaproApiNuevo/obj directory
+
+commit 4fbe3ea236e7fb34eb0496180e35b6f6d72438d8
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:30:56 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:30:56 2024 -0300
+
+    Add files via upload
+
+commit bd4dd195d498b235ad8a75987929c7bd99d3f57d
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:30:15 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:30:15 2024 -0300
+
+    Create README.md
+
+commit d0654b6a1d59b26fdd34c2e88ed3691a9c23611f
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:29:44 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:29:44 2024 -0300
+
+    Add files via upload
+
+commit 097d5018e321455517823f203385eea389de6e5c
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:29:34 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:29:34 2024 -0300
+
+    Create README.md
+
+commit 643edc1b3e10d025fdd6ad1c6bf16e3900cf31ee
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:29:07 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:29:07 2024 -0300
+
+    Add files via upload
+
+commit 84fbf096054955621a081192ec4f86c3c4afa043
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:28:58 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:28:58 2024 -0300
+
+    Create README.md
+
+commit f0e1bb927142ae6b96c7d7be631f08517174e3d0
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:28:23 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:28:23 2024 -0300
+
+    Add files via upload
+
+commit fd8a937200d0c6d5103431b6dea7cab05ec0016e
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:27:48 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:27:48 2024 -0300
+
+    Create README.md
+
+commit f60742ae7dc17136045614ca534d19bb932ecd93
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:25:05 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:25:05 2024 -0300
+
+    Add files via upload
+
+commit 2edd2e5714f243328de8d2e8510e148254a84cd8
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:23:05 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:23:05 2024 -0300
+
+    Create README.md
+
+commit 07aa5dbddbb913c8c7c068442c2936ca49efa6a6
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:20:45 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:20:45 2024 -0300
+
+    Add files via upload
+
+commit a51d3d6e61cdcd9e41f8cb1df3a0e32c82815b1b
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:18:20 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:18:20 2024 -0300
+
+    Create README.md
+
+commit 60fcea497aa443cb76aad1d8f0eaa646d79ee5a4
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:11:40 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:11:40 2024 -0300
+
+    Delete InformeApi/InventaproApiNuevo
+
+commit aecfcaaaf430ff7d5693ef794d672cf0afadf83b
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:09:33 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:09:33 2024 -0300
+
+    Delete crud
+
+commit 13be4e3d10e98b6c396e9494e56bb11501ec5637
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:08:30 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:08:30 2024 -0300
+
+    Delete bin/Debug/net8.0 directory
+
+commit f1506f11ea12bb6421f2cd06352fee90a1b0d8a2
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:08:11 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:08:11 2024 -0300
+
+    Delete InventaproApiNuevo.sln
+
+commit 85362e62c01200324562ee6a31b4c58a918b46ee
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:07:58 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:07:58 2024 -0300
+
+    Delete Program.cs
+
+commit abdde6131b4af8a8b72d4489d5ef23f626966a61
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:07:46 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:07:46 2024 -0300
+
+    Delete InventaproApiNuevo.http
+
+commit 8f1f10f5638384f5e65fad7b03a763070c3376ac
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:07:34 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:07:34 2024 -0300
+
+    Delete InventaproApiNuevo.csproj
+
+commit dd626f2943bb0f3cdbc46c36e75336da536b7626
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:07:18 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:07:18 2024 -0300
+
+    Delete appsettings.json
+
+commit 32c9ed46d55ae0bcb70e14cd1711ca8e7ee07540
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:06:58 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:06:58 2024 -0300
+
+    Delete appsettings.Development.json
+
+commit 889168cde1c1df614a55ca24a61e504541c14c2d
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:05:54 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:05:54 2024 -0300
+
+    Add files via upload
+
+commit 11e96a5f94c9bf66f890b86d2fa26fe861bb5059
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:02:25 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:02:25 2024 -0300
+
+    Delete InventaproApiNuevo
+
+commit baccfec70b2f55214b362b2ede9c958542ee15a9
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:01:45 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:01:45 2024 -0300
+
+    Create InventaproApiNuevo
+
+commit 6a9208470eace31263e313b0a8cdf8ac0536ead6
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Fri Nov 8 17:00:38 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Nov 8 17:00:38 2024 -0300
+
+    Create InventaproApiNuevo
+
+commit 7aa6a62bdccd5ba9f3b1e234c20a537888f066fb
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Thu Nov 7 22:04:38 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Nov 7 22:04:38 2024 -0300
+
+    Add files via upload
+
+commit 5060e35a707488133a69b4f23257631ae1bf1864
+Author:     julnavarrom <jul.navarrom@duocuc.cl>
+AuthorDate: Thu Nov 7 22:02:31 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Nov 7 22:02:31 2024 -0300
+
+    Create crud
+
+commit a152e1e4998f9879ca28c9dde6b7f1125b23f278
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Thu Nov 7 00:34:20 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Thu Nov 7 00:34:20 2024 -0300
+
+    se elimina codigo sin uso
+
+commit 1698032f55d9a14b8e076b31bc31ec06547223f6
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Wed Nov 6 19:37:30 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Wed Nov 6 19:37:30 2024 -0300
+
+    Cambios en los if de los dpf se cambio de bodegaid a nombre tipo bodega
+
+commit c70fdb133675ec26b524b9c2311140e4e2249504
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Wed Nov 6 19:06:10 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Wed Nov 6 19:06:10 2024 -0300
+
+    se soluciona error, cambian datosde columna emay y nombre
+
+commit 9a295cf0814ea76ee6dc54af66be0f551778b6e5
+Merge: a44db38 6bd34eb
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Nov 5 18:28:32 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Nov 5 18:28:32 2024 -0300
+
+    Merge pull request #23 from crfloresg/dev
+    
+    Dev
+
+commit 6bd34ebf2370c8546b0fc30d03da7d709b866d22
+Merge: a49b7da 47b09eb
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Nov 5 18:26:49 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Nov 5 18:26:49 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit a49b7dad660bd16774ad7ab320758372db841ecd
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Nov 5 18:26:22 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Nov 5 18:26:22 2024 -0300
+
+    refactorizacion permisos
+
+commit 47b09eb09bae52b0ed4b3cf9bf9ac0009729a86f
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Tue Nov 5 15:41:46 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Tue Nov 5 15:41:46 2024 -0300
+
+    se actualzia parametros para alerta de stock minimo y se agrega consulta de stock
+
+commit de7ccba9a4f66d025ed4f413301c7ba6d0ce2d24
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sun Nov 3 20:57:56 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sun Nov 3 20:57:56 2024 -0300
+
+    fix typo, boton solicitud
+
+commit a44db38f9d28ddf1fb91c77c3b17df30c151ab96
+Merge: 2206ccd 4a8ab47
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sat Nov 2 23:01:22 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Nov 2 23:01:22 2024 -0300
+
+    Merge pull request #22 from crfloresg/dev
+    
+    Dev
+
+commit 4a8ab47047c53a838786807d65a83ed53d846565
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 2 22:59:24 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 2 22:59:24 2024 -0300
+
+    various fixes
+
+commit df3d5ed99c857248c53a52c205a71b97f0f963bd
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 2 22:26:59 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 2 22:26:59 2024 -0300
+
+    modulo perdida
+
+commit 04be7466944349cf88db8ce9a9a8b6298537f80e
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 2 21:12:00 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 2 21:12:00 2024 -0300
+
+    se agrega campos de dañado y perdida a trasferencia detalle y al pdf
+
+commit 7d1da6793c0a855f74434ef08f4c307ee1fce08a
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 2 18:43:15 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 2 18:43:15 2024 -0300
+
+    cambio extencion pdf bodega
+
+commit 3af05a67cc8b6d92b3fb44e68a48e4e0e49bd553
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 2 18:37:45 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 2 18:37:45 2024 -0300
+
+    cambio nombre de pdf bodega
+
+commit e4038f531697dc5ba43bc1c13c5e2c1954f444de
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 2 18:22:17 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 2 18:22:17 2024 -0300
+
+    cambios a pdf de bodega y producto
+
+commit 0d978efba667b6d44cb7c15515d18c5f4bdb3bef
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Sat Nov 2 17:57:02 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Sat Nov 2 17:57:02 2024 -0300
+
+    se soluciona errores con el where de las consusltas y se modifican los if
+
+commit cc2f807f59f8d261b499c17f03ccdec3ac47ed8d
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Nov 2 13:39:07 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Nov 2 13:39:07 2024 -0300
+
+    Mantenedor transferencias sin permisos
+
+commit 93f85eed9b8d5acc9f2653e08bdfa3f45b1f20df
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 1 23:10:58 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 1 23:10:58 2024 -0300
+
+    se cambia el return del pdf de transacciones
+
+commit 99d9fe9de6a5907c37d7b6ff40da90d9670a7078
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Nov 1 23:04:45 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Nov 1 23:04:45 2024 -0300
+
+    se genera pdf de transaccion de productos
+
+commit 2206ccd63806c5f495d3c32ae22ebece0f637d41
+Merge: 1ffd012 6431803
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Thu Oct 31 21:31:29 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Oct 31 21:31:29 2024 -0300
+
+    Merge pull request #21 from crfloresg/dev
+    
+    Dev
+
+commit 6431803fb0fd553ef69a38e17e6442caecd6d139
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Thu Oct 31 19:10:21 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Thu Oct 31 19:10:21 2024 -0300
+
+    Se agrega informe de perdida y auditoria y se hacen cambios en consultas a bd
+
+commit 32a2a6e5f7966cd95524eda6b4af2e7f9835c413
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 30 23:27:33 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 30 23:27:33 2024 -0300
+
+    empty array instead of error
+
+commit 5e54fb02535dd8c3aa8e17614653899a869ff869
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 30 23:22:13 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 30 23:22:13 2024 -0300
+
+    auditorias agregar bodegaId
+
+commit ebd4b1fa91110b901981b6677b8d593b809f8d6b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 30 22:25:05 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 30 22:25:05 2024 -0300
+
+    searchbar, spinners, run
+
+commit 1ffd0123e5b67c508007ece1eac90bbb6dcffe35
+Merge: f992047 d7dd57a
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Oct 29 18:36:52 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Oct 29 18:36:52 2024 -0300
+
+    Merge pull request #20 from crfloresg/dev
+    
+    Dev
+
+commit d7dd57a50052ec102767dda5ee5142ddfb216ebe
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 29 15:45:51 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 29 15:45:51 2024 -0300
+
+    Avances
+
+commit fdffdf96ae6925c3446d5461fdf03eaa4976092e
+Merge: c3d8547 f992047
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 23:08:07 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 23:08:07 2024 -0300
+
+    Merge pull request #19 from crfloresg/main
+    
+    cositas
+
+commit f9920478bbaf8c8ed645969928354d58a1301963
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 22:58:30 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 22:58:30 2024 -0300
+
+    cambios locos
+
+commit 1d0f0ac87c3e574b4358dadfa11f0234f969059f
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 22:39:03 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 22:39:03 2024 -0300
+
+    test
+
+commit 6c89ff786c6816a5cd5fe543f02d2eaa213f7038
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 22:35:43 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 22:35:43 2024 -0300
+
+    test
+
+commit abd89e31ccc55eddc3a311565c2c899fc268d8cf
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 22:09:15 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 22:09:15 2024 -0300
+
+    test
+
+commit c0dd833895e9d6bbda04de02ab40e23dd20a980e
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:57:45 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:57:45 2024 -0300
+
+    Update Program.cs
+
+commit 0436c06c5ed398664bee9de30ba6e79bb0fe59f2
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:57:27 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:57:27 2024 -0300
+
+    Update InformeApiDeploy.yml
+
+commit 444b1052b09e3aaeebeabc99cd95a813cc781be7
+Merge: 70d0f0e c3d8547
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:52:40 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:52:40 2024 -0300
+
+    Merge pull request #18 from crfloresg/dev
+    
+    Dev
+
+commit c3d85477b5d7af365db3ccd24e793888cb640d2a
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 21:52:13 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 21:52:13 2024 -0300
+
+    test
+
+commit 03049faecd68f7ba88bf2c91aa78130d065dd9e0
+Merge: af8792d 70d0f0e
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:43:06 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:43:06 2024 -0300
+
+    Merge pull request #17 from crfloresg/main
+    
+    merge
+
+commit 70d0f0e22df43fc3085c50f1612a803bee1e8533
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:42:39 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:42:39 2024 -0300
+
+    Update InformeApiDeploy.yml
+
+commit c1efdf88a17972dd1a19475a75221569885962a4
+Merge: 71b2d00 af8792d
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:41:09 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:41:09 2024 -0300
+
+    Merge pull request #16 from crfloresg/dev
+    
+    Dev
+
+commit af8792d048ee2f320894e829aff7f822f8ce7d55
+Merge: 2777acc 71b2d00
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:40:41 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:40:41 2024 -0300
+
+    Merge pull request #15 from crfloresg/main
+    
+    merge
+
+commit 71b2d0059da77691693d4f0b7ad2ca29d8946b57
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:40:00 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:40:00 2024 -0300
+
+    Update InformeApiDeploy.yml
+
+commit 2777acc17508e8264806a0ab192d5c2f19971caf
+Merge: 07f9fc5 ddbd773
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 21:37:40 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 21:37:40 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit 07f9fc5ebb09ec7813c44ef46cc2288b12ead581
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 28 21:37:15 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 28 21:37:15 2024 -0300
+
+    test
+
+commit b74824dcb9192c8df47386bb9cfe5a5de73cdc1f
+Merge: a989a21 ddbd773
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:35:48 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:35:48 2024 -0300
+
+    Merge pull request #14 from crfloresg/dev
+    
+    Create InformeApiDeploy.yml
+
+commit ddbd773d32630d52ed9fdd396ac40141afc9aa68
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Oct 28 21:35:29 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Oct 28 21:35:29 2024 -0300
+
+    Create InformeApiDeploy.yml
+
+commit a989a210b9ab1a4443612c171b0e67c59d37baa7
+Merge: 33d0fbe 57e694e
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sat Oct 26 22:38:55 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Oct 26 22:38:55 2024 -0300
+
+    Merge pull request #13 from crfloresg/dev
+    
+    quitar precio compra de producto
+
+commit 57e694e65238835ead0349034b3b3f96891fabe1
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Oct 26 22:37:47 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Oct 26 22:37:47 2024 -0300
+
+    quitar precio compra de producto
+
+commit 33d0fbeae496aa262943ea8aedd08e46305a4e2a
+Merge: 0c81145 22bbcb0
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sat Oct 26 18:41:29 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Oct 26 18:41:29 2024 -0300
+
+    Merge pull request #12 from crfloresg/dev
+    
+    Dev
+
+commit 22bbcb05f1cef596e09fc7e1fbc0ebc4ca33b811
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Oct 26 18:38:21 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Oct 26 18:38:21 2024 -0300
+
+    modulo solicitudes
+
+commit e251969d8094721eb1d288bb84b25f20c999a8e1
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 25 20:05:56 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 25 20:05:56 2024 -0300
+
+    fix gitignore y avances
+
+commit 3e1fd388d9efdff5a2b4225c0b17a478ceec2238
+Merge: 220e5de b10b3dd
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Oct 25 18:47:49 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Oct 25 18:47:49 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit 220e5de83f8efc71bd0bcf5dc326051dd61d0bdf
+Author:     LuisNavU <l.navarreteu@duocuc.cl>
+AuthorDate: Fri Oct 25 18:07:47 2024 -0300
+Commit:     LuisNavU <l.navarreteu@duocuc.cl>
+CommitDate: Fri Oct 25 18:07:47 2024 -0300
+
+    Creacion de api de informes y tres informes dpdf creados
+
+commit b10b3ddd3b3a2aa3b9f1e50165c1273e1c9bd66f
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Oct 24 00:03:12 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Oct 24 00:03:12 2024 -0300
+
+    solicitudes avance
+
+commit 0840a96a95989c90e02933bf3abf76f170c68147
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 23 22:09:09 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 23 22:09:09 2024 -0300
+
+    Accesso denegado
+
+commit 0c811459871446fe4cf7b3d94c9112167cdeb16d
+Merge: bec5324 43cb567
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Oct 23 21:39:55 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Oct 23 21:39:55 2024 -0300
+
+    Merge pull request #11 from crfloresg/dev
+    
+    refreshtoken fix
+
+commit 43cb567c05f4685766eedb237aeef3e73c53cbfa
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 23 21:39:31 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 23 21:39:31 2024 -0300
+
+    refreshtoken fix
+
+commit bec532422059082d5f9948bbc774dfd732762cc2
+Merge: db3b003 005430f
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Oct 23 21:29:50 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Oct 23 21:29:50 2024 -0300
+
+    Merge pull request #10 from crfloresg/dev
+    
+    merge
+
+commit 005430ff6bb1c7960773f0070f7e4fe81dd1ba09
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Wed Oct 23 21:29:10 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Wed Oct 23 21:29:10 2024 -0300
+
+    lista inventario y solicitudes
+
+commit bfdbe89e540c1553eb0aba0b582c88c6a15d50ab
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sun Oct 20 11:59:59 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sun Oct 20 11:59:59 2024 -0300
+
+    Auditorias
+
+commit e0efb41a190b83f0e6bf7c6302245b23ce1285c1
+Merge: a8cca33 db3b003
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Fri Oct 18 22:16:24 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Oct 18 22:16:24 2024 -0300
+
+    Merge pull request #9 from crfloresg/main
+    
+    making it up to date
+
+commit db3b003bb18cc788846dac3d718599fd36da470f
+Merge: c21963e a8cca33
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Fri Oct 18 22:14:47 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Oct 18 22:14:47 2024 -0300
+
+    Merge pull request #8 from crfloresg/dev
+    
+    Merge
+
+commit a8cca33daac0738a0d009fb866ec78f500a265bc
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 18 22:14:14 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 18 22:14:14 2024 -0300
+
+    Mantenedor productos
+
+commit 3bec54a640446b8f01adeb951fd69cadaae0feee
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 18 19:50:48 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 18 19:50:48 2024 -0300
+
+    Productos
+
+commit 16f71c49d2dccc8a97c3af462077c2ea3c165045
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Oct 17 23:57:13 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Oct 17 23:57:13 2024 -0300
+
+    fix permisos && get to productos
+
+commit 363d32fe7d3879fcbf32cfbf00dc8f786bcc7ce2
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Oct 17 23:36:31 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Oct 17 23:36:31 2024 -0300
+
+    bodega to table
+
+commit c21963ece62584711a319f763a4d69e3841dbcf2
+Merge: 1d26678 6aa1b5e
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Thu Oct 17 23:30:48 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Oct 17 23:30:48 2024 -0300
+
+    Merge pull request #7 from crfloresg/dev
+    
+    roles fix
+
+commit 6aa1b5e50eb6fad7ec831c05721c6187c7a3a034
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Oct 17 23:30:08 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Oct 17 23:30:08 2024 -0300
+
+    roles fix
+
+commit 1d2667895a51d276a3d8b7b362142117b6644830
+Merge: 94a0fa3 ad64280
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Thu Oct 17 22:37:17 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Oct 17 22:37:17 2024 -0300
+
+    Merge pull request #6 from crfloresg/dev
+    
+    merge
+
+commit ad64280e4abfc72c2845754ed81adb03e4dba922
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Thu Oct 17 22:36:44 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Thu Oct 17 22:36:44 2024 -0300
+
+    fin roles y servicio de confirmacion
+
+commit 206ff23badae7216bb5acd0ba6bd9b58dee947ca
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 15 21:30:11 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 15 21:30:11 2024 -0300
+
+    avanzce roles
+
+commit 94a0fa326f5572e4407bf67c36a679aaf1b7ffd2
+Merge: 239da10 d17c217
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Oct 15 19:39:11 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Oct 15 19:39:11 2024 -0300
+
+    Merge pull request #5 from crfloresg/dev
+    
+    Dev
+
+commit d17c217d389c1d1c29e228f0e96b99ead2698754
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 15 19:38:40 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 15 19:38:40 2024 -0300
+
+    fix select
+
+commit 3fa6c0ccab5e9471423957744a2e5998890bdbec
+Merge: dfa37c3 fa52a8d
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 15 17:11:28 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 15 17:11:28 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit dfa37c3f9bd5a3f1a433fe60701d0bf66ac90986
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 15 17:11:12 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 15 17:11:12 2024 -0300
+
+    avance roles
+
+commit 239da101019631bbfff88d150bc77891710c8785
+Merge: e35a66e fa52a8d
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sun Oct 13 23:21:44 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Oct 13 23:21:44 2024 -0300
+
+    Merge pull request #4 from crfloresg/dev
+    
+    activar y desactivar usuarios
+
+commit fa52a8d0705c440dca5c22c054f188afe9f93420
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sun Oct 13 23:21:03 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Oct 13 23:21:03 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit e35a66e115f6c027aa9e45a61a5f7a8545180ded
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sun Oct 13 23:20:26 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Oct 13 23:20:26 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 6c2c6d93c79a0ad6c85af0e093d4b3a7993aa284
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sun Oct 13 23:19:22 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sun Oct 13 23:19:22 2024 -0300
+
+    activar desactivar usuario
+
+commit 335d73119892a208d29ffecf5e996ab2623c36f6
+Merge: 3911a8a 9e05bbc
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sun Oct 13 21:59:50 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Oct 13 21:59:50 2024 -0300
+
+    Merge pull request #3 from crfloresg/dev
+    
+    usuarios crear y modificar
+
+commit 9e05bbcc9d42fa31de64d975cdf7bd5312acd35a
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sun Oct 13 21:58:13 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sun Oct 13 21:58:13 2024 -0300
+
+    usuarios crear y modificar
+
+commit 3911a8a09e8d73c646dc685f6edd0787c3053f2d
+Merge: 2b6680d 417812f
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sat Oct 12 00:32:03 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Oct 12 00:32:03 2024 -0300
+
+    Merge pull request #2 from crfloresg/dev
+    
+    Dev
+
+commit 417812f31070657e28675da8238c59a3b6abf9bd
+Merge: f0ffdc5 f3b1ce5
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Oct 12 00:29:57 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Oct 12 00:29:57 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit f0ffdc5a2ac100da34574dfb318d45f555cb182c
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Oct 12 00:29:37 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Oct 12 00:29:37 2024 -0300
+
+    Modulo usuario listar
+
+commit f3b1ce5805f9ad7b0e0a301a025cced0a50736cb
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Sat Oct 12 00:28:53 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Oct 12 00:28:53 2024 -0300
+
+    Update apideploy.yml
+
+commit 7d04c482e7b9ed8bfea1b14a8e80632e253dbd7a
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Fri Oct 11 22:47:57 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Oct 11 22:47:57 2024 -0300
+
+    Delete .vs directory
+
+commit e291b9e1b21fe8c755c3cc8455213864cf5cb4c8
+Merge: 375c303 d1f1023
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 11 22:46:36 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 11 22:46:36 2024 -0300
+
+    Merge branch 'dev' of https://github.com/crfloresg/Capstone into dev
+
+commit d1f1023d4885a6df641e964d8f582d8e53cdc2b6
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Fri Oct 11 22:45:42 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Fri Oct 11 22:45:42 2024 -0300
+
+    Update apideploy.yml
+
+commit 375c30352020ad201fc1a959a12919c6219c747c
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 11 22:43:46 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 11 22:43:46 2024 -0300
+
+    api
+
+commit 2102784e6b4ff47c6e98a27ad6f5b3db3c37447b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Oct 11 20:26:21 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Oct 11 20:26:21 2024 -0300
+
+    Borrando api antigua
+
+commit 2b6680de15e8b3ae561b23d7712181436496affd
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 19:34:17 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 19:34:17 2024 -0300
+
+    fix
+
+commit 8c43dce67ed96b7a0733c3e2ca9cf7f03caec848
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 15:43:56 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 15:43:56 2024 -0300
+
+    left menu
+
+commit 6d92a69b845c838333abb0afc04a22db455734e2
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 15:36:47 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 15:36:47 2024 -0300
+
+    Permisos
+
+commit 62f672d1689bc80bff9699472648e04a0f712721
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 15:35:04 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 15:35:04 2024 -0300
+
+    Permisos
+
+commit a13c6baf9949b2827806ea1b6e0645480c321503
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 15:25:35 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 15:25:35 2024 -0300
+
+    fix typo
+
+commit 5add22a64823eb025f6478a04225bab53d07f513
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 15:19:48 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 15:19:48 2024 -0300
+
+    login fix text & index for api
+
+commit 1e1a63dc986873eb8e60f677096ca738a9cdb760
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 8 00:24:30 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 8 00:24:30 2024 -0300
+
+    fix auth
+
+commit 9180b7be5b14947f899423aab32a4a57388f103e
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Oct 7 23:28:54 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Oct 7 23:28:54 2024 -0300
+
+    GraphQL API Integration
+
+commit 35c95b9a9d2c47d2727bd35292377145804585c6
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 1 20:55:20 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 1 20:55:20 2024 -0300
+
+    Test memoria y velocidad
+
+commit 464ccd16e458513bb26685155d17e82bc4d01a64
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Oct 1 17:30:42 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Oct 1 17:30:42 2024 -0300
+
+    soporte de roles
+
+commit baedb98661674ed57a7d65a3e92487c378b42d53
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Sep 28 18:10:34 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Sep 28 18:10:34 2024 -0300
+
+    login completo
+
+commit de4da9dded619814335e5efe86704dadb2ef0d1b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Sat Sep 28 00:40:25 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Sat Sep 28 00:40:25 2024 -0300
+
+    refresh token
+
+commit 2938860c90ac4a768603a5642489e73f647c4fa0
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Sep 27 22:46:35 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Sep 27 22:46:35 2024 -0300
+
+    login endpoint con token
+
+commit 5dc7463f270ece5c5d06a0248fdf7d22c84290a5
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Sep 27 22:13:16 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Sep 27 22:13:16 2024 -0300
+
+    db connection
+
+commit 2a072074aea79dea64b5825a6532665ae94f0025
+Merge: 7784c69 9fcdc84
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Sep 27 22:04:11 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Sep 27 22:04:11 2024 -0300
+
+    Merge branch 'main' of https://github.com/crfloresg/Capstone
+
+commit 7784c6980f2176cb06e52bc3bf076f4038474e66
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Fri Sep 27 22:02:46 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Fri Sep 27 22:02:46 2024 -0300
+
+    db connection
+
+commit 9fcdc847632876cffd60aec619f0dae381e6948a
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Thu Sep 12 16:50:16 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Thu Sep 12 16:50:16 2024 -0300
+
+    Update README.md
+
+commit f2f8e17697e0b9f4c1c384929d90987c05f8b29e
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:58:49 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:58:49 2024 -0300
+
+    Update app.component.html
+
+commit 2ea5ac0491e8d22c5a2474daf1456118ddea0527
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:58:03 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:58:03 2024 -0300
+
+    Update apideploy.yml
+
+commit e9f28370b9e519d1e6544f8b57d8c605db78ef26
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:31:06 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:31:06 2024 -0300
+
+    Update Program.cs
+
+commit 0679313f38cf83e5d08a533e31e111e6a6291689
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:30:33 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:30:33 2024 -0300
+
+    Update apideploy.yml
+
+commit 8f89bd02d58a409b82ce0eb2658b1521e5ec63c6
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:18:58 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:18:58 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit d2e6434e2ef2bbba5b2fc16745970d04e08fe6ca
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Wed Sep 11 10:18:15 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Sep 11 10:18:15 2024 -0300
+
+    Update apideploy.yml
+
+commit 1a68508895253aaedaf30f969a1a46de107634cd
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 20:45:28 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 20:45:28 2024 -0300
+
+    wena
+
+commit f749c419282b595d226d20fab085c611dcbfa47f
+Author:     Cris <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 20:43:16 2024 -0300
+Commit:     Cris <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 20:43:16 2024 -0300
+
+    autodeploy
+
+commit 2fb46351dc79651f316ea3bab02daf11fcf6bb8c
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 20:23:23 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 20:23:23 2024 -0300
+
+    Update README.md
+
+commit 02c98bd02ce0f8bf760c650bde3087ec558cef16
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:45:12 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:45:12 2024 -0300
+
+    fix api
+
+commit 4dae4a684244fef83576190151d9b691537e539c
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:41:04 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:41:04 2024 -0300
+
+    fix api
+
+commit 782b8417df2e6f321516997e020beb867980391b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:22:05 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:22:05 2024 -0300
+
+    test
+
+commit 3d80954ce6e6bbc6af30632ad002cdfe1786d68f
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 16:21:43 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 16:21:43 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 0e4a889cec6c3eee41c6ff057ecc5cf64323ad82
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:18:42 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:18:42 2024 -0300
+
+    test
+
+commit 93b38f40f22fb4a4f05972d2ebc5bfd880238eeb
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 16:18:04 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 16:18:04 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 95359b0605e1ee6471e9e143cc514d577237d39e
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:15:42 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:15:42 2024 -0300
+
+    test
+
+commit 6ea12f6ec49b738902b18b9539da1d58fcf7c654
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 16:15:28 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 16:15:28 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit d36ad889c204ef6ff1faa44fcb6f371724d5efd9
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 16:05:02 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 16:05:02 2024 -0300
+
+    test
+
+commit f3eab8ea1162be510422e271523a3d249cca15ca
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:56:04 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:56:04 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 343126dcbe0d41bc38ac29b4312c0447a486fcf8
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:51:30 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:51:30 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 5561209e4d73b73c117fb4405fd9b11840aa4736
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:24:50 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:24:50 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 18a878fe5b31c4b65282977bf72a868596df4dc1
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:17:31 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:17:31 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 1a97d86426488bfaa8b19f7bed76f2a6d1fa0263
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 15:15:22 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 15:15:22 2024 -0300
+
+    test angular deploy
+
+commit 74095c0ac60c39c1a2b229389b69e3906742cf49
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:15:01 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:15:01 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 9b9c166b5c72ff1dba71d9bb237e840bad349f2b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 15:10:27 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 15:10:27 2024 -0300
+
+    test angular deploy
+
+commit 3b301769a8c30623df006e1c0ac22f0a4e6cbd70
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 15:09:15 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 15:09:15 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 852257059f65b947d5a184ef3bd4d32575509f77
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 14:57:04 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 14:57:04 2024 -0300
+
+    test deploy .net
+
+commit 5b7dcaffc3050ee0cb6b5f744c129c6f0dfcd1bd
+Merge: 06d4868 33513a9
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 14:54:41 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 14:54:41 2024 -0300
+
+    Merge branch 'main' of https://github.com/crfloresg/Capstone
+
+commit 06d48687ce9314dcf20f8c52782be5fc8d8ba41d
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 14:54:25 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 14:54:25 2024 -0300
+
+    test deploy angular
+
+commit 33513a9ea151af0c3b4ad2a12ebf88c50ce4183a
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 14:48:29 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 14:48:29 2024 -0300
+
+    Update AngularDeploy.yml
+
+commit 752439f3887f369bcba6d52f0c09e4b595215808
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 14:48:00 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 14:48:00 2024 -0300
+
+    Create AngularDeploy.yml
+
+commit d6d8c30c0cb915edc3cff8eba83c87a81d7c1aa9
+Merge: b885467 959575c
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 14:21:55 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 14:21:55 2024 -0300
+
+    Merge branch 'main' of https://github.com/crfloresg/Capstone
+
+commit b885467be01d5a63f181ef1494c21cb53664a0f4
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 14:21:32 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 14:21:32 2024 -0300
+
+    Angular + Zorro vacio
+
+commit 959575ccf3e133ce413c142229e2d794c622d6d2
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 14:09:55 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 14:09:55 2024 -0300
+
+    Update apideploy.yml
+
+commit bcd0a9577382ea10e5fee055a68396655a7030a2
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 02:08:51 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 02:08:51 2024 -0300
+
+    test deploy
+
+commit e99b8fe575b2af7ad2070325d45422ab362939dc
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 02:07:50 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 02:07:50 2024 -0300
+
+    Update apideploy.yml
+
+commit 2a9bd0826f79d9ca2de25262d281ced35ee78a15
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 01:47:51 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 01:47:51 2024 -0300
+
+    test deploy
+
+commit 35f2200f1a56db54a3ac55c4144aa94023fedccc
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 01:47:18 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 01:47:18 2024 -0300
+
+    Update apideploy.yml
+
+commit b37e8fcbb0c2eb3f392951568fb57b6c2a2a7014
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 01:40:36 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 01:40:36 2024 -0300
+
+    test deploy
+
+commit 50d53c10e026de8def1535e637b65ae6b0e103b9
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 01:39:51 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 01:39:51 2024 -0300
+
+    Update apideploy.yml
+
+commit 0408a1ebedf5e7de2c2a9a3382ef131c75fa5bf4
+Merge: 92bb5d3 a8a6527
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 01:36:30 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 01:36:30 2024 -0300
+
+    Merge branch 'main' of https://github.com/crfloresg/Capstone
+
+commit 92bb5d30194652b6bf65774092012262ba09f07e
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 01:36:02 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 01:36:02 2024 -0300
+
+    test deploy
+
+commit a8a65272b713385feb19675283af3e185d1e2875
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Sep 10 01:35:30 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Sep 10 01:35:30 2024 -0300
+
+    Update apideploy.yml
+
+commit cd9d0bad481344f0162ff6cce295fe2fb78bb17b
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Tue Sep 10 01:34:49 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Tue Sep 10 01:34:49 2024 -0300
+
+    test deploy
+
+commit 37f5a89b4a33be77f1952eb41282d03f05642b10
+Merge: 75098ba 082efaf
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Sep 9 23:48:13 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Sep 9 23:48:13 2024 -0300
+
+    Merge branch 'main' of https://github.com/crfloresg/Capstone
+
+commit 75098ba60b57ab7a29b0ec3240f0b95f753cb617
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Sep 9 23:47:45 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Sep 9 23:47:45 2024 -0300
+
+    Test deploy
+
+commit 082efaf519723a7ba01c96752a08b54a8a3f63f1
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Mon Sep 9 23:47:05 2024 -0300
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Sep 9 23:47:05 2024 -0300
+
+    Create apideploy.yml
+
+commit d1c679596899d1706475b4466cd43a4a7760abad
+Author:     crfloresg <cr.floresg@duocuc.cl>
+AuthorDate: Mon Sep 9 23:45:02 2024 -0300
+Commit:     crfloresg <cr.floresg@duocuc.cl>
+CommitDate: Mon Sep 9 23:45:02 2024 -0300
+
+    new api
+
+commit 9c8097ef18d04e303e231e363f16d5628fd3ee91
+Author:     crfloresg <102751097+crfloresg@users.noreply.github.com>
+AuthorDate: Tue Aug 20 20:15:24 2024 -0400
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Aug 20 20:15:24 2024 -0400
+
+    Initial commit
