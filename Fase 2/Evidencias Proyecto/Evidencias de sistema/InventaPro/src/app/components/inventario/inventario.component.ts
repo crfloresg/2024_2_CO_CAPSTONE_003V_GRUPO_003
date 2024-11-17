@@ -16,7 +16,8 @@ import { BodegasService } from '../../services/bodegas.service';
 import { Bodega } from '../../interfaces/bodega';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { CuSolicitudComponent } from '../solicitud/cu-solicitud/cu-solicitud.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'app-inventario',
@@ -32,7 +33,8 @@ import { RouterLink } from '@angular/router';
     NzSelectModule,
     FormsModule,
     NzSpinModule,
-    RouterLink
+    RouterLink,
+    NzInputModule
   ],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.scss'
@@ -44,9 +46,10 @@ export class InventarioComponent {
   authService = inject(AuthService);
   bodegasService = inject(BodegasService);
   inventariosService = inject(InventariosService);
-  
+  router = inject(Router);
 
   inventario: Inventario[] = [];
+  displayedInventario: Inventario[] = []; 
   bodegas: Bodega[] = [];
 
   selectedBodegaId = 0;
@@ -77,13 +80,7 @@ export class InventarioComponent {
     this.loadingTableData = true;
     try {
       this.inventario = await this.inventariosService.getByIdBodega(this.selectedBodegaId);
-      // this.inventario.forEach((x, index) => {
-      //   let sum = 0;
-      //   x.lotesInventario.forEach(y => {
-      //     sum = y.cantidad + sum;
-      //   });
-      //   this.inventario[index].cantidad = sum;
-      // });
+      this.displayedInventario = JSON.parse(JSON.stringify(this.inventario));
       this.loadingTableData = false;
     } catch (error) {
       this.loadingTableData = false;
@@ -97,107 +94,8 @@ export class InventarioComponent {
     await this.getAll();
   }
 
-  update(id: number){
-    // const modalRef = this.modalService.create({
-    //   nzTitle: 'Modificar producto',
-    //   nzContent: CuProductosComponent,
-    //   nzMask: true,
-    //   nzMaskClosable: false,
-    //   nzClosable: true,
-    //   nzCentered: true,
-    //   nzFooter: null,
-    //   nzData: { id: id },
-    //   nzStyle: { width: 'fit-content' },
-    // });
-
-    // modalRef.afterClose.subscribe(async (result) => {
-    //   if (result) {
-    //     this.uiService.showModal('Producto modificado exitosamente', '', 'success');
-    //     await this.getAll();
-    //   }
-    // });
-  }
-
-  async delete(data: Inventario){
-    // let loading = false;
-    // this.uiService.showConfirmModal(
-    //   'Alerta!',
-    //   `Estas seguro que deseas <b>deshabilitar: ${data.nombre}</b>?`,
-    //   { ok: 'Deshabilitar', cancel: 'Cancelar' },
-    //   loading,
-    //   async () => {
-    //     loading = true;
-    //     try {
-    //       this.loadingTableData = true;
-    //       await this.productosService.delete(data.productoId);
-    //       this.uiService.showModal(
-    //         'Producto deshabilitado exitosamente',
-    //         '',
-    //         'success'
-    //       );
-    //       await this.getAll();
-    //     } catch (error) {
-    //       this.uiService.showErrorModal('Error al deshabilitar', error);
-    //       this.loadingTableData = false;
-    //     } finally {
-    //       loading = false;
-    //     }
-    //   }
-    // );
-  }
-
-  async activate(data: Inventario){
-    // let loading = false;
-    // this.uiService.showConfirmModal(
-    //   'Alerta!',
-    //   `Estas seguro que deseas <b>habilitar: ${data.nombre}</b>?`,
-    //   { ok: 'Habilitar', cancel: 'Cancelar' },
-    //   loading,
-    //   async () => {
-    //     loading = true;
-    //     try {
-    //       this.loadingTableData = true;
-    //       await this.productosService.activate(data.productoId);
-    //       this.uiService.showModal(
-    //         'Producto habilitado exitosamente',
-    //         '',
-    //         'success'
-    //       );
-    //       await this.getAll();
-    //     } catch (error) {
-    //       this.uiService.showErrorModal('Error al habilitar', error);
-    //       this.loadingTableData = false;
-    //     } finally {
-    //       loading = false;
-    //     }
-    //   }
-    // );
-  }
-
   add(){
-    const modalRef = this.modalService.create({
-      nzTitle: 'Crear Solicitud',
-      nzContent: CuSolicitudComponent,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzClosable: true,
-      nzCentered: true,
-      nzFooter: null,
-      nzData: { id: 0, bodegaId: this.selectedBodegaId},
-      nzStyle: { 
-        'width': 'max-content',
-        'max-width': '90vw',
-        'max-height': '90vh', 
-        'overflow-y': 'auto',
-       },
-    });
-
-    modalRef.afterClose.subscribe(async (result) => {
-      if (result) {
-        this.uiService.showModal('Solicitud creada exitosamente', '', 'success');
-        await this.getAll();
-      }
-    });
+    this.router.navigate(['/solicitud/create', 0, this.selectedBodegaId]);
   }
 
   expandSet = new Set<number>();
@@ -207,6 +105,23 @@ export class InventarioComponent {
     } else {
       this.expandSet.delete(id);
     }
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
+    this.displayedInventario = this.inventario.filter(
+      (item) =>
+        item.cantidad?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.productoId?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.nombre?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.codigo?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.unidadMedida?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.precioVenta?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.categoria?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue)
+    );
   }
 
 }

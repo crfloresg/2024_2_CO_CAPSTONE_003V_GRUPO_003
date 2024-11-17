@@ -1,9 +1,11 @@
 <div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
   <h1 style="width: fit-content;" nz-typography>Gestión de Productos</h1>
-  <button nz-button nzType="primary" (click)="add()">
-    <span nz-icon nzType="user-add" nzTheme="outline"></span>
-    Añadir Producto
-  </button>
+  @if(authService.hasPermission('d_productos_global')){
+    <button nz-button nzType="primary" (click)="add()">
+      <span nz-icon nzType="user-add" nzTheme="outline"></span>
+      Añadir Producto
+    </button>
+  }
 </div>
 
 <nz-input-group [nzPrefix]="suffixIconSearch">
@@ -17,10 +19,10 @@
   nzTitle="Lista de Productos" [nzScroll]="{x: '600px'}">
   <thead >
     <tr>
-      <th nzWidth="50px">#</th>
+      <th nzWidth="55px">#</th>
       <th>Nombre</th>
-      <th>Codigo</th>
-      <th>Categoria</th>
+      <th>Código</th>
+      <th>Categoría</th>
       <th>Unidad de medida</th>
       <th>Precio Venta</th>
       <th>Estado</th>
@@ -41,14 +43,14 @@
       }@else { <td>Deshabilitado</td> }
       
       <td nzAlign="right">
-        @if(authService.hasPermission('cu_productos') && data.estado == 1){
+        @if(authService.hasPermission('cu_productos_global') && data.estado == 1){
           <a (click)="update(data.productoId)">Modificar</a>
         }
-        @if(data.estado == 1 && authService.hasPermission('d_productos')){
+        @if(data.estado == 1 && authService.hasPermission('d_productos_global')){
           <nz-divider nzType="vertical"></nz-divider>
           <a style="color: red;" (click)="delete(data)">Deshabilitar</a>
         }
-        @else if(authService.hasPermission('d_productos')) {
+        @else if(authService.hasPermission('d_productos_global')) {
           <nz-divider nzType="vertical"></nz-divider>
           <a style="color: green;" (click)="activate(data)">Habilitar</a>
         }

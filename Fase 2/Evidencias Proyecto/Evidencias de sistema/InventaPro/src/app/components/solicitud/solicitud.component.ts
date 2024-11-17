@@ -19,6 +19,8 @@ import { CuSolicitudComponent } from './cu-solicitud/cu-solicitud.component';
 import { DatePipe } from '@angular/common';
 import { AdSolicitudComponent } from './ad-solicitud/ad-solicitud.component';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-solicitud',
@@ -35,7 +37,8 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
     FormsModule,
     NzSpinModule,
     DatePipe,
-    NzPopoverModule
+    NzPopoverModule,
+    NzInputModule
   ],
   templateUrl: './solicitud.component.html',
   styleUrl: './solicitud.component.scss'
@@ -47,8 +50,11 @@ export class SolicitudComponent {
   authService = inject(AuthService);
   bodegasService = inject(BodegasService);
   solicitudesService = inject(SolicitudesService);
+  router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
 
   solicitudes: Solicitud[] = [];
+  displayedSolicitudes: Solicitud[] = [];
   bodegas: Bodega[] = [];
 
   selectedBodegaId = 0;
@@ -79,6 +85,7 @@ export class SolicitudComponent {
     this.loadingTableData = true;
     try {
       this.solicitudes = await this.solicitudesService.getAllByIdBodega(this.selectedBodegaId);
+      this.displayedSolicitudes = JSON.parse(JSON.stringify(this.solicitudes));
       this.loadingTableData = false;
     } catch (error: any) {
       this.solicitudes = [];
@@ -93,55 +100,11 @@ export class SolicitudComponent {
   }
 
   add(){
-    const modalRef = this.modalService.create({
-      nzTitle: 'Crear Solicitud',
-      nzContent: CuSolicitudComponent,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzClosable: true,
-      nzCentered: true,
-      nzFooter: null,
-      nzData: { id: 0, bodegaId: this.selectedBodegaId },
-      nzStyle: { 
-        'width': 'max-content',
-        'max-width': '90vw',
-        'max-height': '90vh', 
-        'overflow-y': 'auto',
-       },
-    });
-
-    modalRef.afterClose.subscribe(async (result) => {
-      if (result) {
-        this.uiService.showModal('Solicitud creada exitosamente', '', 'success');
-        await this.getAll();
-      }
-    });
+    this.router.navigate(['create', 0, this.selectedBodegaId], {relativeTo: this.activatedRoute});
   }
 
   update(id: number){
-    const modalRef = this.modalService.create({
-      nzTitle: 'Modificar Solicitud',
-      nzContent: CuSolicitudComponent,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzClosable: true,
-      nzCentered: true,
-      nzFooter: null,
-      nzData: { id: id, bodegaId: this.selectedBodegaId },
-      nzStyle: { 
-        'width': 'max-content',
-        'max-width': '90vw',
-        'max-height': '90vh', 
-        'overflow-y': 'auto',
-       },
-    });
-
-    modalRef.afterClose.subscribe(async (result) => {
-      if (result) {
-        this.uiService.showModal('Solicitud modificado exitosamente', '', 'success');
-        await this.getAll();
-      }
-    });
+    this.router.navigate(['create', id, this.selectedBodegaId], {relativeTo: this.activatedRoute});
   }
 
   async delete(data: Solicitud){
@@ -201,27 +164,21 @@ export class SolicitudComponent {
     });
   }
 
-  obs(data: Solicitud){
-    const modalRef = this.modalService.create({
-      nzTitle: 'Observacion',
-      nzContent: data.observaciones,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzClosable: true,
-      nzCentered: true,
-      nzFooter: null,
-      nzData: { 
-        idSolicitud: data.solicitudId,
-        idBodega: data.bodegaId
-      },
-      nzStyle: { 
-        'width': 'max-content',
-        'min-width': '200px',
-        'max-width': '90vw',
-        'max-height': '90vh', 
-        'overflow-y': 'auto',
-      },
-    });
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
+    this.displayedSolicitudes = this.solicitudes.filter(
+      (item) =>
+        item.solicitudId?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.fechaSolicitud?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.fechaAprobacion?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.fechaRechazo?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.fechaCompletada?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.fechaModificacion?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.observaciones?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue)
+    );
   }
 
 }

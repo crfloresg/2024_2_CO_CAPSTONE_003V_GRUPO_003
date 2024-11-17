@@ -140,7 +140,7 @@ export class CuRolesComponent {
       this.isLoadingCU = false;
     } catch (error) {
       this.isLoadingCU = false;
-      this.uiService.showErrorModal('Error al cargar datos', error);
+      this.uiService.showErrorModal('Error al crear rol', error);
     }
   }
 

@@ -1,0 +1,151 @@
+<h1 style="width: fit-content;" nz-typography>Registro de Perdidas</h1>
+
+@if(authService.hasPermission('c_perdidas_global')){
+  <div style="width: 100%;" nz-row>
+    <nz-select
+      nz-col
+      nzSpan="10"
+      name="select-bodega"
+      [(ngModel)]="selectedBodegaId"
+      required
+      [nzStatus]="statusBodega()"
+      style="margin-bottom: 16px;"
+      (ngModelChange)="selectBodega($event)"
+      nzPlaceHolder="Seleccione bodega destino"
+      [nzLoading]="loadingBodegas"
+      [disabled]="loadingTableData"
+    >
+      @if(loadingBodegas){
+        <nz-option nzDisabled nzCustomContent>
+          <span nz-icon nzType="loading" class="loading-icon"></span>
+          Cargando datos
+        </nz-option>
+      }@else {
+        @for (b of bodegas; track b) {
+          <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+        }
+      }
+    </nz-select>
+  </div>
+}
+
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table 
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzLoading]="loadingTableData" 
+  [nzPageSize]="pageSize" 
+  [nzTableLayout]="'fixed'"
+  [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '800px'}">
+  <thead >
+    <tr>
+      <th nzWidth="50px"></th>
+      <th>Nombre</th>
+      <th>Código</th>
+      <th>Categoría</th>
+      <th>Precio Compra</th>
+      <th>Cantidad en bodega</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+    <tr>
+      <td [nzChecked]="data.checked!" (nzCheckedChange)="onItemChecked($event, data.loteId)"></td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.codigo }}</td>
+      <td>{{ data.categoria }}</td>
+      <td>${{ data.precioCompra }}</td>
+      <td>{{ data.cantidadEnBodega }}</td>
+      <td>
+        Cantidad: 
+        <nz-input-number 
+          [ngModel]="data.cantidad" 
+          [nzMin]="0" 
+          [nzMax]="data.cantidadEnBodega"
+          [nzStep]="1" 
+          (input)="setCantidad($event, data.loteId)"
+          [nzDisabled]="!inputValid(data.loteId)"
+          [nzStatus]="inputStatus(data.loteId)">
+        </nz-input-number>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
+
+<div nz-row>
+  <div nz-col nzSpan="16">
+
+    <form nz-form  style="width: 80%;" #myForm="ngForm">
+      <p nz-typography>Observación</p>
+      <nz-form-item>
+        <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="observacionTip">
+          <textarea nz-input [(ngModel)]="obs" name="required" rows="4" required ></textarea>
+          <ng-template #observacionTip let-control>
+            @if (control.errors?.['maxlength']) {
+              Maximo de caracteres exedido
+            }
+            @if (control.errors?.['required']) {
+              Campo requerido
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+  </div>
+  <div nz-col nzSpan="8">
+    
+    <div style="height: 100%;" nz-flex nzAlign="center" nzJustify="start">
+      <nz-select 
+        name="select-tipo" 
+        [(ngModel)]="idTipoPerdida" 
+        required 
+        nzPlaceHolder="Seleccione tipo de perdida"
+        style="width: 60%;"
+      >
+        @if(loadingTipoPerdida){
+          <nz-option nzDisabled nzCustomContent>
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+        }@else {
+          @for (b of tiposPerdida; track b) {
+            <nz-option [nzValue]="b.tipoPerdidaId" [nzLabel]="b.nombre"></nz-option>
+          }
+        }
+      </nz-select>
+    </div>
+    
+  </div>
+  <div nz-flex [nzGap]="50" nzJustify="center" style="width: 100%;">
+    <button 
+      nz-button 
+      nzType="primary" 
+      [disabled]="!valid()" 
+      style="width: 20%;" 
+      (click)="create()"
+      [nzLoading]="creating"
+    >
+      Aceptar
+    </button>
+    <button 
+      nz-button 
+      nzType="primary" 
+      nzDanger 
+      style="width: 20%;"
+      routerLink="/perdida"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

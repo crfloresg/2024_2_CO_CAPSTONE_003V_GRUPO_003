@@ -1,12 +1,249 @@
-<h1 nz-typography>Bienvenido {{authService.getUser().nombre}} {{authService.getUser().apellido}}</h1>
+<div nz-flex nzVertical nzGap="large">
+  <h1 nz-typography>Dashboard</h1>
+ 
+ 
+  @if(
+  authService.hasPermission('r_informes_global') ||
+  authService.hasPermission('r_informes_bodega')
+){
+  <div nz-flex nzVertical nzGap="small" class="informes">
+    <h2 nz-typography>Generación de informes</h2>
+    <div nz-flex nzGap="large">  
+      <p nz-typography>Seleccionar tipo de informe</p>
+      <label for=""></label>
+      <nz-select [(ngModel)]="informeSelected" nzPlaceHolder="Seleccionar tipo de informe">
+        <nz-option [nzValue]="0" nzLabel="Empleados"></nz-option>
+        <nz-option [nzValue]="1" nzLabel="Productos Stock"></nz-option>
+        @if(authService.hasPermission('r_informes_global')){
+          <nz-option [nzValue]="2" nzLabel="Bodegas"></nz-option>
+        }
+        <nz-option [nzValue]="3" nzLabel="Auditoria usuario"></nz-option>
+        <!-- <nz-option [nzValue]="4" nzLabel="Perdidas"></nz-option> -->
+      </nz-select>
+      
+      @if((informeSelected == 0 || informeSelected == 1) && authService.hasPermission('r_informes_global')){
+        <p nz-typography>Seleccionar bodega</p>
+        <nz-select 
+        name="select-bodega" 
+        [(ngModel)]="informeBodegaId" 
+        required
+        nzPlaceHolder="Seleccione bodega"
+        style="margin-bottom: 16px; width: 25%;"
+        [disabled]="loadingTableData"
+      >
+        @if(loadingBodegas){
+          <nz-option 
+            nzDisabled nzCustomContent
+          >
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+        }@else {
+          @for (b of bodegas; track b) {
+           <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+          }
+        }
+      </nz-select>
+      }
+    
+      @if(informeSelected == 3){
+        <p nz-typography>Seleccionar usuario</p>
+        <nz-input-number [(ngModel)]="informeUsuarioId" [nzMin]="1"></nz-input-number>
+      }
+    
+      @if(informeSelected == 4){
+        <p nz-typography>Seleccionar bodega</p>
+        <nz-select 
+        name="select-bodega" 
+        [(ngModel)]="informeBodegaId" 
+        required
+        nzPlaceHolder="Seleccione bodega"
+        style="margin-bottom: 16px; width: 25%;"
+        [disabled]="loadingTableData"
+      >
+        @if(loadingBodegas){
+          <nz-option 
+            nzDisabled nzCustomContent
+          >
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+        }@else {
+          @for (b of bodegas; track b) {
+           <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+          }
+        }
+      </nz-select>
+    
+      <p nz-typography>Seleccionar tipo de perdida</p>
+  
+      <nz-select [(ngModel)]="informeTipoPerdida" nzPlaceHolder="Seleccionar tipo de perdida">
+        <nz-option [nzValue]="1" nzLabel="Daño"></nz-option>
+        <nz-option [nzValue]="2" nzLabel="Perdida"></nz-option>
+        <nz-option [nzValue]="3" nzLabel="otro"></nz-option>
+      </nz-select>
+    
+      }
+    
+      <button [disabled]="!validInforme()" nz-button nzType="primary" (click)="getInforme()">Descargar Informe</button>
+  
+  
+    </div>
+  
+  </div>
+}
+  
+  
+  
+  
+  <div>
+    @if(
+  authService.hasPermission('r_alarmas_global') ||
+  authService.hasPermission('r_alarmas_bodega')
+){
+  @if(authService.hasPermission('r_alarmas_global')){
+    <h2 nz-typography>Alertas</h2>
+    <nz-select 
+      name="select-bodega" 
+      [(ngModel)]="selectedBodegaId" 
+      required
+      nzPlaceHolder="Seleccione bodega"
+      style="margin-bottom: 16px; width: 25%;"
+      [disabled]="loadingTableData"
+      (ngModelChange)="selectBodega($event)"
+    >
+      @if(loadingBodegas){
+        <nz-option 
+          nzDisabled nzCustomContent
+        >
+          <span nz-icon nzType="loading" class="loading-icon"></span>
+          Cargando datos
+        </nz-option>
+      }@else {
+        @for (b of bodegas; track b) {
+         <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+        }
+      }
+    </nz-select>
+  }
+  <div class="compact-table">
+    <nz-table #Table [nzData]="alerta" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
+    nzTitle="Lista de Productos con stock critico">
+    <thead >
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+        <tr>
+          <td>{{ data.nombreProducto}}</td>
+          <td>{{ data.minimo }}</td>
+        </tr>
+      }
+    </tbody>
+    </nz-table>
+  </div>
+}
+  </div>
 
-<br>
 
-<p nz-typography>Seleccionar tipo de informe</p>
-<nz-select [(ngModel)]="informeSelected" nzPlaceHolder="Seleccionar tipo de informe">
-  <nz-option [nzValue]="0" nzLabel="Empleados"></nz-option>
-  <nz-option [nzValue]="1" nzLabel="Productos"></nz-option>
-  <nz-option [nzValue]="2" nzLabel="Bodegas"></nz-option>
-</nz-select>
 
-<button nz-button nzType="primary" (click)="getInforme()">Primary Button</button>
+
+
+
+
+
+
+
+  @if(authService.hasPermission('r_dashboard_global') || authService.hasPermission('r_dashboard_bodega')){
+    <div nz-flex nzGap="small" nzVertical>
+      <h2 nz-typography>Gráficos</h2>
+      <div nz-flex nzVertical nzGap="small">
+
+        @if(authService.hasPermission('r_dashboard_global')){
+          <nz-select 
+          name="select-bodega" 
+          [(ngModel)]="dashboardBodegaId" 
+          required
+          nzPlaceHolder="Seleccione bodega"
+          style="margin-bottom: 16px; width: 25%;"
+          [disabled]="loadingTableData || loadingDashboard"
+          (ngModelChange)="selectBodegaDashboard($event)"
+          >
+            @if(loadingBodegas){
+              <nz-option 
+                nzDisabled nzCustomContent
+              >
+                <span nz-icon nzType="loading" class="loading-icon"></span>
+                Cargando datos
+              </nz-option>
+            }@else {
+              @for (b of bodegas; track b) {
+              <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+              }
+            }
+          </nz-select>
+        }
+        <h3 nz-typography>Productos y su cantidad perdida</h3>
+        <nz-spin [nzSpinning]="loadingDashboard">
+          <ngx-charts-bar-vertical
+          [view]="[700, 400]"
+          [results]="perdidas"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="'Cantidad'"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+        </nz-spin>
+      </div>
+  
+      <div nz-flex nzVertical nzGap="small">
+        <h3 nz-typography>Productos y su cantidad solicitudes</h3>
+        <nz-spin [nzSpinning]="loadingDashboard">
+          <ngx-charts-bar-vertical
+          [view]="[700, 400]"
+          [results]="solicitudes"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+        </nz-spin>
+      </div>
+  
+      <div nz-flex nzVertical nzGap="small">
+        <h3 nz-typography>Productos y su cantidad transferencias</h3>
+        <nz-spin [nzSpinning]="loadingDashboard">
+          <ngx-charts-bar-vertical
+          [view]="[700, 400]"
+          [results]="Transferencia"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+        </nz-spin>
+       
+      </div>
+      
+    </div>
+  }
+
+</div>
+
+
+

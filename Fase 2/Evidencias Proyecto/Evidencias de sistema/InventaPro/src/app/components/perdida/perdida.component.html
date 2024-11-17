@@ -1,0 +1,74 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Perdidas</h1>
+  @if(authService.hasPermission('c_perdidas_global') || authService.hasPermission('c_perdidas_bodega')){
+    <button nz-button nzType="primary" (click)="add()">
+      Añadir Perdida
+    </button>
+  }
+</div>
+
+
+@if(authService.hasPermission('r_perdidas_global')){
+  <nz-select 
+  name="select-bodega" 
+  [(ngModel)]="selectedBodegaId" 
+  required
+  nzPlaceHolder="Seleccione bodega"
+  [disabled]="loadingTableData"
+  style="margin-bottom: 16px; width: 25%;"
+  (ngModelChange)="selectBodega($event)">
+  
+  @if(loadingBodegas){
+    <nz-option 
+      nzDisabled nzCustomContent>
+      <span nz-icon nzType="loading" class="loading-icon"></span>
+      Cargando datos
+    </nz-option>
+    }@else {
+      @for (b of bodegas; track b) {
+        <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+    }
+  }
+</nz-select>
+}
+
+
+<nz-table 
+  #Table 
+  [nzData]="displayedPerdida" 
+  [nzLoading]="loadingTableData" 
+  [nzPageSize]="pageSize"
+  [(nzPageIndex)]="pageIndex" 
+  [nzTableLayout]="'fixed'" 
+  nzTitle="Perdidas" 
+  [nzScroll]="{x: '600px'}"
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">#</th>
+      <th>Nombre</th>
+      <th>Código</th>
+      <th>Cantidad</th>
+      <th>Precio producto</th>
+      <th>Fecha registro</th>
+      <th>Tipo de perdida</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+    <tr>
+      <td>{{ data.perdidaId }}</td>
+      <td>{{ data.producto.nombre }}</td>
+      <td>{{ data.producto.codigo }}</td>
+      <td>{{ data.cantidad }}</td>
+      <td>{{ data.precioCompra }}</td>
+      <td>{{ data.fechaRegistro | date:'dd-MM-yyyy HH:mm' }}</td>
+      <td>{{ data.tipoPerdida.nombre }}</td>
+      <td [nzEllipsis]="true" nz-popover [nzPopoverContent]="data.descripcion" [nzPopoverOverlayStyle]="{'max-width': '350px'}">
+        {{ data.descripcion }}
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

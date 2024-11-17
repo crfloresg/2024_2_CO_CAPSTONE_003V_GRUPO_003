@@ -45,7 +45,7 @@ export class AppComponent {
 
   constructor(){
     this.loggedInSub = this.authService.loggedIn$.subscribe( x => {
-      if(x) { this.isLoggedIn = true; console.log(this.isLoggedIn)}
+      if(x) { this.isLoggedIn = true }
       else { this.isLoggedIn = false }
     })
   }

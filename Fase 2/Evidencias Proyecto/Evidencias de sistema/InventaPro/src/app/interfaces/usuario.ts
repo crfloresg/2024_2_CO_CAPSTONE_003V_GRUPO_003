@@ -3,6 +3,7 @@ import { Rol } from "./rol";
 
 export interface Usuario {
   usuarioId: number;
+  run: string;
   nombre: string;
   apellido: string;
   email: string;
@@ -15,6 +16,7 @@ export interface Usuario {
 
 export interface UsuarioCU {
   usuarioId?: number;
+  run: string;
   nombre: string;
   apellido: string;
   email: string;

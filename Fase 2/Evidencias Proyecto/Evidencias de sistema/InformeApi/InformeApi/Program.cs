@@ -1,6 +1,7 @@
 using InformeApi.Data;
 using InformeApi.Policies;
 using InformeApi.Services;
+using InventaProAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -54,7 +55,9 @@ builder.Services.AddTransient<GeneratePdf, GeneeratePdfService>();
 
 // Register TokenService as a scoped service
 builder.Services.AddScoped<TokenProvider>();
-
+builder.Services.AddSingleton<AlertaService>();
+builder.Services.AddSingleton<AuditoriaService>();
+builder.Services.AddSingleton<InventarioService>();
 // Configure Authentication with Access Token
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

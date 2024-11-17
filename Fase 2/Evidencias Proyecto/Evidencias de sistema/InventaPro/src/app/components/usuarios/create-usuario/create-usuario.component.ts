@@ -19,6 +19,9 @@ import { Bodega } from '../../../interfaces/bodega';
 import { BodegasService } from '../../../services/bodegas.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { AuthService } from '../../../services/auth.service';
+import { RutValidatorDirective } from '../../../directives/rut-validator.directive';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-create-usuario',
@@ -30,6 +33,9 @@ import { AuthService } from '../../../services/auth.service';
     NzButtonModule,
     FormsModule,
     NzSelectModule,
+    RutValidatorDirective,
+    NzToolTipModule,
+    NzIconModule
   ],
   templateUrl: './create-usuario.component.html',
   styleUrl: './create-usuario.component.scss',
@@ -42,6 +48,7 @@ export class CreateUsuarioComponent {
   authService = inject(AuthService);
 
   usuario: UsuarioCU = {
+    run: '',
     apellido: '',
     bodegaId: undefined,
     email: '',
@@ -84,7 +91,7 @@ export class CreateUsuarioComponent {
   async getUsuario() {
     try {
       const req = await this.usuariosService.getById(this.id!);
-
+      this.usuario.run = req.run;
       this.usuario.apellido = req.apellido;
       this.usuario.bodegaId = req.bodegaId;
       this.usuario.email = req.email;
@@ -101,7 +108,12 @@ export class CreateUsuarioComponent {
     try {
       const req = await this.usuariosService.getOpciones();
       this.roles = req.roles;
-      this.rolesFiltered = this.roles.filter(x => x.bodegaId == this.usuario.bodegaId);
+
+      if(this.isGlobal){
+        this.rolesFiltered = this.roles.filter(x => x.bodegaId == this.usuario.bodegaId);
+      }else{
+        this.rolesFiltered = this.roles;
+      }
       this.bodegas = req.bodegas;
 
       if (!this.isGlobal) {

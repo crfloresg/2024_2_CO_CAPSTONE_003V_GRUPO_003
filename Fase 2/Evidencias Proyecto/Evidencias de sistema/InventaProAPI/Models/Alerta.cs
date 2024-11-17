@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using InventaProAPI.Models;
 
-namespace InventaProAPI.Models
+namespace InformeApi.Models
 {
   [Table("Alertas")]
   public class Alerta
@@ -29,6 +30,10 @@ namespace InventaProAPI.Models
     [Required]
     [Column("mensaje")]
     public string Mensaje { get; set; }
+
+    [Required]
+    [Column("stockMin")]
+    public int Minimo { get; set; }
 
     [Required]
     [Column("estado_alerta_id")]

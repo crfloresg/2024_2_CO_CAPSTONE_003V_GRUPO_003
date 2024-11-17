@@ -1,0 +1,89 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Transferencias</h1>
+  @if(authService.hasPermission('c_transferencias_global')){
+    <button nz-button nzType="primary" (click)="add()">
+      Añadir Transferencia
+    </button>
+  }
+</div>
+
+@if(authService.hasPermission('r_transferencias_global')){
+  <nz-select 
+  name="select-bodega" 
+  [(ngModel)]="selectedBodegaId" 
+  required
+  style="margin-bottom: 16px; width: 25%;"
+  nzPlaceHolder="Seleccione bodega"
+  [disabled]="loadingTableData"
+  (ngModelChange)="selectBodega($event)">
+  @if(loadingBodegas){
+    <nz-option 
+      nzDisabled nzCustomContent>
+      <span nz-icon nzType="loading" class="loading-icon"></span>
+      Cargando datos
+    </nz-option>
+    }@else {
+      @for (b of bodegas; track b) {
+        <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+    }
+  }
+</nz-select>
+}
+
+
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+
+<nz-table 
+    #Table 
+    [nzData]="displayedTransferencias" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzTitle="Solicitudes" 
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th>Estado</th>
+        <th>Fecha envío</th>
+        <th>Fecha recepción</th>
+        <th>Observación</th>
+        <th nzWidth="200px">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.transferenciaId }}</td>
+        <td>{{ data.estadosTransferencia.nombre }}</td>
+        <td>{{ data.fechaEnvio | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>{{ data.fechaRecepcion | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td [nzEllipsis]="true" nz-popover [nzPopoverContent]="data.observaciones" [nzPopoverOverlayStyle]="{'max-width': '350px'}">
+          {{ data.observaciones }}
+        </td>
+        <td nzAlign="right">
+          <a (click)="detalle(data.transferenciaId)">Detalle</a>
+          @if(authService.hasPermission('d_transferencias_global')){
+            <nz-divider nzType="vertical"></nz-divider>
+            <a style="color: red;" (click)="delete(data)">Cancelar</a>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  @if(authService.hasPermission('c_recepciones_global')){
+    <button nz-button nzType="primary" (click)="recepcion()">
+      Recepcionar
+    </button>
+  }
+  

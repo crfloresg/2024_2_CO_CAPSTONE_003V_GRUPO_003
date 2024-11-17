@@ -4,7 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace InformeApi.Models
 {
-  [Table("transferencias_detalles")]
+  //[Table("transferencias_detalles")]
+  [Table("Transferencias_Detalles")]
   public class TransferenciaDetalle
   {
     [Key]
@@ -22,8 +23,24 @@ namespace InformeApi.Models
     public int ProductoId { get; set; }
 
     [Required]
-    [Column("cantidad")]
+    [Column("cantidad_despachada")]
     public int Cantidad { get; set; }
+
+    [Required]
+    [Column("precio_compra")]
+    public int compra { get; set; }
+
+    [Required]
+    [Column("cantidad_recibida")]
+    public int Recibido { get; set; }
+
+    [Required]
+    [Column("cantidad_dmg")]
+    public int Dañado { get; set; }
+
+    [Required]
+    [Column("cantidad_perdida")]
+    public int Perdido { get; set; }
 
     [JsonIgnore]
     public Transferencia Transferencia { get; set; }

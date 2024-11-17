@@ -80,7 +80,7 @@ export class RolesComponent {
 
     modalRef.afterClose.subscribe(async (result) => {
       if (result) {
-        this.uiService.showModal('Usuario modificado exitosamente', '', 'success');
+        this.uiService.showModal('Rol modificado exitosamente', '', 'success');
         await this.getRoles();
       }
     });
@@ -157,7 +157,7 @@ export class RolesComponent {
 
     modalRef.afterClose.subscribe(async (result) => {
       if (result) {
-        this.uiService.showModal('Usuario creado exitosamente', '', 'success');
+        this.uiService.showModal('Rol creado exitosamente', '', 'success');
         await this.getRoles();
       }
     });

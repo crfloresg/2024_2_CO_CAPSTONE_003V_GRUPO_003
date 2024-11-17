@@ -14,6 +14,12 @@ import { NzStatus } from 'ng-zorro-antd/core/types';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { SolicitudesService } from '../../../services/solicitudes.service';
 import { SolicitudCU, DetallesSolicitudesInventarioCU } from '../../../interfaces/solicitud';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { Bodega } from '../../../interfaces/bodega';
+import { BodegasService } from '../../../services/bodegas.service';
 
 @Component({
   selector: 'app-cu-solicitud',
@@ -26,6 +32,9 @@ import { SolicitudCU, DetallesSolicitudesInventarioCU } from '../../../interface
     NzButtonModule,
     FormsModule,
     NzFlexModule,
+    NzIconModule,
+    NzTypographyModule,
+    NzSelectModule,
   ],
   templateUrl: './cu-solicitud.component.html',
   styleUrl: './cu-solicitud.component.scss',
@@ -36,6 +45,8 @@ export class CuSolicitudComponent {
   authService = inject(AuthService);
   solicitudesService = inject(SolicitudesService);
   productosService = inject(ProductosService);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
   productos: ProductoAux[] = [];
   displayedProductos: ProductoAux[] = [];
@@ -53,17 +64,19 @@ export class CuSolicitudComponent {
   loadingTableData = true;
   loadingSolicitud = true;
 
-  readonly #modal = inject(NzModalRef);
-  @Input() id?: number;
-  @Input() bodegaId?: number;
-  readonly nzModalData: { id: number; bodegaId: number } =
-    inject(NZ_MODAL_DATA);
+  bodegasService = inject(BodegasService);
+  bodegas: Bodega[] = [];
+  loadingBodegas = true;
+
+  id: any;
+  bodegaId: any;
 
   async ngOnInit() {
-    this.id = this.nzModalData.id;
-    this.bodegaId = this.nzModalData.bodegaId;
-    this.solicitud.solicitudId = this.id;
+    this.id = this.activatedRoute.snapshot.paramMap.get('solicitudId')!;
+    this.bodegaId = Number(this.activatedRoute.snapshot.paramMap.get('bodegaId')!);
 
+    this.solicitud.solicitudId = this.id;
+    await this.getBodega();
     await this.getAll();
 
     if (this.id != 0) {
@@ -101,6 +114,7 @@ export class CuSolicitudComponent {
       );
 
       this.displayedProductos = [];
+      let tempProductos = JSON.parse(JSON.stringify(this.productos));
 
       for (
         let index = 0;
@@ -108,24 +122,26 @@ export class CuSolicitudComponent {
         index++
       ) {
         const element = this.solicitud.detallesSolicitudesInventario[index];
-        const prodIndex = this.productos.findIndex(
-          (x) => x.productoId == element.productoId
+        const prodIndex = tempProductos.findIndex(
+          (x: any) => x.productoId == element.productoId
         );
 
         if (prodIndex != -1) {
-          const tempProd = this.productos[prodIndex];
+          const tempProd = tempProductos[prodIndex];
 
-          console.log(tempProd);
+          let p = this.productos.find(x => x.productoId == element.productoId)!;
+          p.checked = true;
+          p.cantidad = element.cantidad;
 
           tempProd.checked = true;
           tempProd.cantidad = element.cantidad;
 
           this.displayedProductos.push(tempProd);
-          this.productos.splice(prodIndex, 1);
+          tempProductos.splice(prodIndex, 1);
         }
       }
 
-      this.displayedProductos = this.displayedProductos.concat(this.productos);
+      this.displayedProductos = this.displayedProductos.concat(tempProductos);
 
       this.loadingSolicitud = false;
     } catch (error) {
@@ -134,41 +150,98 @@ export class CuSolicitudComponent {
     }
   }
 
-  onItemChecked(check: boolean, productoId: number) {
-    console.log(check, productoId);
+  async getBodega(){
+    this.loadingBodegas = true;
+    try {
+      this.bodegas = await this.bodegasService.getAll();
+      this.loadingBodegas = false;
+    } catch (error) {
+      this.loadingBodegas = false;
+      this.uiService.showErrorModal('Error al cargar datos', error);
+    }
   }
 
-  inputStatus(index: number) {
+  async selectBodega(id: number){
+    if(this.activatedRoute.snapshot.paramMap.get('solicitudId')! == '0' && this.authService.hasPermission('cu_solicitudes_global')){
+      this.solicitud.bodegaId = id;
+      this.bodegaId = id;
+      await this.getAll();
+    }
+  }
+
+  onItemChecked(check: boolean, productoId: number) {
+    
+    const producto = this.productos.find(x => x.productoId == productoId);
+    const producto2 = this.displayedProductos.find(x => x.productoId == productoId);
+    if(check){
+      producto!.checked = true;
+      producto2!.checked = true;
+    }else{
+      producto!.checked = false;
+      producto2!.checked = false;
+    }
+  }
+
+  setCantidad(event: any, productoId: number){
+    let producto = this.productos.find(x => x.productoId == productoId);
+    let producto2 = this.displayedProductos.find(x => x.productoId == productoId);
+    if(producto){
+      producto.cantidad = event.target.value;
+      producto2!.cantidad = event.target.value;
+    }
+  }
+
+  inputStatus(productoId: number) {
+
+    let producto = this.productos.find(x => x.productoId == productoId)!;
+
     const error: NzStatus = 'error';
     const def: NzStatus = '';
     if (
-      (this.displayedProductos[index].cantidad == undefined ||
-        this.displayedProductos[index].cantidad! <= 0) &&
-      this.displayedProductos[index].checked == true
+      (producto.cantidad == undefined ||
+        producto.cantidad! <= 0) &&
+        producto.checked == true
     ) {
       return error;
     }
     return def;
   }
 
-  inputValid(index: number) {
-    if (this.displayedProductos[index].checked == true) {
-      return true;
+  inputValid(productoId: number) {
+
+    let producto = this.productos.find(x => x.productoId == productoId);
+
+    if(producto){
+      if (producto.checked == true) {
+        return true;
+      }
     }
     return false;
   }
 
   valid() {
-    for (let index = 0; index < this.displayedProductos.length; index++) {
-      const element = this.displayedProductos[index];
-      if (
-        element.checked == true &&
-        this.displayedProductos[index].cantidad != undefined &&
-        this.displayedProductos[index].cantidad! > 0
-      ) {
-        return false;
+
+    let unchecked = 0
+
+    for (let index = 0; index < this.productos.length; index++) {
+      const element = this.productos[index];
+      
+      if(element.checked){
+        if(element.cantidad == undefined){
+          return false;
+        }else if(element.cantidad <= 0){
+          return false;
+        }
+      }else {
+        unchecked += 1;
       }
+
     }
+
+    if(unchecked == this.productos.length){
+      return false;
+    }
+
     return true;
   }
 
@@ -178,7 +251,8 @@ export class CuSolicitudComponent {
       this.createDetalle();
       const req = await this.solicitudesService.CuPost(this.solicitud);
       this.isLoadingCU = false;
-      this.#modal.destroy({ success: true });
+      this.router.navigate(['/solicitud'])
+      this.uiService.showModal('Solicitud creada exitosamente', '', 'success');
     } catch (error) {
       this.isLoadingCU = false;
       this.uiService.showErrorModal('Error al cargar datos', error);
@@ -187,7 +261,7 @@ export class CuSolicitudComponent {
 
   createDetalle() {
     this.solicitud.detallesSolicitudesInventario = [];
-    this.displayedProductos.forEach((element) => {
+    this.productos.forEach((element) => {
       if (element.checked == true && element.cantidad! > 0) {
         const tempDetalle: DetallesSolicitudesInventarioCU = {
           cantidad: element.cantidad!,
@@ -197,6 +271,24 @@ export class CuSolicitudComponent {
       }
     });
   }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
+    this.displayedProductos = this.productos.filter(
+      (item) =>
+        item.cantidad?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.productoId?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.nombre?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.codigo?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.categoria?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.unidadMedida?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue) ||
+        item.precioVenta?.toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(filterValue)
+    );
+  }
+
 }
 
 interface ProductoAux extends Producto{

@@ -62,10 +62,9 @@ export class LoginComponent {
       if(this.remember){
         localStorage.setItem(this.REMEMBER_KEY, this.user.email)
       }
-      this.router.navigate(['dashboard'], {replaceUrl: true});
+      this.router.navigate(['inicio'], {replaceUrl: true});
       this.isLoading = false;
     } catch (error: any) {
-      console.log(error);
       this.isLoading = false;
       this.uiService.showErrorModal('Error al iniciar sesión', error);
     }

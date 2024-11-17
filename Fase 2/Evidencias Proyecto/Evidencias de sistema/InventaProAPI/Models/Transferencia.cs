@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace InventaProAPI.Models
 {
@@ -26,14 +27,14 @@ namespace InventaProAPI.Models
     [ForeignKey("EstadoTransferencia")]
     public int EstadoTransferenciaId { get; set; }
 
-    [Column("fecha_solicitud")]
-    public DateTime FechaSolicitud { get; set; }
-
     [Column("fecha_envio")]
     public DateTime? FechaEnvio { get; set; }
 
     [Column("fecha_recepcion")]
     public DateTime? FechaRecepcion { get; set; }
+
+    [Column("fecha_cancelado")]
+    public DateTime? FechaCancelado { get; set; }
 
     [Required]
     [Column("usuario_solicitante_id")]
@@ -47,8 +48,9 @@ namespace InventaProAPI.Models
     [Column("observaciones")]
     public string Observaciones { get; set; }
 
-    [JsonIgnore]
-    public Producto Producto { get; set; }
+    [Required]
+    [Column("secret")]
+    public int Secret { get; set; }
 
     [JsonIgnore]
     public Bodega BodegaOrigen { get; set; }
@@ -64,9 +66,6 @@ namespace InventaProAPI.Models
 
     [JsonIgnore]
     public Usuario UsuarioVerificador { get; set; }
-
-    [JsonIgnore]
-    public ICollection<Movimiento> Movimientos { get; set; }
 
     [JsonIgnore]
     public ICollection<TransferenciaDetalle> DetallesTransferencia { get; set; }

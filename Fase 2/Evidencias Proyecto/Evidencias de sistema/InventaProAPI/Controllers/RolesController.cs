@@ -54,9 +54,7 @@ namespace InventaProAPI.Controllers
           query = query.Where(x => x.BodegaId == userRequest.BodegaId);
         }
 
-        var roles = await query.ToListAsync();
-
-        if ( roles! ==  null ) { return NotFound(); }
+        var roles = await query.OrderByDescending(x => x.RolId).ToListAsync();
 
         return Ok(roles);
 
@@ -153,7 +151,7 @@ namespace InventaProAPI.Controllers
           await _context.Rols.AddAsync(newRol);
           await _context.SaveChangesAsync();
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_create", $"Se creo el rol {newRol.RolId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_create", $"Se creo el rol {newRol.RolId}", userRequest.BodegaId);
 
           rolIdGlobal = newRol.RolId;
 
@@ -178,7 +176,7 @@ namespace InventaProAPI.Controllers
 
           await _context.SaveChangesAsync();
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_update", $"Se modifico el rol {rol.RolId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_update", $"Se modifico el rol {rol.RolId}", userRequest.BodegaId);
 
           rolIdGlobal = rol.RolId;
         }
@@ -186,10 +184,18 @@ namespace InventaProAPI.Controllers
         await _context.RolesPermisos.Where(x => x.RolId == rolIdGlobal).ExecuteDeleteAsync();
         await _context.SaveChangesAsync();
 
-        
+        var permisos = await _context.Permisos.ToListAsync();
+
 
         foreach (var item in body.Permisos)
         {
+
+          if (!_tokenProvider.HasPermission("cu_roles_global") && permisos.Where(x => x.PermisoId == item.PermisoId && x.Nombre.Contains("bodega")).FirstOrDefault() == null)
+          {
+            await transaction.RollbackAsync();
+            return Forbid();
+          }
+
           var newRolPermiso = new RolesPermiso {
             RolId = rolIdGlobal,
             PermisoId = item.PermisoId
@@ -232,7 +238,6 @@ namespace InventaProAPI.Controllers
           }) 
           .ToListAsync();
 
-        if(bodegas.Count == 0) { return NotFound(); }
 
         return Ok(bodegas);
 
@@ -265,7 +270,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_delete", $"Se deshabilito el rol {rol.RolId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_delete", $"Se deshabilito el rol {rol.RolId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 
@@ -303,7 +308,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_activate", $"Se habilito el rol {rol.RolId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "rol_activate", $"Se habilito el rol {rol.RolId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 

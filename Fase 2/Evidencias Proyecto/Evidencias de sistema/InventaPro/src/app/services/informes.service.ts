@@ -64,4 +64,72 @@ export class InformesService {
     }
   }
 
+  async auditoria(usuId: number){
+    try {
+      const req = await lastValueFrom(
+        this.httpClient.get<{
+          fileName: string,
+          base64: string
+        }>(
+          `${this.apiUrl}/Auditoria`,
+          {params: new HttpParams().set('usuId', usuId)}
+        )
+      );
+       return req;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // async perdidas(usuId: number){
+  //   try {
+  //     const req = await lastValueFrom(
+  //       this.httpClient.get<{
+  //         fileName: string,
+  //         base64: string
+  //       }>(
+  //         `${this.apiUrl}/Perdida`,
+  //         {params: new HttpParams().set('usuId', usuId).set('tipoperdida')}
+  //       )
+  //     );
+  //      return req;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+
+  async transferenciaDetalle(transferenciaId: number){
+    try {
+      const req = await lastValueFrom(
+        this.httpClient.get<{
+          fileName: string,
+          base64: string
+        }>(
+          `${this.apiUrl}/Transferencia`,
+          {params: new HttpParams().set('IdTransferencia', transferenciaId)}
+        )
+      );
+       return req;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async compraDetalle(compraId: number){
+    try {
+      const req = await lastValueFrom(
+        this.httpClient.get<{
+          fileName: string,
+          base64: string
+        }>(
+          `${this.apiUrl}/DetalleCompra/${compraId}`,
+        )
+      );
+       return req;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }

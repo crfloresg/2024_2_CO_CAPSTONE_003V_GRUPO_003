@@ -38,14 +38,13 @@ namespace InventaProAPI.Controllers
             x.Descripcion
           });
 
-        //if (userRequest.BodegaId != 1)
-        //{
-        //  query = query.Where(x => x.BodegaId == userRequest.BodegaId);
-        //}
+        if (!_tokenProvider.HasPermission("cu_usuarios_global"))
+        {
+          query = query.Where(x => x.Nombre.Contains("bodega") );
+        }
 
         var permisos = await query.ToListAsync();
 
-        if (permisos! == null) { return NotFound(); }
 
         return Ok(permisos);
 

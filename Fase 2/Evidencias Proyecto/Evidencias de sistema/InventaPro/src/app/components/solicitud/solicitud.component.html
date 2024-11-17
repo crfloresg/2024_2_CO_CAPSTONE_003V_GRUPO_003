@@ -1,17 +1,22 @@
 <nz-spin [nzTip]="'Cargando...'" [nzSpinning]="false">
   <div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
     <h1 style="width: fit-content;" nz-typography>Gestión de Solicitudes</h1>
-    @if(authService.hasPermission('cu_solicitudes_bodega')){
-      <button nz-button nzType="primary" (click)="add()">
+    @if(authService.hasPermission('cu_solicitudes_bodega') || authService.hasPermission('cu_solicitudes_global')){
+      <button nz-button nzType="primary" (click)="add()" [disabled]="loadingBodegas">
         Añadir Solicitud
       </button>
     }
   </div>
   
-  <nz-select 
+
+  @if(authService.hasPermission('r_solicitudes_global')){
+    <nz-select 
     name="select-bodega" 
     [(ngModel)]="selectedBodegaId" 
     required
+    nzPlaceHolder="Seleccione bodega"
+    style="margin-bottom: 16px; width: 25%;"
+    [disabled]="loadingTableData"
     (ngModelChange)="selectBodega($event)">
     @if(loadingBodegas){
       <nz-option 
@@ -25,10 +30,19 @@
       }
     }
   </nz-select>
+  }
+
+  <nz-input-group [nzPrefix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+
 
   <nz-table 
     #Table 
-    [nzData]="solicitudes" 
+    [nzData]="displayedSolicitudes" 
     [nzLoading]="loadingTableData" 
     [nzPageSize]="pageSize" 
     [(nzPageIndex)]="pageIndex"
@@ -42,7 +56,7 @@
         <th>Fecha modificada</th>
         <th>Estado</th>
         <th>Fecha Aceptada / Rechazada</th>
-        <th>Observacion</th>
+        <th>Observación</th>
         <th nzWidth="200px">Acción</th>
       </tr>
     </thead>
@@ -73,7 +87,7 @@
             <nz-divider nzType="vertical"></nz-divider>
             <a style="color: red;" (click)="delete(data)">Cancelar</a>
           }
-          @if(data.estadoSolicitudId == 1 && authService.hasPermission('ad_solicitudes')){
+          @if(data.estadoSolicitudId == 1 && authService.hasPermission('ad_solicitudes_global')){
             @if(
               (data.estadoSolicitudId == 1 && (authService.hasPermission('d_solicitudes_global') ||
               authService.hasPermission('d_solicitudes_bodega'))) ||

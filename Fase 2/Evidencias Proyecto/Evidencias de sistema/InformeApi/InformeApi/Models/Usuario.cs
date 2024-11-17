@@ -75,9 +75,6 @@ namespace InformeApi.Models
     public ICollection<Auditoria> Auditorias { get; set; }
 
     [JsonIgnore]
-    public ICollection<Alerta> Alertas { get; set; }
-
-    [JsonIgnore]
     public ICollection<SolicitudInventario> SolicitudesSolicitante { get; set; }
 
     [JsonIgnore]

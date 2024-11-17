@@ -8,30 +8,49 @@
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+      <a routerLink="/inicio">
+        <img src="logo.png" alt="logo">
         <h1>Inventapro</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dashboard">Inicio</a>
-          </li>
-        </ul>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/inicio">Inicio</a>
       </li>
+
+      @if(
+        authService.hasPermission('r_informes_global') ||
+        authService.hasPermission('r_informes_bodega') ||
+        authService.hasPermission('r_alarmas_global') ||
+        authService.hasPermission('r_alarmas_bodega') ||
+        authService.hasPermission('r_dashboard_global') ||
+        authService.hasPermission('r_dashboard_bodega')
+      ){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/dashboard">Dashboard</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_bodegas_global')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/bodega">Bodegas</a>
+        </li>
+      }
       @if(authService.hasPermission('r_usuarios_global') || authService.hasPermission('r_usuarios_bodega')){
         <li nz-menu-item nzMatchRouter>
-          <a routerLink="/usuarios">Gestión de Usuarios</a>
+          <a routerLink="/usuarios">Usuarios</a>
         </li>
       }
       @if(authService.hasPermission('r_roles_global') || authService.hasPermission('r_roles_bodega')){
         <li nz-menu-item nzMatchRouter>
-          <a routerLink="/roles">Gestión de Roles y permisos</a>
+          <a routerLink="/roles">Roles y permisos</a>
         </li>
       }
-      @if(authService.hasPermission('r_productos')){
+      @if(authService.hasPermission('r_distribuidores_global')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/distribuidor">Distribuidores</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_productos_global') || authService.hasPermission('r_productos_bodega')){
         <li nz-menu-item nzMatchRouter>
           <a routerLink="/productos">Productos</a>
         </li>
@@ -41,11 +60,29 @@
           <a routerLink="/inventario">Inventario</a>
         </li>
       }
-      @if((authService.hasPermission('r_inventarios_global') || authService.hasPermission('r_inventarios_bodega')) && authService.hasPermission('ad_solicitudes')){
+      @if(authService.hasPermission('r_solicitudes_global') || authService.hasPermission('r_solicitudes_bodega')){
         <li nz-menu-item nzMatchRouter>
           <a routerLink="/solicitud">Solicitudes</a>
         </li>
       }
+      @if(authService.hasPermission('r_transferencias_global') || authService.hasPermission('r_transferencias_bodega')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/transferencia">Transferencias</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_perdidas_global') || authService.hasPermission('r_perdidas_bodega')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/perdida">Perdidas</a>
+        </li>
+      }
+      @if(authService.hasPermission('r_compras_global')){
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/compras">Compras</a>
+        </li>
+      }
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/alerta">Configuración de alertas</a>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>

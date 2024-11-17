@@ -13,7 +13,7 @@ namespace InventaProAPI.Services
       _serviceProvider = serviceProvider;
     }
 
-    public async Task Auditar(int usuarioId, string accion, string descripcion)
+    public async Task Auditar(int usuarioId, string accion, string descripcion, int bodegaId)
     {
       try 
       {
@@ -23,7 +23,8 @@ namespace InventaProAPI.Services
         {
           UsuarioId = usuarioId,
           Accion = accion,
-          Descripcion = descripcion
+          Descripcion = descripcion,
+          BodegaId = bodegaId
         };
         await _context.Auditorias.AddAsync(aud);
         await _context.SaveChangesAsync();

@@ -8,6 +8,10 @@ namespace InventaProAPI.DTOs
     [Required]
     public int UsuarioId { get; set; }
 
+    [StringLength(12)]
+    [Required]
+    public string Run { get; set; }
+
     [Required]
     [StringLength(50)]
     public string Nombre { get; set; }

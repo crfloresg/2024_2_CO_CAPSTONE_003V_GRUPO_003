@@ -1,4 +1,5 @@
-﻿using InventaProAPI.Data;
+﻿using InformeApi.Models;
+using InventaProAPI.Data;
 using InventaProAPI.DTOs;
 using InventaProAPI.Models;
 using InventaProAPI.Services;
@@ -81,6 +82,8 @@ namespace InventaProAPI.Controllers
           .Where(x => x.ProductoId == id)
           .FirstOrDefaultAsync();
 
+        if(productos == null) { return NotFound(); }
+
         return Ok(productos);
       }
       catch (Exception ex)
@@ -116,7 +119,27 @@ namespace InventaProAPI.Controllers
 
           await _context.AddAsync(newProducto);
           await _context.SaveChangesAsync();
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_create", $"Se creo el producto {newProducto.ProductoId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_create", $"Se creo el producto {newProducto.ProductoId}", userRequest.BodegaId);
+
+          var bodegas = await _context.Bodegas.ToListAsync();
+
+          foreach (var item in bodegas)
+          {
+            var newAlert = new Alerta
+            {
+              ProductoId = newProducto.ProductoId,
+              BodegaId = item.BodegaId,
+              TipoAlertaId = 1,
+              Mensaje = "Stock minimo",
+              EstadoAlertaId = 1,
+              Minimo = 0
+            };
+
+            await _context.Alertas.AddAsync(newAlert);
+            await _context.SaveChangesAsync();
+          }
+
+
         }
         else
         {
@@ -134,7 +157,7 @@ namespace InventaProAPI.Controllers
 
           await _context.SaveChangesAsync();
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_update", $"Se modifico el producto {producto.ProductoId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_update", $"Se modifico el producto {producto.ProductoId}", userRequest.BodegaId);
         }
         
         await transaction.CommitAsync();
@@ -171,7 +194,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_desactivado", $"Se deshabilito el producto {producto.ProductoId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_desactivado", $"Se deshabilito el producto {producto.ProductoId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 
@@ -208,7 +231,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_activate", $"Se habilito el producto {producto.ProductoId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "producto_activate", $"Se habilito el producto {producto.ProductoId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 
@@ -226,22 +249,22 @@ namespace InventaProAPI.Controllers
 
     private bool CanRead()
     {
-      return _tokenProvider.HasPermission("r_productos");
+      return _tokenProvider.HasPermission("r_productos_bodega") || _tokenProvider.HasPermission("r_productos_global");
     }
 
     private bool CanCU()
     {
-      return _tokenProvider.HasPermission("cu_productos");
+      return _tokenProvider.HasPermission("cu_productos_global");
     }
 
     private bool CanActivate()
     {
-      return _tokenProvider.HasPermission("a_productos");
+      return _tokenProvider.HasPermission("a_productos_global");
     }
 
     private bool CanDelete()
     {
-      return _tokenProvider.HasPermission("d_productos");
+      return _tokenProvider.HasPermission("d_productos_global");
     }
   }
 }

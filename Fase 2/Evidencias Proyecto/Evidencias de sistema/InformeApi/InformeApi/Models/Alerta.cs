@@ -31,6 +31,10 @@ namespace InformeApi.Models
     public string Mensaje { get; set; }
 
     [Required]
+    [Column("stockMin")]
+    public int Minimo { get; set; }
+
+    [Required]
     [Column("estado_alerta_id")]
     [ForeignKey("EstadoAlerta")]
     public int EstadoAlertaId { get; set; }

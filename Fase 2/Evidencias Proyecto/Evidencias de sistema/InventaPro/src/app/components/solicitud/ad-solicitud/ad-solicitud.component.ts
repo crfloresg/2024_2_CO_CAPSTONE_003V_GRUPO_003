@@ -58,7 +58,6 @@ export class AdSolicitudComponent {
     this.bodegaId = this.nzModalData.idSolicitud;
     await this.getOneByIdSolicitud();
     await this.getIventario();
-    console.log(this.productos);
   }
 
   async getOneByIdSolicitud(){

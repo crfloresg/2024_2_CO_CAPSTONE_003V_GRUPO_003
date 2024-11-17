@@ -36,46 +36,36 @@ namespace InventaProAPI.Controllers
 
         if (!CanRead()) { return Forbid(); }
 
-        var idFilter = 0;
-
-        if (!_tokenProvider.HasPermission("r_inventarios_global"))
-        {
-          idFilter = userRequest.BodegaId;
-        }
-        else
-        {
-          idFilter = idBodega;
-        }
-
+        var idFilter = _tokenProvider.HasPermission("r_inventarios_global") ? idBodega : userRequest.BodegaId;
 
         var inventario = await _context
-          .Productos
-          .Where(p => 
-            p.Inventarios != null &&
-            p.LotesInventario != null &&
-            p.LotesInventario.Any(l => 
-              l.BodegaId == idFilter && 
-              l.Cantidad > 0))
-          .Select(p => new
-          {
-            p.ProductoId,
-            p.Nombre,
-            p.Codigo,
-            p.Categoria,
-            p.UnidadMedida,
-            p.PrecioVenta,
-            p.Estado,
-            LotesInventario = p.LotesInventario
-                                  .Where(l => l.BodegaId == idFilter)
-                                  .ToList(),
-            cantidad = p.Inventarios.Where(i => i.BodegaId == idFilter).FirstOrDefault().Cantidad
-          })
-          .ToListAsync();
-
-        if(inventario.Count == 0) { return NotFound(); }
+            .Productos
+            .Where(p =>
+                p.Inventarios != null &&
+                p.LotesInventario != null &&
+                p.LotesInventario.Any(l =>
+                    l.BodegaId == idFilter &&
+                    l.Cantidad > 0))
+            .Select(p => new
+            {
+              p.ProductoId,
+              p.Nombre,
+              p.Codigo,
+              p.Categoria,
+              p.UnidadMedida,
+              p.PrecioVenta,
+              p.Estado,
+              LotesInventario = p.LotesInventario
+                    .Where(l => l.BodegaId == idFilter && l.Cantidad > 0) // Filter out LotesInventario with 0 cantidad
+                    .ToList(),
+              cantidad = p.Inventarios
+                    .Where(i => i.BodegaId == idFilter)
+                    .FirstOrDefault()
+                    .Cantidad
+            })
+            .ToListAsync();
 
         return Ok(inventario);
-
       }
       catch (Exception ex)
       {
@@ -87,7 +77,13 @@ namespace InventaProAPI.Controllers
 
     private bool CanRead()
     {
-      return _tokenProvider.HasPermission("r_inventarios_global") || _tokenProvider.HasPermission("r_inventarios_bodega");
+      return
+        _tokenProvider.HasPermission("r_inventarios_global") ||
+        _tokenProvider.HasPermission("r_inventarios_bodega") ||
+        _tokenProvider.HasPermission("ad_solicitudes_global") ||
+        _tokenProvider.HasPermission("c_transferencias_global") ||
+        _tokenProvider.HasPermission("c_perdidas_bodega") ||
+        _tokenProvider.HasPermission("c_perdidas_global");
     }
 
 

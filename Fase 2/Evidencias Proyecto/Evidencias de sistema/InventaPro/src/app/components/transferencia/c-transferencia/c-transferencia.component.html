@@ -1,0 +1,170 @@
+<h1 style="width: fit-content;" nz-typography>Nueva Transferencia</h1>
+
+<div style="width: 100%;" nz-row>
+  <nz-select
+    nz-col
+    nzSpan="10"
+    name="select-bodega"
+    [(ngModel)]="selectedBodegaId"
+    required
+    [disabled]="loadingTableData"
+    [nzStatus]="statusBodega()"
+    style="margin-bottom: 16px;"
+    (ngModelChange)="selectBodega($event)"
+    nzPlaceHolder="Seleccione bodega destino"
+    [nzLoading]="loadingBodegas"
+  >
+    @if(loadingBodegas){
+      <nz-option nzDisabled nzCustomContent>
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+    }@else {
+      @for (b of bodegas; track b) {
+        <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+  </nz-select>
+</div>
+
+<nz-table 
+  #Table 
+  [nzData]="displayedInventario" 
+  [nzLoading]="loadingTableData || loadingSolicitudes" 
+  [nzPageSize]="pageSize" 
+  [(nzPageIndex)]="pageIndex"
+  nzTitle="Inventario" 
+  [nzScroll]="{x: '600px'}"
+>
+  <thead>
+    <tr>
+      <th nzWidth="50px">#</th>
+      <th>Nombre</th>
+      <th>Código</th>
+      <th>Categoría</th>
+      <th>Unidad de medida</th>
+      <th 
+        nz-tooltip 
+        nzTooltipTitle="Solicitudes aprobadas esta semana"
+      >
+        Cantidad solicitada
+      </th>
+      <th>Cantidad en bodega</th>    
+      <th>Precio compra</th>
+      <th>Cantidad a enviar</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+      @if (data.lotesInventario.length > 1){
+        @for(lote of data.lotesInventario; track lote;){
+          @if($index == 0){
+            <tr>
+              <td [rowSpan]="data.lotesInventario.length">{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+              <td [rowSpan]="data.lotesInventario.length">{{ data.nombre }}</td>
+              <td [rowSpan]="data.lotesInventario.length">{{ data.codigo }}</td>
+              <td [rowSpan]="data.lotesInventario.length">{{ data.categoria }}</td>
+              <td [rowSpan]="data.lotesInventario.length">{{ data.unidadMedida }}</td>
+              <td [rowSpan]="data.lotesInventario.length">{{ data.cantidadSolicitada }}</td>
+              <td>{{ lote.cantidadEnBodega }}</td>
+              <td>${{ lote.precioCompra }}</td>
+              <td>
+                <nz-input-number 
+                  [ngModel]="lote.cantidadAEnviar" 
+                  [nzMin]="0" 
+                  [nzStep]="1" 
+                  [nzMax]="lote.cantidadEnBodega" 
+                  (input)="setCantidad($event, lote.loteId, data.productoId)"
+                >
+                </nz-input-number>
+              </td>
+          </tr>
+          }@else {
+            <tr>
+              <td>{{ lote.cantidadEnBodega }}</td>
+              <td>${{ lote.precioCompra }}</td>
+              <td>
+                <nz-input-number 
+                  [ngModel]="lote.cantidadAEnviar" 
+                  [nzMin]="0" 
+                  [nzStep]="1"
+                  [nzMax]="lote.cantidadEnBodega" 
+                  (input)="setCantidad($event, lote.loteId, data.productoId)"
+                >
+                </nz-input-number>
+              </td>
+            </tr>
+          }
+        }
+      }@else {
+        <tr>
+          <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+          <td>{{ data.nombre }}</td>
+          <td>{{ data.codigo }}</td>
+          <td>{{ data.categoria }}</td>
+          <td>{{ data.unidadMedida }}</td>
+          <td>{{ data.cantidadSolicitada }}</td>
+          <td>{{ data.lotesInventario[0].cantidadEnBodega }}</td>
+          <td>${{ data.lotesInventario[0].precioCompra }}</td>
+          <td>
+            <nz-input-number 
+              type="number"
+              [ngModel]="data.lotesInventario[0].cantidadAEnviar" 
+              [nzMin]="0" 
+              [nzStep]="1"
+              [nzMax]="data.lotesInventario[0].cantidadEnBodega" 
+              (input)="setCantidad($event, data.lotesInventario[0].loteId, data.productoId)"
+            >
+            </nz-input-number>
+          </td>
+        </tr>
+      }
+    }
+  </tbody>
+</nz-table>
+
+<div nz-row>
+  <div nz-col nzSpan="16">
+
+    <form nz-form  style="width: 80%;" #myForm="ngForm">
+      <p nz-typography>Observación</p>
+      <nz-form-item>
+        <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="observacionTip">
+          <textarea nz-input [(ngModel)]="obs" name="required" rows="4" required ></textarea>
+          <ng-template #observacionTip let-control>
+            @if (control.errors?.['maxlength']) {
+              Maximo de caracteres exedido
+            }
+            @if (control.errors?.['required']) {
+              Campo requerido
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+  </div>
+  <div nz-col nzSpan="8">
+    <div nz-flex nzVertical nzGap="large" nzJustify="center" style="height: 100%;">
+      <button 
+        nz-button 
+        nzType="primary" 
+        [disabled]="!valid()" 
+        style="width: 50%;" 
+        (click)="create()"
+        [nzLoading]="creating"
+      >
+        Aceptar
+      </button>
+      <button 
+        nz-button 
+        nzType="primary" 
+        nzDanger 
+        style="width: 50%;"
+        routerLink="/transferencia"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

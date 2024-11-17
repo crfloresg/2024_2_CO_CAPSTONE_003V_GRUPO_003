@@ -62,7 +62,50 @@ namespace InventaProAPI.Controllers
           .Where(x => x.BodegaId == idFilter)
           .ToListAsync();
         
-        if(solicitudes.Count == 0) { return NotFound(); }
+
+        return Ok(solicitudes);
+
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
+    }
+
+
+
+    [HttpGet("SolicitudesByIdBodegaForTransferencia/{idBodega}")]
+    [Authorize]
+    public async Task<IActionResult> SolicitudesByIdBodegaForTransferencia(int idBodega)
+    {
+      try
+      {
+        var userRequest = _tokenProvider.GetAccessTokenData();
+
+        //if (!CanRead()) { return Forbid(); }
+
+        var today = DateTime.Today;
+        var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
+        var endOfWeek = DateTime.Now;
+
+
+        var solicitudes = await _context
+          .SolicitudInventarios
+          .Where(x => x.DetallesSolicitudesInventario.Count > 0)
+          .Include(x => x.DetallesSolicitudesInventario)
+          .Where(x => 
+            x.BodegaId == idBodega &&
+            x.EstadoSolicitudId == 2 &&
+            (x.FechaAprobacion >= startOfWeek &&
+            x.FechaAprobacion <= endOfWeek)
+          )
+          .SelectMany(x => x.DetallesSolicitudesInventario.Select(y => new
+          {
+            y.ProductoId,
+            y.Cantidad
+          }))
+          .ToListAsync();
+
 
         return Ok(solicitudes);
 
@@ -85,8 +128,6 @@ namespace InventaProAPI.Controllers
 
         if (!CanRead()) { return Forbid(); }
 
-        if (!_tokenProvider.HasPermission("r_solicitudes_global")) { return Forbid(); }
-
         var solicitudes = await _context
           .SolicitudInventarios
           .Where(x => x.DetallesSolicitudesInventario.Count > 0)
@@ -98,6 +139,8 @@ namespace InventaProAPI.Controllers
           .FirstOrDefaultAsync();
 
         if (solicitudes == null) { return NotFound(); }
+
+        if(solicitudes.BodegaId != userRequest.BodegaId && !_tokenProvider.HasPermission("r_solicitudes_global")) { return Forbid(); }
 
         return Ok(solicitudes);
 
@@ -116,7 +159,10 @@ namespace InventaProAPI.Controllers
     {
       try
       {
+        var userRequest = _tokenProvider.GetAccessTokenData();
         if (!CanCU()) { return Forbid(); }
+
+        if(idBodega != userRequest.BodegaId && !_tokenProvider.HasPermission("cu_solicitudes_global")) { return Forbid(); }
 
         var productos = await _context
           .Productos
@@ -124,7 +170,6 @@ namespace InventaProAPI.Controllers
           .Where(x => x.Estado == 1)
           .ToListAsync();
 
-        if(productos.Count == 0) { return NotFound(); }
 
         return Ok(productos);
 
@@ -170,7 +215,7 @@ namespace InventaProAPI.Controllers
 
           auxId = newSolicitud.SolicitudId;
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_create", $"Se creo la solicitud {newSolicitud.SolicitudId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_create", $"Se creo la solicitud {newSolicitud.SolicitudId}", userRequest.BodegaId);
         }
         else
         {
@@ -184,7 +229,7 @@ namespace InventaProAPI.Controllers
 
           solicitud.FechaModificacion = DateTime.Now;
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_update", $"Se modifico la solicitud {solicitud.SolicitudId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_update", $"Se modifico la solicitud {solicitud.SolicitudId}", userRequest.BodegaId);
 
           await _context.SolicitudInventarioDetalles.Where(x => x.SolicitudId == solicitud.SolicitudId).ExecuteDeleteAsync();
           await _context.SaveChangesAsync();
@@ -230,7 +275,7 @@ namespace InventaProAPI.Controllers
       {
         var userRequest = _tokenProvider.GetAccessTokenData();
 
-        if (!_tokenProvider.HasPermission("ad_solicitudes")) 
+        if (!_tokenProvider.HasPermission("ad_solicitudes_global")) 
         {
           await transaction.RollbackAsync();
           return Forbid(); 
@@ -251,14 +296,14 @@ namespace InventaProAPI.Controllers
           solicitud.FechaAprobacion = DateTime.Now;
           solicitud.EstadoSolicitudId = 2;
           await _context.SaveChangesAsync();
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_accept", $"Se acepto la solicitud {body.solicitudId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_accept", $"Se acepto la solicitud {body.solicitudId}", userRequest.BodegaId);
         }
         else
         {
           solicitud.FechaRechazo = DateTime.Now;
           solicitud.EstadoSolicitudId = 3;
           await _context.SaveChangesAsync();
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_deny", $"Se denego la solicitud {body.solicitudId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_deny", $"Se denego la solicitud {body.solicitudId}", userRequest.BodegaId);
         }
 
         await transaction.CommitAsync();
@@ -293,7 +338,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_delete", $"Se cancelo la solicitud {solicitud.SolicitudId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "solicitud_delete", $"Se cancelo la solicitud {solicitud.SolicitudId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 

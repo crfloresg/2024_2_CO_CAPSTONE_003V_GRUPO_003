@@ -56,7 +56,6 @@ export class AuthService {
   }
 
   async refreshToken() {
-    console.log('getting refresh');
     try {
       const req = await lastValueFrom(
         this.httpClient.get<Token>(`${this.apiUrl}`, { withCredentials: true })

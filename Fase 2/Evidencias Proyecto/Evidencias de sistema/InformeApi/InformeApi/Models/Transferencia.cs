@@ -35,6 +35,12 @@ namespace InformeApi.Models
     [Column("fecha_recepcion")]
     public DateTime? FechaRecepcion { get; set; }
 
+    [Column("fecha_cancelacion")]
+    public DateTime? FechaCancelacion { get; set; }
+        
+    [Column("secret")]
+    public int clave { get; set; }
+
     [Required]
     [Column("usuario_solicitante_id")]
     [ForeignKey("UsuarioSolicitante")]

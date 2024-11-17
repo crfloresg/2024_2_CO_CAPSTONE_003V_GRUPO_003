@@ -1,0 +1,68 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Distribuidores</h1>
+  @if(authService.hasPermission('cu_distribuidores_global')){
+  <button nz-button nzType="primary" (click)="add()">
+    <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    Agregar Distribuidor
+  </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table #Table [nzData]="displayedDistribuidores" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '650px'}">
+  <thead>
+    <tr>
+      <th nzWidth="75px">#</th>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Estado</th>
+      @if(
+        authService.hasPermission('cu_distribuidores_global') || 
+        authService.hasPermission('a_distribuidores_global') || 
+        authService.hasPermission('d_distribuidores_global')
+      ){
+        <th nzWidth="200px">Acción</th>
+      }
+
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of Table.data; track u;) {
+    <tr>
+      <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+      <td>{{ u.nombre }}</td>
+      <td>{{ u.direccion }}</td>
+      <td>{{ u.telefono }}</td>
+      <td>{{ u.correoElectronico }}</td>
+      @if(u.estado == 1){
+        <td>Habilitado</td>
+      }
+      @else {
+        <td>Deshabilitado</td>
+      }
+      <td>
+        @if(authService.hasPermission('cu_distribuidores_global') && u.estado == 1){
+          <a (click)="update(u.distribuidorId)">Modificar</a>
+        }
+        @if(u.estado == 1 && authService.hasPermission('d_distribuidores_global')){
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: red;" (click)="delete(u)">Deshabilitar</a>
+        }
+        @else if(authService.hasPermission('a_distribuidores_global')) {
+          <nz-divider nzType="vertical"></nz-divider>
+          <a style="color: green;" (click)="activate(u)">Habilitar</a>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

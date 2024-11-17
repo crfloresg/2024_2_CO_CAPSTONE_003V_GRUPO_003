@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using InformeApi.Models;
 
 namespace InventaProAPI.Models
 {
@@ -42,9 +43,6 @@ namespace InventaProAPI.Models
     public int Estado { get; set; }
 
     public ICollection<Inventario> Inventarios { get; set; }
-
-    [JsonIgnore]
-    public ICollection<Movimiento> Movimientos { get; set; }
 
     public ICollection<LoteInventario> LotesInventario { get; set; }
 

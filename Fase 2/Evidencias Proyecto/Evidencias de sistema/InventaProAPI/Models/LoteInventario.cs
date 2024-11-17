@@ -27,10 +27,10 @@ namespace InventaProAPI.Models
 
     [Required]
     [Column("precio_compra")]
-    public decimal PrecioCompra { get; set; }
+    public int PrecioCompra { get; set; }
 
     [Column("fecha_compra")]
-    public DateTime FechaCompra { get; set; }
+    public DateTime? FechaCompra { get; set; }
 
     [Column("fecha_vencimiento")]
     public DateTime? FechaVencimiento { get; set; }
@@ -40,8 +40,5 @@ namespace InventaProAPI.Models
 
     [JsonIgnore]
     public Bodega Bodega { get; set; }
-
-    [JsonIgnore]
-    public ICollection<Movimiento> Movimientos { get; set; }
   }
 }

@@ -4,7 +4,7 @@
     <nz-form-item>
       <nz-form-label nzLabelAlign="left" [nzSpan]="7">Nombre</nz-form-label>
       <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Nombre">
-        <input nz-input [(ngModel)]="usuario.nombre" name="Nombre" maxlength="50" required />
+        <input nz-input [(ngModel)]="usuario.nombre" name="Nombre" maxlength="50" required/>
         <ng-template #Nombre let-control>
           @if (control.errors?.['maxlength']) {
           Maximo de caracteres exedido
@@ -21,6 +21,26 @@
       <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Apellido">
         <input nz-input [(ngModel)]="usuario.apellido" name="Apellido" maxlength="50" required />
         <ng-template #Apellido let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Run</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Run">
+        <nz-input-group [nzSuffix]="suffixTemplateInfo">
+          <input nz-input [(ngModel)]="usuario.run" name="Run" maxlength="10" required appRutValidator />
+        </nz-input-group>
+        <ng-template #suffixTemplateInfo>
+          <span nz-icon nz-tooltip nzTooltipTitle="Formato: 12345678-9" nzType="info-circle"></span>
+        </ng-template>
+        <ng-template #Run let-control>
           @if (control.errors?.['maxlength']) {
           Maximo de caracteres exedido
           }

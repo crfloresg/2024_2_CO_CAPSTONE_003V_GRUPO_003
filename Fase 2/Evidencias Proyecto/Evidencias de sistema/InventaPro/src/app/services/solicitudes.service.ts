@@ -25,6 +25,15 @@ export class SolicitudesService {
     }
   }
 
+  async getAllByIdBodegaForTransferencia(id: number){
+    try {
+      const req = await lastValueFrom(this.httpClient.get<{cantidad: number, productoId: number}[]>(`${this.apiUrl}/SolicitudesByIdBodegaForTransferencia/${id}`));
+       return req;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getOneByIdSolicitud(id: number){
     try {
       const req = await lastValueFrom(this.httpClient.get<Solicitud>(`${this.apiUrl}/SolicitudByIdSolicitud/${id}`));

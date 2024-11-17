@@ -1,4 +1,5 @@
-﻿using InventaProAPI.Models;
+﻿using InformeApi.Models;
+using InventaProAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventaProAPI.Data
@@ -16,7 +17,6 @@ namespace InventaProAPI.Data
     public DbSet<EstadoUsuario> EstadoUsuarios { get; set; }
     public DbSet<Inventario> Inventarios { get; set; }
     public DbSet<LoteInventario> LoteInventarios { get; set; }
-    public DbSet<Movimiento> Movimientos { get; set; }
     public DbSet<Perdida> Perdidas { get; set; }
     public DbSet<Permiso> Permisos { get; set; }
     public DbSet<Producto> Productos { get; set; }
@@ -26,13 +26,14 @@ namespace InventaProAPI.Data
     public DbSet<SolicitudInventarioDetalle> SolicitudInventarioDetalles { get; set; }
     public DbSet<TipoAlerta> TipoAlertas { get; set; }
     public DbSet<TipoBodega> TipoBodegas { get; set; }
-    public DbSet<TipoMovimiento> TipoMovimientos { get; set; }
     public DbSet<TipoPerdida> TipoPerdidas { get; set; }
     public DbSet<Transferencia> Transferencias { get; set; }
-
     public DbSet<TransferenciaDetalle> TransferenciasDetalles { get; set; }
     public DbSet<UmbralStock> UmbralStocks { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Compra> Compras { get; set; }
+    public DbSet<CompraDetalles> CompraDetalles { get; set; }
+    public DbSet<Distribuidor> Distribuidores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

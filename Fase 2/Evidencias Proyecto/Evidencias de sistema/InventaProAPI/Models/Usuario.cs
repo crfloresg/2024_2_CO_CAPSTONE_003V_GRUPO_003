@@ -13,6 +13,11 @@ namespace InventaProAPI.Models
     public int UsuarioId { get; set; }
 
     [Required]
+    [StringLength(12)]
+    [Column("run")]
+    public string Run { get; set; }
+
+    [Required]
     [StringLength(50)]
     [Column("nombre")]
     public string Nombre { get; set; }
@@ -75,16 +80,10 @@ namespace InventaProAPI.Models
     public ICollection<Auditoria> Auditorias { get; set; }
 
     [JsonIgnore]
-    public ICollection<Alerta> Alertas { get; set; }
-
-    [JsonIgnore]
     public ICollection<SolicitudInventario> SolicitudesSolicitante { get; set; }
 
     [JsonIgnore]
     public ICollection<SolicitudInventario> SolicitudesAprobador { get; set; }
-
-    [JsonIgnore]
-    public ICollection<Movimiento> Movimientos { get; set; }
 
     [JsonIgnore]
     public ICollection<Perdida> Perdidas { get; set; }

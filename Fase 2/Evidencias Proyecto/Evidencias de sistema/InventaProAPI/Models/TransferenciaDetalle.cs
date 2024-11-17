@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace InventaProAPI.Models
 {
-  [Table("transferencias_detalles")]
+  [Table("Transferencias_Detalles")]
   public class TransferenciaDetalle
   {
     [Key]
@@ -22,8 +22,21 @@ namespace InventaProAPI.Models
     public int ProductoId { get; set; }
 
     [Required]
-    [Column("cantidad")]
-    public int Cantidad { get; set; }
+    [Column("cantidad_despachada")]
+    public int CantidadDespachada { get; set; }
+
+    [Column("cantidad_recibida")]
+    public int? CantidadRecibida { get; set; }
+
+    [Column("cantidad_dmg")]
+    public int? CantidadDmg { get; set; }
+
+    [Column("cantidad_perdida")]
+    public int? CantidadPerdida { get; set; }
+
+    [Required]
+    [Column("precio_compra")]
+    public int PrecioCompra { get; set; }
 
     [JsonIgnore]
     public Transferencia Transferencia { get; set; }

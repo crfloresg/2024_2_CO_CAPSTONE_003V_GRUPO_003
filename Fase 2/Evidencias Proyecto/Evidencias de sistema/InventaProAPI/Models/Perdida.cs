@@ -41,13 +41,14 @@ namespace InventaProAPI.Models
     [ForeignKey("Usuario")]
     public int UsuarioId { get; set; }
 
-    [JsonIgnore]
+    [Required]
+    [Column("precio_compra")]
+    public int PrecioCompra {  get; set; }
+
     public Producto Producto { get; set; }
 
-    [JsonIgnore]
     public Bodega Bodega { get; set; }
 
-    [JsonIgnore]
     public TipoPerdida TipoPerdida { get; set; }
 
     [JsonIgnore]

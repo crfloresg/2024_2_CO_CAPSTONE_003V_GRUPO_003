@@ -1,0 +1,55 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="loadingTableData">
+<h4 nz-typography>Distribuidor: {{dist}}</h4>
+<h5 nz-typography>Fecha compra: {{ fecha | date:'dd-MM-yyyy HH:mm' }}</h5>
+<p nz-typography>Observacion: {{obs}}</p>
+<nz-table 
+    #Table 
+    [nzData]="displayedCompra" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>Precio compra</th>
+        <th>Cantidad</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+        <td>{{ data.producto.nombre }}</td>
+        <td>{{ data.producto.codigo }}</td>
+        <td>${{ data.precioCompra }}</td>
+        <td>{{ data.cantidad }}</td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <div nz-flex nzJustify="space-around">
+
+    <button 
+    nz-button 
+    nzType="primary"
+    [nzLoading]="downloading"
+    (click)="download()"
+    >
+      <span nz-icon nzType="download" nzTheme="outline"></span>
+      Descargar detalle pdf
+    </button>
+    @if(url != "" && url != undefined ){
+      <a style="color: green;" href="https://3.83.165.38/api{{url}}" target="_blank">
+        Ver evidencia
+      </a>
+    }
+
+  </div>
+
+
+
+</nz-spin>

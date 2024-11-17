@@ -13,7 +13,6 @@ namespace InventaProAPI.Models
 
     [Required]
     [Column("usuario_id")]
-    [ForeignKey("Usuario")]
     public int UsuarioId { get; set; }
 
     [Required]
@@ -23,6 +22,10 @@ namespace InventaProAPI.Models
 
     [Column("descripcion")]
     public string Descripcion { get; set; }
+
+    [Required]
+    [Column("bodega_id")]
+    public int BodegaId { get; set; }
 
     //[Column("fecha_accion")]
     //public DateTime FechaAccion { get; set; }

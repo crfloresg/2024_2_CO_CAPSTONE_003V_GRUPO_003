@@ -27,6 +27,10 @@ namespace InformeApi.Models
     [Column("fecha_accion")]
     public DateTime FechaAccion { get; set; }
 
+    [Required]
+    [Column("bodega_id")]
+    public int BodegaId { get; set; }
+
     [JsonIgnore]
     public Usuario Usuario { get; set; }
   }

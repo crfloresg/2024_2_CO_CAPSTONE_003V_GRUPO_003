@@ -1,8 +1,15 @@
 <nz-spin [nzTip]="'Cargando...'" [nzSpinning]="false">
-  <nz-select 
+  
+  <h1 style="width: fit-content;" nz-typography>Gestión de Inventario</h1>
+  
+  @if(authService.hasPermission('r_inventarios_global')){
+    <nz-select 
     name="select-bodega" 
     [(ngModel)]="selectedBodegaId" 
     required
+    nzPlaceHolder="Seleccione bodega"
+    style="margin-bottom: 16px; width: 25%;"
+    [disabled]="loadingTableData"
     (ngModelChange)="selectBodega($event)">
     @if(loadingBodegas){
       <nz-option 
@@ -16,10 +23,18 @@
       }
     }
   </nz-select>
+  }
+
+  <nz-input-group [nzPrefix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
 
   <nz-table 
     #Table 
-    [nzData]="inventario" 
+    [nzData]="displayedInventario" 
     [nzLoading]="loadingTableData" 
     [nzPageSize]="pageSize" 
     [(nzPageIndex)]="pageIndex"
@@ -30,8 +45,8 @@
         <th nzWidth="50px">#</th>
         <th nzWidth="60px"></th>
         <th>Nombre</th>
-        <th>Codigo</th>
-        <th>Categoria</th>
+        <th>Código</th>
+        <th>Categoría</th>
         <th>Unidad de medida</th>
         <th>Cantidad</th>
         <th>Precio Venta</th>
@@ -72,12 +87,20 @@
   </nz-table>
 
   <div nz-flex nzGap="middle">
-    <button nz-button nzType="primary" (click)="add()">
-      Solicitar reabastecimiento 
-    </button>
-    <button nz-button nzType="primary" routerLink="/solicitud">
-      Ver Solicitudes
-    </button>
+
+    @if(authService.hasPermission('cu_solicitudes_global') || authService.hasPermission('cu_solicitudes_bodega')){
+      <button nz-button nzType="primary" (click)="add()" [disabled]="loadingTableData">
+        Solicitar reabastecimiento 
+      </button>
+    }
+    @if(authService.hasPermission('r_solicitudes_global') || authService.hasPermission('r_solicitudes_bodega')){
+      <button nz-button nzType="primary" routerLink="/solicitud">
+        Ver Solicitudes
+      </button>
+    }
+
+    
+    
   </div>
 
   

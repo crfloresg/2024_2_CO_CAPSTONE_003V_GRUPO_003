@@ -1,0 +1,57 @@
+
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Compras</h1>
+  @if(authService.hasPermission('c_compras_global')){
+    <button nz-button nzType="primary" (click)="add()">
+      Añadir Compra
+    </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table 
+    #Table 
+    [nzData]="displayedCompras" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzTitle="Solicitudes" 
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        <th nzWidth="50px">#</th>
+        <th>Fecha ingreso</th>
+        <th>Distribuidor</th>
+        <th>Observación</th>
+        <th>Fecha cancelado</th>
+        <th nzWidth="200px">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.compraId }}</td>
+        <td>{{ data.fecha | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>{{ data.distribuidor.nombre }}</td>
+        <td [nzEllipsis]="true" nz-popover [nzPopoverContent]="data.observacion" [nzPopoverOverlayStyle]="{'max-width': '350px'}">
+          {{ data.observacion }}
+        </td>
+        <td>{{ data.fechaCancelado | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td nzAlign="center">
+          <a (click)="detalle(data.compraId)">Detalle</a>
+          @if(authService.hasPermission('d_compras_global') && data.fechaCancelado == undefined){
+            <nz-divider nzType="vertical"></nz-divider>
+            <a style="color: red;" (click)="delete(data)">Cancelar</a>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>

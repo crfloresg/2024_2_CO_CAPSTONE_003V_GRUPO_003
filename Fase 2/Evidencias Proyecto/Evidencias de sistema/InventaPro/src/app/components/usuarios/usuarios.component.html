@@ -18,15 +18,19 @@
 </ng-template>
 
 <nz-table #Table [nzData]="displayedUssuarios" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
-  [nzScroll]="{x: '850px'}">
+  [nzScroll]="{x: '650px'}">
   <thead>
     <tr>
       <th nzWidth="75px">#</th>
       <th>Nombre</th>
+      <th>Run</th>
       <th>Apellido</th>
       <th>Email</th>
       <th>Rol</th>
-      <th>Bodega</th>
+      @if(authService.hasPermission('cu_usuarios_global')){
+        <th>Bodega</th>  
+      }
+      
       <th>Estado</th>
       @if(authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega') ||
       authService.hasPermission('d_usuarios_global') ||
@@ -41,10 +45,13 @@
     <tr>
       <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
       <td>{{ u.nombre }}</td>
+      <td>{{ u.run }}</td>
       <td>{{ u.apellido }}</td>
       <td>{{ u.email }}</td>
       <td>{{ u.rol.nombre }}</td>
-      <td>{{ u.bodega.nombre }}</td>
+      @if(authService.hasPermission('cu_usuarios_global')){
+        <td>{{ u.bodega.nombre }}</td>
+      }
       @if(u.estadoUsuarioId == 1){
       <td>Habilitado</td>
       }

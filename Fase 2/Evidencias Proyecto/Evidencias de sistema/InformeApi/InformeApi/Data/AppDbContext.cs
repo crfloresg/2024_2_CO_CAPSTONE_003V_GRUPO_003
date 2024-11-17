@@ -29,11 +29,13 @@ namespace InformeApi.Data
     public DbSet<TipoMovimiento> TipoMovimientos { get; set; }
     public DbSet<TipoPerdida> TipoPerdidas { get; set; }
     public DbSet<Transferencia> Transferencias { get; set; }
-
     public DbSet<TransferenciaDetalle> TransferenciasDetalles { get; set; }
     public DbSet<UmbralStock> UmbralStocks { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
-
+    public DbSet<Compra> Compras { get; set; }
+    public DbSet<DetalleCompras> DetallleCompra {  get; set; }
+    public DbSet<Distribuidor> Distribuidores { get; set; }
+    public DbSet<ApiKeys> ApiKeys { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       base.OnModelCreating(modelBuilder);

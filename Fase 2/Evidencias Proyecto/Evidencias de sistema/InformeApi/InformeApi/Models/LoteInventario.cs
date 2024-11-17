@@ -42,6 +42,9 @@ namespace InformeApi.Models
     public Bodega Bodega { get; set; }
 
     [JsonIgnore]
+    public Alerta Alerta { get; set; }
+
+        [JsonIgnore]
     public ICollection<Movimiento> Movimientos { get; set; }
   }
 }

@@ -1,0 +1,75 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="isLoadingDistribuidores ">
+  <form nz-form #myForm="ngForm">
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Nombre</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Nombre">
+        <input nz-input [(ngModel)]="distribuidor.nombre" name="Nombre" maxlength="255" required/>
+        <ng-template #Nombre let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Dirección</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Direccion">
+        <input nz-input [(ngModel)]="distribuidor.direccion" name="Direccion" maxlength="255" />
+        <ng-template #Direccion let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Teléfono</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Telefono">
+        <input nz-input [(ngModel)]="distribuidor.telefono" name="Telefono" maxlength="20" />
+        <ng-template #Telefono let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="7">Email</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="17" [nzErrorTip]="Email">
+        <input nz-input [(ngModel)]="distribuidor.correoElectronico" name="Email" maxlength="255" />
+        <ng-template #Email let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" (click)="cu()" [disabled]="myForm.invalid" [nzLoading]="isLoadingCU">
+      @if(this.id == 0){
+        Agregar Distribuidor
+      }@else{
+        Modificar Distribuidor
+      }
+    </button>
+
+  </form>
+</nz-spin>

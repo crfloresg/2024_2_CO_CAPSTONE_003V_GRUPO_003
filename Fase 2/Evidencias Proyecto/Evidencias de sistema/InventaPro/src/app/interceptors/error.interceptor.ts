@@ -53,7 +53,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       if(error.url == `${environment.api}Auth` && error.status != 0) { error.message = 'Correo o contraseña incorrectos' }
 
       if(error.status == 403){
-        router.navigate(['dashboard']);
+        router.navigate(['inicio']);
       }
 
       return throwError(() => err);

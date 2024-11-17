@@ -1,0 +1,25 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="isLoadingAlerta">
+  <form nz-form #myForm="ngForm">
+
+
+    <nz-form-item>
+      <nz-form-label nzLabelAlign="left" [nzSpan]="9">Stock minimo</nz-form-label>
+      <nz-form-control nzHasFeedback [nzSpan]="15" [nzErrorTip]="minimo">
+        <input nz-input [(ngModel)]="alerta.minimo" name="minimo" maxlength="20" required />
+        <ng-template #minimo let-control>
+          @if (control.errors?.['maxlength']) {
+          Maximo de caracteres exedido
+          }
+          @if (control.errors?.['required']) {
+          Campo requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" (click)="cu()" [disabled]="myForm.invalid" [nzLoading]="isLoadingCU">
+     Modificar Stock minimo
+    </button>
+
+  </form>
+</nz-spin>

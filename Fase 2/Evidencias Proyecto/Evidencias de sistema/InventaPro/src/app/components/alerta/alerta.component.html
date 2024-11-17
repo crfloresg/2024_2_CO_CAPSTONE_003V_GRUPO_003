@@ -1,0 +1,86 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Configuración de alertas</h1>
+</div>
+  
+@if(authService.hasPermission('r_alarmas_global')){
+  <nz-select 
+    name="select-bodega" 
+    [(ngModel)]="selectedBodegaId" 
+    required
+    nzPlaceHolder="Seleccione bodega"
+    style="margin-bottom: 16px; width: 25%;"
+    [disabled]="loadingTableData"
+    (ngModelChange)="selectBodega($event)"
+  >
+    @if(loadingBodegas){
+      <nz-option 
+        nzDisabled nzCustomContent
+      >
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+    }@else {
+      @for (b of bodegas; track b) {
+       <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+  </nz-select>
+}
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table #Table [nzData]="alerta" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex"
+nzTitle="Lista de Productos" [nzScroll]="{x: '600px'}">
+<thead >
+  <tr>
+    <th nzWidth="55px">#</th>
+    <th>Nombre</th>
+    <th>Código</th>
+    <th>Cantidad Actual</th>
+    <th>Stock Minimo</th>
+    <th nzWidth="200px">Acción</th>
+  </tr>
+</thead>
+<tbody>
+  @for (data of Table.data; track data;) {
+  <tr>
+    <td>{{ (pageIndex - 1) * pageSize + $index + 1 }}</td>
+    <td>{{ data.nombreProducto}}</td>
+    <td>{{ data.codigo }}</td>
+    <td>{{ data.cantidadTotal }}</td>
+    <td>{{ data.minimo }}</td>
+    <td nzAlign="right">
+     
+      @if(
+        authService.hasPermission('u_alarmas_global') ||
+        authService.hasPermission('u_alarmas_bodega')
+      ){
+        <a (click)="update(data.alertaId)">Modificar</a>
+      }
+      @if (
+        data.estado == 1 &&
+        (
+          authService.hasPermission('d_alarmas_global') ||
+          authService.hasPermission('d_alarmas_bodega')
+        )
+      ) {
+        <nz-divider nzType="vertical"></nz-divider>
+        <a style="color: red;" (click)="delete(data)">Deshabilitar</a>
+      }
+      @else if (
+        authService.hasPermission('a_alarmas_global') ||
+        authService.hasPermission('a_alarmas_bodega')
+      ) {
+        <nz-divider nzType="vertical"></nz-divider>
+        <a style="color: green;" (click)="activate(data)">Habilitar</a>
+      }
+    </td>
+  </tr>
+  }
+</tbody>
+</nz-table>

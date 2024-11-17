@@ -3,6 +3,7 @@ using InventaProAPI.Policies;
 using InventaProAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -48,10 +49,13 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 
+
 // Register TokenService as a scoped service
 builder.Services.AddScoped<TokenProvider>();
 
 builder.Services.AddSingleton<AuditoriaService>();
+builder.Services.AddSingleton<InventarioService>();
+
 
 // Configure Authentication with Access Token
 builder.Services
@@ -97,8 +101,11 @@ builder.Services.AddCors(options =>
 // Mysql Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+    opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+        mysqlOptions => mysqlOptions.CommandTimeout(120)) // Establece el tiempo de espera aqu�
 );
+
+
 
 var app = builder.Build();
 
@@ -109,6 +116,15 @@ if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+  app.UseStaticFiles(); // Serve files from wwwroot in development
+}
+else
+{
+  app.UseStaticFiles(new StaticFileOptions
+  {
+    FileProvider = new PhysicalFileProvider("/var/www/docs"),
+    RequestPath = "/files"
+  });
 }
 
 app.UseHttpsRedirection();

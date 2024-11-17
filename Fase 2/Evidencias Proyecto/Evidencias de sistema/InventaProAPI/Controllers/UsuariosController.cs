@@ -34,6 +34,7 @@ namespace InventaProAPI.Controllers
 
         var userRequest = _tokenProvider.GetAccessTokenData();
 
+        //Verificamos que tenga el permiso de acceso
         if(!CanRead()) { return Forbid(); }
 
         var query = _context.Usuarios
@@ -42,6 +43,7 @@ namespace InventaProAPI.Controllers
           .Select(
             x => new {
               x.UsuarioId,
+              x.Run,
               x.Nombre,
               x.Apellido,
               x.Email,
@@ -64,14 +66,13 @@ namespace InventaProAPI.Controllers
             }
           );
 
+        //Si no puede ver a todos los usuarios, solo le mostramos los de su bodega
         if (!_tokenProvider.HasPermission("r_usuarios_global"))
         {
           query = query.Where(x => x.BodegaId == userRequest.BodegaId);
         }
 
-        var usuarios = await query.ToListAsync();
-
-        if(usuarios == null) { return NotFound(); }
+        var usuarios = await query.OrderByDescending(x => x.UsuarioId).ToListAsync();
 
         return Ok(usuarios);
       }
@@ -91,6 +92,7 @@ namespace InventaProAPI.Controllers
       {
         var userRequest = _tokenProvider.GetAccessTokenData();
 
+        //Verificamos que tenga el permiso de acceso
         if (!CanRead()) { return Forbid(); }
 
         var usuarios = await _context.Usuarios
@@ -100,6 +102,7 @@ namespace InventaProAPI.Controllers
           .Select(
             x => new {
               x.UsuarioId,
+              x.Run,
               x.Nombre,
               x.Apellido,
               x.Email,
@@ -125,6 +128,7 @@ namespace InventaProAPI.Controllers
 
         if (usuarios == null) { return NotFound(); }
 
+        //Si no tiene permiso para ver todo los usuarios y esta buscando uno que no es de su bodega le denegamos el acceso
         if (!_tokenProvider.HasPermission("r_usuarios_global") && userRequest.BodegaId != usuarios.BodegaId) { return Forbid(); }
 
         return Ok(usuarios);
@@ -143,7 +147,7 @@ namespace InventaProAPI.Controllers
     {
       try
       {
-
+        //Verificamos que tenga el permiso de acceso
         if (!CanCU()) { return Forbid(); }
 
         var userRequest = _tokenProvider.GetAccessTokenData();
@@ -167,6 +171,7 @@ namespace InventaProAPI.Controllers
             x.BodegaId
           });
 
+        //Si no es tiene acceso global, lo limitamos
         if (_tokenProvider.HasPermission("cu_usuarios_bodega") && !_tokenProvider.HasPermission("cu_usuarios_global"))
         {
           queryBodega = queryBodega.Where(x => x.BodegaId == userRequest.BodegaId);
@@ -197,10 +202,12 @@ namespace InventaProAPI.Controllers
 
         var userRequest = _tokenProvider.GetAccessTokenData();
 
+        //Verificamos que tenga el permiso de acceso
         if (!CanCU()) { return Forbid(); }
 
         var rol = await _context.Rols.Where(x => x.RolId == usuarioCU.RolId).FirstOrDefaultAsync();
 
+        //Si no tiene acceso a global, no puede crear ni modificar con datos de otras bodegas
         if (!_tokenProvider.HasPermission("cu_usuarios_global") && 
           (usuarioCU.BodegaId != userRequest.BodegaId || rol.BodegaId != userRequest.BodegaId))
         {
@@ -216,6 +223,7 @@ namespace InventaProAPI.Controllers
           var u = new Usuario 
           { 
             Nombre = usuarioCU.Nombre,
+            Run = usuarioCU.Run,
             Apellido = usuarioCU.Apellido,
             Email = usuarioCU.Email,
             Password = BCrypt.Net.BCrypt.HashPassword(usuarioCU.Password),
@@ -224,11 +232,12 @@ namespace InventaProAPI.Controllers
             EstadoUsuarioId = 1
           };
 
+          //Si no es global forzamos bodega local
           if (!_tokenProvider.HasPermission("cu_usuarios_global")) { u.BodegaId =  userRequest.BodegaId; }
 
           await _context.Usuarios.AddAsync(u);
           await _context.SaveChangesAsync();
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_create", $"Se creo el usuario {u.UsuarioId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_create", $"Se creo el usuario {u.UsuarioId}", userRequest.BodegaId);
         }
         else
         {
@@ -237,18 +246,20 @@ namespace InventaProAPI.Controllers
           if (userToModify == null) { return NotFound(); }
 
           userToModify.Nombre = usuarioCU.Nombre;
+          userToModify.Run = usuarioCU.Run;
           userToModify.Apellido = usuarioCU.Apellido;
           userToModify.Email = usuarioCU.Email;
           userToModify.RolId = usuarioCU.RolId;
           userToModify.BodegaId = usuarioCU.BodegaId;
 
+          //Si no es global forzamos bodega local
           if (!_tokenProvider.HasPermission("cu_usuarios_global")) { userToModify.BodegaId = userRequest.BodegaId; }
 
           if (usuarioCU.Password.Length > 0) { userToModify.Password = BCrypt.Net.BCrypt.HashPassword(usuarioCU.Password); }
 
           await _context.SaveChangesAsync();
 
-          await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_update", $"Se modifico el usuario {userToModify.UsuarioId}");
+          await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_update", $"Se modifico el usuario {usuarioCU.UsuarioId}", userRequest.BodegaId);
         }
 
         await transaction.CommitAsync();
@@ -280,6 +291,7 @@ namespace InventaProAPI.Controllers
 
         if ( user == null ) { return NotFound(); }
 
+        //No puede deshabilitar a usuarios de otras bodegas
         if(!_tokenProvider.HasPermission("d_usuarios_global") && user.BodegaId != userRequest.BodegaId) { return Forbid(); }
 
         user.RefreshToken = null;
@@ -287,7 +299,7 @@ namespace InventaProAPI.Controllers
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_delete", $"Se deshabilito el usuario {user.UsuarioId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_delete", $"Se deshabilito el usuario {user.UsuarioId}", userRequest.BodegaId);
 
         await transaction.CommitAsync();
 
@@ -319,13 +331,14 @@ namespace InventaProAPI.Controllers
 
         if (user == null) { return NotFound(); }
 
+        //No puede habilitar usuarios de otras bodegas
         if (!_tokenProvider.HasPermission("a_usuarios_global") && user.BodegaId != userRequest.BodegaId) { return Forbid(); }
 
         user.EstadoUsuarioId = 1;
 
         await _context.SaveChangesAsync();
 
-        await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_activate", $"Se habilito el usuario {user.UsuarioId}");
+        await _auditoriaService.Auditar(userRequest.UsuarioId, "usuario_activate", $"Se habilito el usuario {user.UsuarioId}", userRequest.BodegaId);
 
         await transaction.CommitAsync( );
 
