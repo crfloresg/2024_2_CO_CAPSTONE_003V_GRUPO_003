@@ -71,7 +71,7 @@
         </td>
         <td nzAlign="right">
           <a (click)="detalle(data.transferenciaId)">Detalle</a>
-          @if(authService.hasPermission('d_transferencias_global')){
+          @if(authService.hasPermission('d_transferencias_global') && data.estadoTransferenciaId != 4){
             <nz-divider nzType="vertical"></nz-divider>
             <a style="color: red;" (click)="delete(data)">Cancelar</a>
           }
@@ -81,7 +81,7 @@
     </tbody>
   </nz-table>
 
-  @if(authService.hasPermission('c_recepciones_global')){
+  @if(authService.hasPermission('c_recepciones_global') || authService.hasPermission('c_recepciones_bodega')){
     <button nz-button nzType="primary" (click)="recepcion()">
       Recepcionar
     </button>

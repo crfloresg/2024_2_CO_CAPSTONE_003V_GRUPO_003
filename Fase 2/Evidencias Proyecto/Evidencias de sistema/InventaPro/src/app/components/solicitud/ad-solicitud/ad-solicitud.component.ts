@@ -55,7 +55,7 @@ export class AdSolicitudComponent {
 
   async ngOnInit() {
     this.idSolicitud = this.nzModalData.idSolicitud;
-    this.bodegaId = this.nzModalData.idSolicitud;
+    this.bodegaId = this.nzModalData.idBodega;
     await this.getOneByIdSolicitud();
     await this.getIventario();
   }
