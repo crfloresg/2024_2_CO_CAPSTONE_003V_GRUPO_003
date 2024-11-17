@@ -481,7 +481,11 @@ namespace InformeApi.Services
                                 row.RelativeItem().AlignCenter().Text($"Estado : {firstItem.Estado}");
                                 row.RelativeItem().AlignRight().Text($"Código verificación: {firstItem.secret}").Bold();
                             });
-                            column.Item().Text($"Bodega destino : {firstItem.BodegaDestino}");
+                            column.Item().Row(row =>
+                            {
+                                row.RelativeItem().Text($"Bodega destino : {firstItem.BodegaDestino}");
+                                row.RelativeItem().AlignCenter().Text($"ID transferencia : {firstItem.idTransferencia}");
+                            });
                             column.Item().Height(5);
                             column.Item().Text($"Observación : {firstItem.Detalle}");
                         }

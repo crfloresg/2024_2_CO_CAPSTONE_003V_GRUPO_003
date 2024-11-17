@@ -494,7 +494,8 @@ namespace InformeApi.Controllers
                                 codigo = p.Codigo,
                                 Compra = td.compra > 0 ? td.compra : 0, 
                                 Dañado = td.Dañado > 0 ? td.Dañado : 0,
-                                Perdido = td.Perdido > 0 ? td.Perdido : 0 
+                                Perdido = td.Perdido > 0 ? td.Perdido : 0,
+                                idTransferencia = t.TransferenciaId
                             };
 
                 var result = await query.ToListAsync();
