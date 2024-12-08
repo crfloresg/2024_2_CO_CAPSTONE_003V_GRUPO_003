@@ -1,0 +1,205 @@
+<div nz-flex nzVertical nzGap="large">
+  <h1 nz-typography>Dashboard</h1>
+
+  <nz-collapse>
+
+    <nz-collapse-panel nzHeader="Graficos" [nzActive]="true">
+
+
+
+      <nz-spin [nzTip]="'Cargando datos...'" [nzSpinning]="loadingDashboard">
+
+        
+        <div nz-flex nzVertical nzGap="large">
+
+          @if(authService.hasPermission('r_dashboard_global')){
+            <div nz-flex nzGap="small">
+              <h4 nz-typography>Seleccionar bodega</h4> 
+              <nz-select name="select-bodega" [ngModel]="dashboardBodegaId" required nzPlaceHolder="Seleccione bodega"
+                [disabled]="loadingTableData" style="width: 200px;" (ngModelChange)="selectBodega($event)">
+                <nz-option *ngIf="loadingBodegas" nzDisabled nzCustomContent>
+                  <span nz-icon nzType="loading" class="loading-icon"></span>
+                  Cargando datos
+                </nz-option>
+                <nz-option *ngFor="let b of bodegas" [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+              </nz-select>
+            </div>
+
+          }
+
+          <div nz-flex nzGap="small">
+            <h4 nz-typography>Seleccionar fechas</h4>
+        <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+        <button nz-button nzType="primary" (click)="getDashboard()">
+          Cargar Graficos</button>
+          </div>
+
+        
+        <!-- Permisos para visualizar el dashboard -->
+        <div *ngIf="authService.hasPermission('r_dashboard_global') || authService.hasPermission('r_dashboard_bodega')">
+          <div nz-row nzGutter="16">
+            <!-- Gráfico de pérdidas -->
+            <div nz-col [nzSpan]="12">
+              <h3 nz-typography>Cantidad de perdida por productos</h3>
+              <ngx-charts-bar-vertical [view]="[600, 400]" [results]="perdidas" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="true" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="'Cantidad'" [yAxisLabel]="yAxisLabel">
+              </ngx-charts-bar-vertical>
+            </div>
+
+            <!-- Gráfico de solicitudes por producto -->
+            <div nz-col [nzSpan]="12">
+              <h3 nz-typography>Cantidad solicitudes por producto</h3>
+              <ngx-charts-bar-vertical [view]="[600, 300]" [results]="solicitudes" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+
+          <!-- Grafico de transferencia por producto -->
+          <div nz-row nzGutter="16">
+            <div nz-col [nzSpan]="12">
+              <h3 nz-typography>Cantidad de transferencia por producto</h3>
+              <ngx-charts-bar-vertical [view]="[600, 400]" [results]="Transferencia" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+              </ngx-charts-bar-vertical>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+       
+
+
+        
+
+
+
+        
+      </nz-spin>
+
+
+
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Informes" [nzActive]="false">
+      <!-- Informes-->
+      <div nz-flex nzVertical nzGap="small" class="informes">
+        <h2 nz-typography>Generación de informes</h2>
+        <div nz-flex nzGap="large" nzAlign="center">
+          <h4 nz-typography>Seleccionar tipo de informe</h4>
+          <nz-select [(ngModel)]="informeSelected" nzPlaceHolder="Seleccionar tipo de informe">
+            <nz-option [nzValue]="0" nzLabel="Empleados"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="Productos Stock"></nz-option>
+            @if(authService.hasPermission('r_informes_global')){
+            <nz-option [nzValue]="2" nzLabel="Bodegas"></nz-option>
+            }
+            <nz-option [nzValue]="3" nzLabel="Auditoria usuario"></nz-option>
+            <!-- <nz-option [nzValue]="4" nzLabel="Perdidas"></nz-option> -->
+          </nz-select>
+
+          @if((informeSelected == 0 || informeSelected == 1) && authService.hasPermission('r_informes_global')){
+          <h4 nz-typography>Seleccionar bodega</h4>
+          <nz-select name="select-bodega" [(ngModel)]="informeBodegaId" required nzPlaceHolder="Seleccione bodega"
+            style="width: 15%;" [disabled]="loadingTableData">
+            @if(loadingBodegas){
+            <nz-option nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Cargando datos
+            </nz-option>
+            }@else {
+            @for (b of bodegas; track b) {
+            <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+            }
+            }
+          </nz-select>
+          }
+
+          @if(informeSelected == 3){
+          <h4 nz-typography>Ingrese id de usuario</h4>
+          <nz-input-number [(ngModel)]="informeUsuarioId" [nzMin]="0"></nz-input-number>
+          <nz-range-picker style="margin: 0;" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+          }
+
+          @if(informeSelected == 4){
+          <h4 nz-typography>Seleccionar bodega</h4>
+          <nz-select name="select-bodega" [(ngModel)]="informeBodegaId" required nzPlaceHolder="Seleccione bodega"
+            style="width: 15%;" [disabled]="loadingTableData">
+            @if(loadingBodegas){
+            <nz-option nzDisabled nzCustomContent>
+              <span nz-icon nzType="loading" class="loading-icon"></span>
+              Cargando datos
+            </nz-option>
+            }@else {
+            @for (b of bodegas; track b) {
+            <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+            }
+            }
+          </nz-select>
+
+          <h4 nz-typography>Seleccionar tipo de perdida</h4>
+
+          <nz-select [(ngModel)]="informeTipoPerdida" nzPlaceHolder="Seleccionar tipo de perdida">
+            <nz-option [nzValue]="1" nzLabel="Daño"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="Perdida"></nz-option>
+            <nz-option [nzValue]="3" nzLabel="otro"></nz-option>
+          </nz-select>
+
+          }
+
+          <button [disabled]="!validInforme()" nz-button nzType="primary" (click)="getInforme()">
+            Generar Informe</button>
+        </div>
+      </div>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Alerta" [nzActive]="false">
+      <!-- Alerta de stock mínimo -->
+      <div nz-col [nzSpan]="12">
+        <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <h2 nz-typography style="margin: 0;">Alertas</h2>
+          </div>
+
+
+
+          <div nz-flex nzJustify="normal" nzGap="middle">
+            @if(authService.hasPermission('r_alarmas_global')){
+              <h4 nz-typography>Seleccionar bodega</h4>
+              <nz-select name="select-bodega" [(ngModel)]="selectedBodegaId" required nzPlaceHolder="Seleccione bodega"
+              [disabled]="loadingTableData" style="width: 200px;" (ngModelChange)="selectBodega($event)">
+              <nz-option *ngIf="loadingBodegas" nzDisabled nzCustomContent>
+                <span nz-icon nzType="loading" class="loading-icon"></span>
+                Cargando datos
+              </nz-option>
+              <nz-option *ngFor="let b of bodegas" [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+            </nz-select>
+            }
+          </div>
+
+          <!-- Contenedor para la tabla -->
+          <div style="flex-grow: 1; overflow: auto; max-height: 400px; border: 1px solid #f0f0f0; padding: 16px;">
+            <nz-table #Table [nzData]="alerta" [nzLoading]="loadingTableData" [nzPageSize]="pageSize"
+              [(nzPageIndex)]="pageIndex" nzBordered nzTitle="Lista de Productos con stock crítico">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad Actual</th>
+                  <th>Cantidad mínima</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of Table.data">
+                  <td>{{ data.nombreProducto }}</td>
+                  <td>{{ data.minimo }}</td>
+                  <td>{{ data.stockMin }}</td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

@@ -1,0 +1,77 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="loadingSolicitud || loadingInventario">
+  <nz-table 
+  style="width: 100%;"
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzPageSize]="pageSize" 
+  nzTitle="Lista de productos solicitados"
+  nzBordered
+  nzSize="small"
+  [nzTableLayout]="'fixed'"
+  [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '650px'}">
+    <thead >
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.filterFn == null){
+            @if(column.sortFn == null){
+              <th
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }@else {
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }
+          }@else {
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+        <tr>
+          <td>{{ data.productoId }}</td>
+          <td>{{ data.nombre }}</td>
+          <td>{{ data.codigo }}</td>
+          <td>{{ data.categoria }}</td>
+          <td>${{ data.precioVenta }}</td>
+          <td>{{ data.unidadMedida }}</td>
+          <td>{{ data.cantidadBodega }}</td>
+          <td>{{ data.cantidadSolicitada }}</td>
+          <td>{{ data.cantidadAprobada }}</td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+
+
+  @if(estadoSol == 2){
+    <button 
+    nz-button 
+    nzType="primary"
+    [nzLoading]="downloading"
+    (click)="download()"
+  >
+    <span nz-icon nzType="download" nzTheme="outline"></span>
+    Descargar resumen solicitud
+  </button>
+  }
+
+
+</nz-spin>

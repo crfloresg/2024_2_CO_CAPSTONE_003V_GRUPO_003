@@ -1,0 +1,17 @@
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1{
+    margin: 24px 0;  
+  }
+
+}
+
+.icon{
+  font-size: 60px;
+  margin-bottom: 24px;
+}

@@ -1,0 +1,39 @@
+.compact-table {
+    max-width: 40%;
+    nz-table {
+      font-size: 12px; 
+      th, td {
+        padding: 4px 6px; 
+      }
+    }
+  }
+  nz-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  ngx-charts-bar-vertical {
+    width: 100% !important;  
+    height: 100% !important;  
+  }
+  
+  ngx-charts-legend {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;  
+  }
+  
+  ngx-charts-legend .legend-item {
+    margin-right: 15px;  
+  }
+  
+  ngx-charts-legend .legend-label {
+    font-size: 14px; 
+    white-space: nowrap;
+    overflow: visible;   
+  }
+  nz-range-picker {
+    margin: 0 8px 12px 0;
+  }

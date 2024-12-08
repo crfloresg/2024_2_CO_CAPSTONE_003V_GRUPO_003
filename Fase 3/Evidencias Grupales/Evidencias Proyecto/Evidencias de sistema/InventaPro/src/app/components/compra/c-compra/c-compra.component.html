@@ -1,0 +1,204 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="loadingDist || loadingProductos">
+  <div nz-flex nzGap="large" nzVertical>
+    <div nz-flex nzGap="large" style="width: 100%;">
+  
+      <button nz-button nzType="primary" nzShape="circle" (click)="getProductos()" [disabled]="loadingProductos">
+        <span nz-icon nzType="reload" nzTheme="outline"></span>
+      </button>
+      <nz-select
+        style="width: 300px ;"
+        nzShowSearch
+        nzServerSearch
+        nzPlaceHolder="Buscar Producto. Ejemplo: Id, Nombre, Código, etc. Uno a la vez"
+        [(ngModel)]="selectedProducto"
+        [nzShowArrow]="false"
+        [nzAllowClear]="true"
+        [nzFilterOption]="nzFilterOption"
+        (nzOnSearch)="search($event)"
+      >
+      @if(loadingProductos){
+        <nz-option 
+          nzDisabled nzCustomContent>
+          <span nz-icon nzType="loading" class="loading-icon"></span>
+          Cargando datos
+        </nz-option>
+      }@else {
+        @for (item of displayedProductosSelect; track item) {
+          <nz-option [nzLabel]="item.nombre" [nzValue]="item.productoId"></nz-option>
+        }
+      }
+  
+  
+        
+      </nz-select>
+      <button nz-button nzType="primary" (click)="agregar()" [disabled]="selectedProducto == null || selectedProducto == undefined">
+        Agregar
+      </button>
+  
+    </div>
+    <div>
+  
+      <nz-table 
+        #Table 
+        [nzData]="displayedCompra.compraDetalles"  
+        [nzPageSize]="pageSize" 
+        [(nzPageIndex)]="pageIndex"
+        nzTitle="Productos comprados" 
+        nzBordered
+        [nzScroll]="{x: '600px'}"
+      >
+        <thead>
+          <tr>
+            @for (column of listOfColumns; track column.name) {
+              @if(column.filterFn == null){
+
+                @if(column.sortFn == null){
+                  <th
+                  [nzWidth]="column.width"
+                >
+                  {{ column.name }}
+                </th>
+                }@else {
+                  <th
+                  [(nzSortOrder)]="column.sortOrder"
+                  [nzSortFn]="column.sortFn"
+                  [nzWidth]="column.width"
+                >
+                  {{ column.name }}
+                </th>
+                }
+
+                
+              }@else {
+                <th
+                  [(nzSortOrder)]="column.sortOrder"
+                  [nzSortFn]="column.sortFn"
+                  [nzFilters]="column.listOfFilter"
+                  [nzFilterFn]="column.filterFn"
+                  [nzWidth]="column.width"
+                >
+                  {{ column.name }}
+                </th>
+              }
+            } 
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of Table.data; track data;) {
+            <tr>
+              <td>{{data.productoId}}</td>
+              <td>{{data.nombre}}</td>
+              <td>{{data.codigo}}</td>
+              <td>
+                <nz-input-number 
+                    [(ngModel)]="data.precioCompra" 
+                    [nzMin]="0" 
+                    [nzStep]="1" 
+                    [nzStatus]="precioStatus(data.productoId)"
+                  >
+                  </nz-input-number>
+              </td>
+              <td>
+                <nz-input-number 
+                    [(ngModel)]="data.cantidad" 
+                    [nzMin]="0" 
+                    [nzStep]="1" 
+                    [nzStatus]="cantidadStatus(data.productoId)"
+                  >
+                  </nz-input-number>
+              </td>
+              <td nzAlign="center">
+                <button nz-button nzType="primary" nzShape="circle" nzDanger (click)="remove(data.productoId)"> 
+                  <span nz-icon nzType="minus" nzTheme="outline"></span>
+                </button>
+              </td>
+            </tr>
+            }
+        </tbody>
+      </nz-table>
+  
+    </div>
+    <div nz-flex nzJustify="space-evenly">
+  
+      <div style="width: 400px;">
+        <nz-upload
+        [(nzFileList)]="fileList"
+        [nzBeforeUpload]="beforeUpload"
+        [nzShowUploadList]="true"
+        [nzRemove]="onRemove"
+      >
+        <button nz-button [disabled]="fileList.length > 0">
+          <span nz-icon nzType="upload"></span> Subir evidencia
+        </button>
+      </nz-upload>
+      </div>
+      <div style="width: 30%;">
+        <nz-select 
+        name="select-dist" 
+        [(ngModel)]="displayedCompra.distribuidorId" 
+        required
+        style="width: 100%;"
+        nzPlaceHolder="Seleccione bodega"
+        [disabled]="loadingDist">
+        @if(loadingDist){
+          <nz-option 
+            nzDisabled nzCustomContent>
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+          }@else {
+            @for (b of distribuidores; track b) {
+              <nz-option [nzValue]="b.distribuidorId" [nzLabel]="b.nombre"></nz-option>
+          }
+        }
+      </nz-select>
+      </div>
+    </div>
+  
+    <div nz-row>
+      <div nz-col nzSpan="16">
+    
+        <form nz-form  style="width: 80%;" #myForm="ngForm">
+          <p nz-typography>Observación</p>
+          <nz-form-item>
+            <nz-form-control nzHasFeedback [nzSpan]="24" [nzErrorTip]="observacionTip">
+              <textarea nz-input [(ngModel)]="displayedCompra.observacion" name="required" rows="4" required ></textarea>
+              <ng-template #observacionTip let-control>
+                @if (control.errors?.['maxlength']) {
+                  Maximo de caracteres exedido
+                }
+                @if (control.errors?.['required']) {
+                  Campo requerido
+                }
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+    
+      </div>
+      <div nz-col nzSpan="8">
+        <div nz-flex nzVertical nzGap="large" nzJustify="center" style="height: 100%;">
+          <button 
+            nz-button 
+            nzType="primary" 
+            [disabled]="!valid()" 
+            style="width: 50%;" 
+            (click)="create()"
+            [nzLoading]="creating"
+          >
+            Aceptar
+          </button>
+          <button 
+            nz-button 
+            nzType="primary" 
+            nzDanger 
+            style="width: 50%;"
+            routerLink="/compras"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-spin>

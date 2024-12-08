@@ -1,0 +1,109 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de roles y permisos</h1>
+  <button nz-button nzType="primary" (click)="add()">
+    <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    Añadir Rol
+  </button>
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Descripción, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table 
+  #Table 
+  [nzData]="displayedRoles" 
+  [nzLoading]="loadingTableData" 
+  [nzPageSize]="pageSize" 
+  [(nzPageIndex)]="pageIndex" 
+  nzBordered
+  nzTableLayout="fixed"
+  nzTitle="Lista de Roles" 
+  [nzScroll]="{x: '650px'}"
+  >
+  <thead >
+    <tr>
+      @for (column of listOfColumns; track column.name) {
+        @if(column.name != 'Bodega'){
+          @if(column.filterFn == null){
+            <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }@else {
+            <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn"
+            [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }@else {
+          @if(authService.hasPermission('cu_usuarios_global')){
+            @if(column.filterFn == null){
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }@else {
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }
+          }
+        }
+      }
+      <th nzWidth="110px">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (r of Table.data; track r;) {
+    <tr>
+      <td>{{ r.rolId }}</td>
+      <td>{{ r.nombre }}</td>
+      <td 
+        nzEllipsis 
+        nz-popover 
+        [nzPopoverContent]="r.descripcion"
+        [nzPopoverOverlayStyle]="{'max-width': '350px'}"
+      >{{ r.descripcion }}</td>
+      @if(authService.hasPermission('r_roles_global')){
+        <td>{{ r.bodega?.nombre }}</td>
+      }
+      <td>{{ r.estadoDesc }}</td>
+      <td>
+        <div nz-flex nzWrap="wrap" nzGap="middle" style="width: fit-content;">
+          @if((authService.hasPermission('cu_roles_global') || authService.hasPermission('cu_roles_bodega')) && r.estado == 1){
+            <a (click)="update(r.rolId)">Modificar</a>
+          }
+          @if(r.estado == 1 && (authService.hasPermission('d_roles_global') ||
+            authService.hasPermission('d_roles_bodega'))){
+            <a style="color: red;" (click)="delete(r)">Deshabilitar</a>
+          }
+          @else if(authService.hasPermission('d_roles_global') || authService.hasPermission('d_roles_bodega')) {
+            <a style="color: green;" (click)="activate(r)">Habilitar</a>
+          }
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

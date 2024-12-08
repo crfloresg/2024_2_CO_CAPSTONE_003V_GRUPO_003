@@ -1,0 +1,188 @@
+  <button 
+    style="
+      position: fixed;
+      z-index: 1;
+      bottom: 30px;
+      left: 50%;"  
+    nz-button 
+    nzType="primary" 
+    (click)="resumen()">
+    <span>Resumen</span>
+  </button>
+
+  <nz-modal 
+    [(nzVisible)]="isResumenVisible" 
+    [nzTitle]="'Resumen de solicitud'" 
+    [nzFooter]="null"
+    (nzOnCancel)="resumen()" 
+    nzCentered 
+    [nzStyle]="{'width':'fit-content'}">
+  <ng-container *nzModalContent>
+    @if(!displayedDetallesSolicitudesInventario?.length){
+          <h3 nz-typography>Aun no se han seleccionado productos</h3>
+    }@else {
+      <nz-table 
+      #TableResumen 
+      [nzData]="displayedDetallesSolicitudesInventario || []" 
+      nzBordered
+      [nzTableLayout]="'auto'"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="false"
+      [nzScroll]="{ x: '600px', y: '500px' }"
+      nzTitle="Lista de productos a solicitar"
+      >
+      <thead >
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (data of displayedDetallesSolicitudesInventario; track data;) {
+        <tr>
+          <td>{{ data.productoId }}</td>
+          <td>{{ getProductoNombre(data.productoId) }}</td>
+          <td>{{ getProductoCodigo(data.productoId) }}</td>
+          <td>{{ data.cantidad }}</td>
+        </tr>
+        }
+      </tbody>
+    </nz-table>
+    }
+    
+
+
+  </ng-container>
+</nz-modal>
+
+
+<h1 nz-typography>
+  @if(this.id == 0){
+Nueva Solicitud
+  }@else {Modificar Solicitud}
+</h1>
+
+
+@if(activatedRoute.snapshot.paramMap.get('solicitudId')! == '0' && authService.hasPermission('cu_solicitudes_global')){
+  <div nz-flex nzGap="middle" nzAlign="center">
+    <p nz-typography>Seleccione una bodega</p>
+    <nz-select 
+    name="select-bodega" 
+    [(ngModel)]="bodegaId" 
+    required
+    nzPlaceHolder="Seleccione bodega"
+    style="margin-bottom: 16px; width: 25%;"
+    [disabled]="loadingTableData"
+    (ngModelChange)="selectBodega($event)">
+    @if(loadingBodegas){
+      <nz-option 
+        nzDisabled nzCustomContent>
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+      }@else {
+        @for (b of bodegas; track b) {
+          <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+    </nz-select>
+  </div>
+
+}
+
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Código, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+<nz-table 
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzLoading]="loadingTableData || loadingSolicitud" 
+  nzBordered
+  [nzPageSize]="pageSize" 
+  [nzTableLayout]="'fixed'"
+  [(nzPageIndex)]="pageIndex"
+  [nzScroll]="{x: '600px'}"
+  nzTitle="Lista de productos"
+  >
+  <thead >
+    <tr>
+      @for (column of listOfColumns; track column.name) {
+        @if(column.filterFn == null){
+          @if(column.sortFn == null){
+            <th
+            [nzWidth]="column.width"
+          >
+            {{ column.name }}
+          </th>
+          }@else {
+            <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzWidth]="column.width"
+          >
+            {{ column.name }}
+          </th>
+          }
+        }@else {
+          <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn"
+            [nzWidth]="column.width"
+          >
+            {{ column.name }}
+          </th>
+        }
+      }
+      <th nzWidth="50px">Cantidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+    <tr>
+      <td [nzChecked]="data.checked!" (nzCheckedChange)="onItemChecked($event, data.productoId)"></td>
+      <td>{{ data.productoId }}</td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.codigo }}</td>
+      <td>{{ data.categoria }}</td>
+      <td>${{ data.precioVenta }}</td>
+      <td>{{ data.unidadMedida }}</td>
+      <td>{{ data.inventarios![0].cantidad }}</td>
+      <td>
+        <nz-input-number 
+        style="max-width: 100%;"
+          [ngModel]="data.cantidad" 
+          [nzMin]="0" 
+          [nzStep]="1" 
+          (input)="setCantidad($event, data.productoId)"
+          [nzDisabled]="!inputValid(data.productoId)"
+          [nzStatus]="inputStatus(data.productoId)">
+        </nz-input-number>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
+
+<button 
+  class="container__form__button" 
+  nz-button 
+  nzType="primary" 
+  (click)="cu()"
+  [disabled]="!valid() || loadingTableData"
+  [nzLoading]="isLoadingCU">
+
+  @if(this.id == 0){
+    Crear Solicitud
+  }@else{
+    Modificar Solicitud
+  }
+
+</button>

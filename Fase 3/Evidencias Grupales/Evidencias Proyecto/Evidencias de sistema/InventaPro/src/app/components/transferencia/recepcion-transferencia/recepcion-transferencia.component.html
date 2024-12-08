@@ -1,0 +1,154 @@
+<h1 style="width: fit-content;" nz-typography>Recepcionar Transferencia</h1>
+<form nz-form #myForm="ngForm" [nzLayout]="'inline'">
+  <nz-form-item>
+    <nz-form-label nzLabelAlign="left" [nzSpan]="10">Id transferencia</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="14" [nzErrorTip]="idTransferencia">
+      <input nz-input [(ngModel)]="buscar.transferenciaId" name="idTransferencia" maxlength="100" required type="number" (keypress)="allowOnlyNumbers($event)" />
+      <ng-template #idTransferencia let-control>
+        @if (control.errors?.['maxlength']) {
+        Maximo de caracteres exedido
+        }
+        @if (control.errors?.['required']) {
+        Campo requerido
+        }
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzLabelAlign="left" [nzSpan]="10">Código verificación</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="14" [nzErrorTip]="codigoVerificacion">
+      <input nz-input [(ngModel)]="buscar.secret" name="codigoVerificacion" maxlength="6" required type="number"  (keypress)="allowOnlyNumbers($event)"/>
+      <ng-template #codigoVerificacion let-control>
+        @if (control.errors?.['maxlength']) {
+        Maximo de caracteres exedido
+        }
+        @if (control.errors?.['required']) {
+        Campo requerido
+        }
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button nzType="primary" [disabled]="myForm.invalid" [nzLoading]="loadingTableData" (click)="getTransferencia()">Buscar</button>
+</form>
+
+<br>
+
+@if(transferencia.transferenciaId != 0 ){
+  <div nz-flex nzVertical>
+    <div>
+      <p nz-typography><b>Fecha envio:</b> {{transferencia.fechaEnvio}}</p>
+    </div>
+    <div>
+      <p><b>Observación:</b> {{transferencia.observaciones}}</p>
+    </div>
+  </div>
+  <nz-table 
+    #Table 
+    [nzData]="displayedDetalle" 
+    [nzLoading]="loadingTableData" 
+    nzBordered
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzTitle="Lista de productos"
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.filterFn == null){
+
+            @if(column.sortFn == null){
+              <th
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }@else{
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }
+
+
+
+          }@else {
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.productoId }}</td>
+        <td>{{ data.producto?.nombre }}</td>
+        <td>{{ data.producto?.codigo }}</td>
+        <td>{{ data.precioCompra }}</td>
+        <td>{{ data.cantidadDespachada }}</td>
+        <td>
+          <nz-input-number 
+              type="number"
+              [ngModel]="data.cantidadRecibida" 
+              [nzMin]="0" 
+              [nzStep]="1"
+              (input)="setRecibida($event, data.productoId, data.precioCompra)"
+            >
+            </nz-input-number>
+        </td>
+        <td>
+          <nz-input-number 
+              type="number"
+              [ngModel]="data.cantidadDmg" 
+              [nzMin]="0" 
+              [nzStep]="1"
+              (input)="setDmg($event, data.productoId, data.precioCompra)"
+            >
+            </nz-input-number>
+        </td>
+        <td>
+          <nz-input-number 
+              type="number"
+              [ngModel]="data.cantidadPerdida" 
+              [nzMin]="0" 
+              [nzStep]="1"
+              (input)="setPerdida($event, data.productoId, data.precioCompra)"
+            >
+            </nz-input-number>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+  <div>
+    <div nz-flex style="width: 100%;" nzGap="large" nzJustify="center">
+      <button 
+        nz-button 
+        nzType="primary"
+        [disabled]="!valid()"
+        [nzLoading]="creating"
+        (click)="create()"
+      >
+        Aceptar
+      </button>
+      <button 
+        nz-button 
+        nzType="primary" 
+        nzDanger
+        routerLink="/transferencia"
+      >
+      Cancelar</button>
+    </div>
+  </div>
+}

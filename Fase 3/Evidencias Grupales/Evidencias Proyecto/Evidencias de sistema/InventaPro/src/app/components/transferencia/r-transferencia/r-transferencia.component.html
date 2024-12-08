@@ -1,0 +1,73 @@
+<nz-table 
+    #Table 
+    [nzData]="displayedTransferencias" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzBordered
+    nzTitle="Lista de productos"
+    [nzScroll]="{x: '650px'}"
+    >
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.filterFn == null){
+            @if(column.sortFn == null){
+              <th
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }@else {
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+            }
+          }@else {
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.productoId }}</td>
+        <td>{{ data.producto?.nombre }}</td>
+        <td>{{ data.producto?.codigo }}</td>
+        <td>{{ data.precioCompra }}</td>
+        <td>{{ data.cantidadDespachada }}</td>
+        <td>{{ data.cantidadRecibida }}</td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  @if(
+    authService.getUser().bodegaId == bodegaOrigenId
+  ){
+    <button 
+      nz-button 
+      nzType="primary"
+      [nzLoading]="downloading"
+      (click)="download()"
+    >
+      <span nz-icon nzType="download" nzTheme="outline"></span>
+      Descargar resumen transferencia
+    </button>
+  }
+
+  

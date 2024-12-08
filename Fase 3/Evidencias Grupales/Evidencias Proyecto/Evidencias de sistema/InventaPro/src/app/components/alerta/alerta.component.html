@@ -1,0 +1,108 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Configuración de alertas</h1>
+</div>
+  
+@if(authService.hasPermission('r_alarmas_global')){
+
+  <div nz-flex nzGap="middle" nzAlign="center">
+    <p nz-typography>Seleccione una bodega</p>
+
+    <nz-select 
+    name="select-bodega" 
+    [(ngModel)]="selectedBodegaId" 
+    required
+    nzPlaceHolder="Seleccione bodega"
+    style="margin-bottom: 16px; width: 25%;"
+    [disabled]="loadingTableData"
+    (ngModelChange)="selectBodega($event)"
+  >
+    @if(loadingBodegas){
+      <nz-option 
+        nzDisabled nzCustomContent
+      >
+        <span nz-icon nzType="loading" class="loading-icon"></span>
+        Cargando datos
+      </nz-option>
+    }@else {
+      @for (b of bodegas; track b) {
+       <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+      }
+    }
+  </nz-select>
+  </div>
+
+}
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Código, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table #Table [nzData]="alerta" [nzLoading]="loadingTableData" [nzPageSize]="pageSize" [(nzPageIndex)]="pageIndex" nzBordered
+nzTitle="Lista de Alertas" [nzScroll]="{x: '600px'}">
+<thead >
+  <tr>
+    @for (column of listOfColumns; track column.name) {
+      @if(column.filterFn == null){
+        <th
+          [(nzSortOrder)]="column.sortOrder"
+          [nzSortFn]="column.sortFn"
+          [nzWidth]="column.width"
+        >
+          {{ column.name }}
+        </th>
+      }@else {
+        <th
+          [(nzSortOrder)]="column.sortOrder"
+          [nzSortFn]="column.sortFn"
+          [nzFilters]="column.listOfFilter"
+          [nzFilterFn]="column.filterFn"
+          [nzWidth]="column.width"
+        >
+          {{ column.name }}
+        </th>
+      }
+    }
+    <th nzWidth="110px">Acción</th>
+  </tr>
+</thead>
+<tbody>
+  @for (data of Table.data; track data;) {
+  <tr>
+    <td>{{ data.alertaId }}</td>
+    <td>{{ data.nombreProducto}}</td>
+    <td>{{ data.codigo }}</td>
+    <td>{{ data.cantidadTotal }}</td>
+    <td>{{ data.minimo }}</td>
+    <td>
+      <div nz-flex nzWrap="wrap" nzGap="middle" style="width: fit-content;">
+        @if(
+          authService.hasPermission('u_alarmas_global') ||
+          authService.hasPermission('u_alarmas_bodega')
+        ){
+          <a (click)="update(data.alertaId)">Modificar</a>
+        }
+        @if (
+          data.estado == 1 &&
+          (
+            authService.hasPermission('d_alarmas_global') ||
+            authService.hasPermission('d_alarmas_bodega')
+          )
+        ) {
+          <a style="color: red;" (click)="delete(data)">Deshabilitar</a>
+        }
+        @else if (
+          authService.hasPermission('a_alarmas_global') ||
+          authService.hasPermission('a_alarmas_bodega')
+        ) {
+          <a style="color: green;" (click)="activate(data)">Habilitar</a>
+        }
+      </div>
+
+    </td>
+  </tr>
+  }
+</tbody>
+</nz-table>

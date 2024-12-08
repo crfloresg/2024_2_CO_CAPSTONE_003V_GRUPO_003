@@ -1,0 +1,83 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Productos</h1>
+  @if(authService.hasPermission('d_productos_global')){
+    <button nz-button nzType="primary" (click)="add()">
+      <span nz-icon nzType="user-add" nzTheme="outline"></span>
+      Añadir Producto
+    </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Código, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<nz-table 
+  #Table 
+  [nzData]="displayedProductos" 
+  [nzLoading]="loadingTableData" 
+  [nzPageSize]="pageSize" 
+  [(nzPageIndex)]="pageIndex" 
+  nzBordered
+  nzTitle="Lista de Productos" 
+  [nzScroll]="{x: '650px'}"
+  >
+  <thead >
+    <tr>
+      @for (column of listOfColumns; track column.name) {
+        @if(column.filterFn == null){
+          <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzWidth]="column.width"
+          >
+            {{ column.name }}
+          </th>
+        }@else {
+          <th
+            [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn"
+            [nzWidth]="column.width"
+          >
+            {{ column.name }}
+          </th>
+        }
+      }
+      <th nzWidth="110px">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of Table.data; track data;) {
+    <tr>
+      <td>{{ data.productoId }}</td>
+      <td>{{ data.nombre }}</td>
+      <td>{{ data.codigo }}</td>
+      <td>{{ data.categoria }}</td>
+      <td>{{ data.unidadMedida }}</td>
+      <td>${{ data.precioVenta }}</td>
+      @if(data.estado == 1){
+        <td>Habilitado</td>
+      }@else { <td>Deshabilitado</td> }
+      
+      <td>
+        <div nz-flex nzWrap="wrap" nzGap="middle" style="width: fit-content;">
+          @if(authService.hasPermission('cu_productos_global') && data.estado == 1){
+            <a (click)="update(data.productoId)">Modificar</a>
+          }
+          @if(data.estado == 1 && authService.hasPermission('d_productos_global')){
+            <a style="color: red;" (click)="delete(data)">Deshabilitar</a>
+          }
+          @else if(authService.hasPermission('d_productos_global')) {
+            <a style="color: green;" (click)="activate(data)">Habilitar</a>
+          }
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

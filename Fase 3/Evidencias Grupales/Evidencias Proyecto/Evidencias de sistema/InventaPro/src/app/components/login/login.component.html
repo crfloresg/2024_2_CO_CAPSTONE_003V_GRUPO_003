@@ -1,0 +1,70 @@
+<div class="container">
+
+  <h1 nz-typography> Inicio de Sesión</h1>
+
+  <span nz-icon [nzType]="'user'" class="icon"></span>
+
+  <form nz-form #form="ngForm" style="width: 500px;">
+
+    <nz-form-item nzJustify="center">
+      <nz-form-label nzLabelAlign="left" nzSpan="6">Correo</nz-form-label>
+      <nz-form-control nzSpan="14" nzHasFeedback [nzErrorTip]="email">
+        <nz-input-group>
+          <input type="text" nz-input [(ngModel)]="user.email" name="userName" minlength="6" maxlength="100" required />
+        </nz-input-group>
+        <ng-template #email let-control>
+          @if (control.errors?.['maxlength']) {
+          MaxLength is 100
+          }
+          @if (control.errors?.['minlength']) {
+          Cantidad minima 6
+          }
+          @if (control.errors?.['required']) {
+            Requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nzJustify="center">
+      <nz-form-label nzLabelAlign="left" nzSpan="6">Contraseña</nz-form-label>
+      <nz-form-control nzSpan="14" nzHasFeedback [nzErrorTip]="password">
+        <nz-input-group>
+          <input type="password" nz-input [(ngModel)]="user.password" name="password" minlength="6" maxlength="255" required />
+        </nz-input-group>
+        <ng-template #password let-control>
+          @if (control.errors?.['maxlength']) {
+          MaxLength is 255
+          }
+          @if (control.errors?.['minlength']) {
+            Cantidad minima 6
+          }
+          @if (control.errors?.['required']) {
+          Requerido
+          }
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row nzJustify="center">
+      <div nz-col nzSpan="20">
+        <div nz-flex nzVertical="true" nzGap="24px">
+          <div nz-flex nzJustify="space-between">
+            <div>
+              <label nz-checkbox [(nzChecked)]="remember">
+                <span>Recordar</span>
+              </label>
+            </div>
+            <div>
+              <a> </a>
+            </div>
+          </div>
+          <div nz-row>
+            <div nz-col nzSpan="10" nzOffset="8"><button [nzLoading]="isLoading" nz-button nzBlock="" [nzType]="'primary'" [disabled]="form.invalid" (click)="login()">Iniciar sesión</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

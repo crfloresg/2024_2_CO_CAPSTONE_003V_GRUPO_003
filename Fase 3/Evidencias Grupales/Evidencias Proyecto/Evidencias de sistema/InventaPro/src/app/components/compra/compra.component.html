@@ -1,0 +1,132 @@
+
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Compras</h1>
+  @if(authService.hasPermission('c_compras_global')){
+    <button nz-button nzType="primary" (click)="add()">
+      Añadir Compra
+    </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Fecha Distribuidor, Dirección, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+
+<nz-modal [(nzVisible)]="isDateFilterModalVisible" [nzTitle]="'Filtrar '+ currentColumn?.name" [nzFooter]="null"
+(nzOnCancel)="closeDateFilterModal()" nzCentered [nzStyle]="{'width':'fit-content'}">
+<ng-container *nzModalContent>
+  <div nz-flex nzJustify="start" nzGap="large" nzVertical style="width: 100%;">
+    <nz-radio-group [(ngModel)]="dateFilterMode">
+      <label nz-radio-button nzValue="before">Antes de</label>
+      <label nz-radio-button nzValue="after">Despues de</label>
+      <label nz-radio-button nzValue="between">Entere</label>
+    </nz-radio-group>
+      @if(dateFilterMode === 'between'){
+        <nz-range-picker [(ngModel)]="dateRange" [nzFormat]="'yyyy-MM-dd'"></nz-range-picker>
+        }
+        @if(dateFilterMode !== 'between'){
+        <nz-date-picker [(ngModel)]="singleDate" [nzFormat]="'yyyy-MM-dd'"></nz-date-picker>
+        }
+      <div style="width: 100%;" nz-flex nzJustify="center">
+        <button nz-button nzType="primary" (click)="applyDateFilter()">Aplicar filtro</button>
+      </div>
+    </div>
+  
+</ng-container>
+</nz-modal>
+
+<nz-table 
+    #Table 
+    [nzData]="displayedCompras" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    nzBordered
+    [(nzPageIndex)]="pageIndex"
+    [nzTableLayout]="'fixed'"
+    nzTitle="Lista de compras registradas" 
+    [nzScroll]="{x: '600px'}">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          <th [nzWidth]="column.width">
+            @if(column.isDateFilter){
+              <div nz-flex nzGap="small" style="width: fit-content;" [nzWrap]="'wrap'" [nzAlign]="'center'" nzJustify="center">
+                <button 
+                  nz-button 
+                  nzSize="small"
+                  nzType="default" 
+                  (click)="openDateFilterModal(column)"
+                  [disabled]=" filterActive  && !column.hasBeenDateFiltered"
+                  >
+                  <span nz-icon nzType="filter"></span>
+                   Filtrar por fecha
+                </button>
+                <button
+                (click)="clearDateFilter()"
+                [disabled]="!column.hasBeenDateFiltered"
+                nz-button
+                nzSize="small"
+                nzType="default"
+                nzShape="circle"
+                [ngClass]="{'icon-active': column.hasBeenDateFiltered}">
+                <span nz-icon nzType="delete" nzTheme="outline"></span>
+              </button>
+              
+              </div>
+            }
+          </th>
+        }
+        <th nzWidth="110px"></th>
+      </tr>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.filterFn == null){
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }@else {
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }
+        <th nzWidth="110px">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td>{{ data.compraId }}</td>
+        <td>{{ data.distribuidor.nombre }}</td>
+        <td [nzEllipsis]="true" nz-popover [nzPopoverContent]="data.observacion" [nzPopoverOverlayStyle]="{'max-width': '350px'}">
+          {{ data.observacion }}
+        </td>
+        <td>{{ data.fecha | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>{{ data.fechaCancelado | date:'dd-MM-yyyy HH:mm' }}</td>
+        <td>
+          <div nz-flex nzWrap="wrap" nzGap="middle" style="width: fit-content;">
+            <a (click)="detalle(data.compraId)">Detalle</a>
+            @if(authService.hasPermission('d_compras_global') && data.fechaCancelado == undefined){
+              <a style="color: red;" (click)="delete(data)">Cancelar</a>
+            }
+          </div>
+          
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>

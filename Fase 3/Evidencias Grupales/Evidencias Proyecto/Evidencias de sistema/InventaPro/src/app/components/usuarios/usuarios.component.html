@@ -1,0 +1,125 @@
+<div nz-flex nzJustify="space-between" nzAlign="center" nzWrap="wrap">
+  <h1 style="width: fit-content;" nz-typography>Gestión de Usuarios</h1>
+  @if(authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega') ||
+  authService.hasPermission('d_usuarios_global') ||
+  authService.hasPermission('d_usuarios_bodega') ){
+  <button nz-button nzType="primary" (click)="add()">
+    <span nz-icon nzType="user-add" nzTheme="outline"></span>
+    Agregar Usuarios
+  </button>
+  }
+</div>
+
+<nz-input-group [nzPrefix]="suffixIconSearch">
+  <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Run, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>
+
+<div>
+  <nz-table
+    #Table
+    [nzData]="displayedUssuarios"
+    [nzLoading]="loadingTableData"
+    [nzPageSize]="pageSize"
+    [(nzPageIndex)]="pageIndex"
+    nzSize="small"
+    nzTableLayout="fixed"
+    nzTitle="Lista de usuarios"
+    nzBordered
+    [nzScroll]="{x: '650px'}"
+  >
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.name != 'Bodega'){
+            @if(column.filterFn == null){
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }@else {
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }
+          }@else {
+            @if(authService.hasPermission('cu_usuarios_global')){
+              @if(column.filterFn == null){
+                <th
+                [(nzSortOrder)]="column.sortOrder"
+                [nzSortFn]="column.sortFn"
+                [nzWidth]="column.width"
+                >
+                  {{ column.name }}
+                </th>
+              }@else {
+                <th
+                [(nzSortOrder)]="column.sortOrder"
+                [nzSortFn]="column.sortFn"
+                [nzFilters]="column.listOfFilter"
+                [nzFilterFn]="column.filterFn"
+                [nzWidth]="column.width"
+                >
+                  {{ column.name }}
+                </th>
+              }
+            }
+          }
+        }
+        @if(authService.hasPermission('cu_usuarios_global') ||
+          authService.hasPermission('cu_usuarios_bodega') ||
+          authService.hasPermission('d_usuarios_global') ||
+          authService.hasPermission('d_usuarios_bodega') ){
+          <th nzWidth="110px">Acción</th>
+        }
+  
+      </tr>
+    </thead>
+    <tbody>
+      @for (u of Table.data; track u;) {
+      <tr>
+        <td>{{ u.usuarioId }}</td>
+        <td>{{ u.nombre }}</td>
+        <td>{{ u.run }}</td>
+        <td>{{ u.apellido }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.rol.nombre }}</td>
+        @if(authService.hasPermission('cu_usuarios_global')){
+          <td>{{ u.bodega.nombre }}</td>
+        }
+        @if(u.estadoUsuarioId == 1){
+        <td>Habilitado</td>
+        }
+        @else {
+        <td>Deshabilitado</td>
+        }
+        <td>
+          <div nz-flex nzWrap="wrap" nzGap="middle" style="width: fit-content;">
+            @if((authService.hasPermission('cu_usuarios_global') || authService.hasPermission('cu_usuarios_bodega')) && u.estadoUsuarioId == 1){
+              <a (click)="update(u.usuarioId)">Modificar</a>
+            }
+            @if(u.estadoUsuarioId == 1 && (authService.hasPermission('d_usuarios_global') ||
+            authService.hasPermission('d_usuarios_bodega'))){
+              <a style="color: red;" (click)="delete(u)">Deshabilitar</a>
+            }
+            @else if(authService.hasPermission('a_usuarios_global') || authService.hasPermission('a_usuarios_bodega')) {
+              <a style="color: green;" (click)="activate(u)">Habilitar</a>
+            }
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

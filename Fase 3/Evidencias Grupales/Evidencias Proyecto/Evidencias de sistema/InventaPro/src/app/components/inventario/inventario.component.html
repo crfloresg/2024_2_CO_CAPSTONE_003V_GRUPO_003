@@ -1,0 +1,139 @@
+<nz-spin [nzTip]="'Cargando...'" [nzSpinning]="false">
+  
+  <h1 style="width: fit-content;" nz-typography>Gestión de Inventario</h1>
+  
+  @if(authService.hasPermission('r_inventarios_global')){
+
+
+    <div nz-flex nzGap="middle" nzAlign="center">
+      <p nz-typography>Seleccione una bodega</p>
+      <nz-select 
+        name="select-bodega" 
+        [(ngModel)]="selectedBodegaId" 
+        required
+        nzPlaceHolder="Seleccione bodega"
+        style="margin-bottom: 16px; width: 25%;"
+        [disabled]="loadingTableData"
+        (ngModelChange)="selectBodega($event)"
+      >
+        @if(loadingBodegas){
+          <nz-option 
+            nzDisabled nzCustomContent>
+            <span nz-icon nzType="loading" class="loading-icon"></span>
+            Cargando datos
+          </nz-option>
+          }@else {
+            @for (b of bodegas; track b) {
+              <nz-option [nzValue]="b.bodegaId" [nzLabel]="b.nombre"></nz-option>
+          }
+        }
+      </nz-select>
+    </div>
+
+
+    
+  }
+
+  <nz-input-group [nzPrefix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Ejemplo: Id, Nombre, Código, etc. Uno a la vez" (keyup)="applyFilter($event)" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+
+  <nz-table 
+    #Table 
+    [nzData]="displayedInventario" 
+    [nzLoading]="loadingTableData" 
+    [nzPageSize]="pageSize" 
+    [(nzPageIndex)]="pageIndex"
+    nzBordered
+    nzTitle="Inventario" 
+    [nzScroll]="{x: '650px'}">
+    <thead>
+      <tr>
+        @for (column of listOfColumns; track column.name) {
+          @if(column.filterFn == null){
+            @if(column.sortFn == null){
+              <th
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }@else {
+              <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzWidth]="column.width"
+              >
+                {{ column.name }}
+              </th>
+            }
+            
+          }@else {
+            <th
+              [(nzSortOrder)]="column.sortOrder"
+              [nzSortFn]="column.sortFn"
+              [nzFilters]="column.listOfFilter"
+              [nzFilterFn]="column.filterFn"
+              [nzWidth]="column.width"
+            >
+              {{ column.name }}
+            </th>
+          }
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of Table.data; track data;) {
+      <tr>
+        <td [nzExpand]="expandSet.has(data.productoId)" (nzExpandChange)="onExpandChange(data.productoId, $event)"></td>
+        <td>{{ data.productoId }}</td>
+        <td>{{ data.nombre }}</td>
+        <td>{{ data.codigo }}</td>
+        <td>{{ data.categoria }}</td>
+        <td>{{ data.unidadMedida }}</td>
+        <td>{{ data.cantidad }}</td>
+        <td>${{ data.precioVenta }}</td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data.productoId)">
+        <nz-table #nzTable [nzData]="data.lotesInventario" [nzSize]="'middle'" nzShowPagination="false">
+          <thead>
+            <tr>
+              <th>Cantidad</th>
+              <th>Precio compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(y of data.lotesInventario; track y;){
+              <tr>
+                <td>{{y.cantidad}}</td>
+                <td>${{y.precioCompra}}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+
+  <div nz-flex nzGap="middle">
+
+    @if(authService.hasPermission('cu_solicitudes_global') || authService.hasPermission('cu_solicitudes_bodega')){
+      <button nz-button nzType="primary" (click)="add()" [disabled]="loadingTableData">
+        Solicitar reabastecimiento 
+      </button>
+    }
+    @if(authService.hasPermission('r_solicitudes_global') || authService.hasPermission('r_solicitudes_bodega')){
+      <button nz-button nzType="primary" routerLink="/solicitud">
+        Ver Solicitudes
+      </button>
+    }
+
+    
+    
+  </div>
+
+  
+</nz-spin>
